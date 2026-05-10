@@ -220,6 +220,13 @@ footer a{{color:#818cf8;text-decoration:none;}}
 footer strong{{color:white;}}
 @media(max-width:640px){{.stat{{padding:18px 20px;}}.filter-bar{{padding:12px 16px;}}.main{{padding:16px;}}.grid{{grid-template-columns:1fr;}}}}
 </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZSKBYXZS8J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-ZSKBYXZS8J');
+</script>
 </head>
 <body>
 {NAV}
