@@ -10,7 +10,13 @@ app = Flask(__name__)
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 def get_db():
-    conn = psycopg2.connect(DATABASE_URL)
+    import os
+    db_url = os.environ.get('DATABASE_URL')
+    if not db_url:
+        raise Exception("DATABASE_URL is None - not set in environment")
+    if 'vercel' in db_url.lower():
+        raise Exception(f"DATABASE_URL is wrong value: {db_url[:50]}")
+    conn = psycopg2.connect(db_url)
     return conn
 
 def cur(conn):
