@@ -14,7 +14,7 @@ CURRENT_MONTH = datetime.now().month
 # ── PUT YOUR SUPABASE URL HERE ─────────────────────────────
 DATABASE_URL = os.environ.get(
     'DATABASE_URL',
-    'postgresql://postgres:YOURPASSWORD@db.YOURPROJECT.supabase.co:5432/postgres'
+    'postgresql://postgres.deqyxksflvlxjelppgxz:Rehan1819Rehan@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres'
 )
 
 def get_headers():
