@@ -4,3 +4,4 @@ beautifulsoup4
 lxml
 schedule
 gunicorn
+psycopg2-binary
