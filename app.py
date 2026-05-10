@@ -156,6 +156,7 @@ def home():
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ScholarPath – Free AI Scholarship Finder | Pakistan India Bangladesh Africa</title>
+<meta name="google-site-verification" content="zKOcXjMcvxwhAnjJdQBtkxSOiyBWSJ2sU8fRXl7ZFUI" />
 <meta name="description" content="Find fresh scholarships from universities worldwide. Free AI guidance on eligibility, IELTS, SOP writing. No agent needed. Updated daily.">
 <meta property="og:title" content="ScholarPath – Find Scholarships Worldwide Free">
 <meta property="og:description" content="AI-powered scholarship finder. Fresh daily. IELTS guidance. SOP help. Free.">
