@@ -318,7 +318,7 @@ def scholarship(sid):
 <meta name="description" content="{desc}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<link rel="canonical" href="https://scholarpath.onrender.com/scholarship/{sid}">
+<link rel="canonical" href="https://admitgoal.com/scholarship/{sid}">
 {BASE_CSS}
 <style>
 .layout{{max-width:1100px;margin:28px auto;padding:0 20px;display:grid;grid-template-columns:1fr 300px;gap:20px;}}
