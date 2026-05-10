@@ -160,7 +160,7 @@ def home():
 <meta name="description" content="Find fresh scholarships from universities worldwide. Free AI guidance on eligibility, IELTS, SOP writing. No agent needed. Updated daily.">
 <meta property="og:title" content="ScholarPath – Find Scholarships Worldwide Free">
 <meta property="og:description" content="AI-powered scholarship finder. Fresh daily. IELTS guidance. SOP help. Free.">
-<link rel="canonical" href="https://scholarpath.onrender.com/">
+<link rel="canonical" href="https://admitgoal.com/">
 {BASE_CSS}
 <style>
 .hero{{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 40%,#4338ca 70%,#0891b2 100%);color:white;padding:80px 20px 70px;text-align:center;position:relative;overflow:hidden;}}
@@ -572,7 +572,7 @@ def sitemap():
     rows = c.fetchall()
     c.close()
     conn.close()
-    base = "https://scholarpath.onrender.com"
+    base = "https://admitgoal.com"
     urls = [f'<url><loc>{base}/scholarship/{r["id"]}</loc><lastmod>{r["last_updated"] or datetime.now().strftime("%Y-%m-%d")}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>' for r in rows]
     for page in ['','about','privacy','contact','search?q=fully+funded','search?q=no+ielts','search?q=phd','search?q=germany','search?q=china','search?q=turkey','search?q=korea']:
         urls.insert(0, f'<url><loc>{base}/{page}</loc><changefreq>daily</changefreq><priority>0.8</priority></url>')
@@ -580,7 +580,7 @@ def sitemap():
 
 @app.route('/robots.txt')
 def robots():
-    return Response("User-agent: *\nAllow: /\nDisallow: /ask\nSitemap: https://scholarpath.onrender.com/sitemap.xml", mimetype='text/plain')
+    return Response("User-agent: *\nAllow: /\nDisallow: /ask\nSitemap: https://admitgoal.com/sitemap.xml", mimetype='text/plain')
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
