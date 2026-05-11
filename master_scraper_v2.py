@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 import psycopg2
-import psycopg2.extras
 import os
 import time
 import random
@@ -17,7 +16,17 @@ DATABASE_URL = os.environ.get(
     'postgresql://postgres.deqyxksflvlxjelppgxz:Rehan1819Rehan@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres'
 )
 
-# ── HEADERS ───────────────────────────────────────────────
+AGGREGATOR_DOMAINS = [
+    'scholars4dev.com', 'scholarshipdb.net', 'opportunitydesk.org',
+    'afterschoolafrica.com', 'youthop.com', 'mastersportal.eu',
+    'phdportal.eu', 'opportunitiesforafricans.com', 'scholarships4dev.com',
+    'scholarshipscorner.website', 'scholarshipsads.com', 'admitgoal.com'
+]
+
+def is_aggregator(url):
+    domain = urlparse(url).netloc.lower().replace('www.', '')
+    return any(agg in domain for agg in AGGREGATOR_DOMAINS)
+
 def get_headers():
     agents = [
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -33,6 +42,9 @@ def get_headers():
     }
 
 def fetch(url, retries=3):
+    # Never fetch PDFs
+    if url.lower().endswith('.pdf'):
+        return None
     for attempt in range(retries):
         try:
             time.sleep(random.uniform(2, 4))
@@ -44,17 +56,13 @@ def fetch(url, retries=3):
             time.sleep(4)
     return None
 
-# ── DATABASE ──────────────────────────────────────────────
 def get_db():
     conn = psycopg2.connect(DATABASE_URL)
     conn.autocommit = True
     return conn
 
-# ── FRESHNESS CHECK ───────────────────────────────────────
 def is_open(text):
     text_lower = text.lower()
-
-    # Hard closed signals
     closed = [
         'applications are closed', 'deadline has passed',
         'no longer accepting', 'competition is closed',
@@ -69,13 +77,11 @@ def is_open(text):
         'january':1,'february':2,'march':3,'april':4,'may':5,'june':6,
         'july':7,'august':8,'september':9,'october':10,'november':11,'december':12
     }
-
     patterns = [
         r'(january|february|march|april|may|june|july|august|september|october|november|december)\s+(\d{1,2}),?\s+(\d{4})',
         r'(\d{1,2})\s+(january|february|march|april|may|june|july|august|september|october|november|december)\s+(\d{4})',
         r'deadline[:\s]*(january|february|march|april|may|june|july|august|september|october|november|december)\s+(\d{4})',
     ]
-
     found_dates = []
     for pattern in patterns:
         for m in re.finditer(pattern, text_lower):
@@ -95,21 +101,73 @@ def is_open(text):
         future_dates = [(y, m) for y, m in found_dates if y > CURRENT_YEAR or (y == CURRENT_YEAR and m >= CURRENT_MONTH)]
         if future_dates:
             return True
-        # All dates found are in the past
         max_year = max(y for y, m in found_dates)
         if max_year < CURRENT_YEAR - 1:
-            return False  # Clearly old
+            return False
         return False
 
-    # No dates found — check year mentions
     if str(CURRENT_YEAR + 1) in text:
         return True
     if str(CURRENT_YEAR) in text:
         return True
+    return False
 
-    return False  # No year found = skip it, we only want confirmed open
+def is_job_not_scholarship(title):
+    """Return True if this is a pure job listing, not a scholarship/funded position"""
+    if not title:
+        return True
+    t = title.lower()
 
-# ── EXTRACTORS ────────────────────────────────────────────
+    # KEEP these even if they sound like jobs — they are funded academic positions
+    funded_keep = [
+        r'phd (position|fellowship|scholarship|candidate|student)',
+        r'doctoral (fellowship|scholarship|position|candidate)',
+        r'postdoc(toral)? (fellowship|scholarship)',
+        r'funded (phd|doctoral|masters)',
+        r'fully.funded',
+        r'fellowship',
+        r'scholarship',
+        r'bursary',
+        r'grant for',
+        r'award for',
+        r'stipend for students',
+    ]
+    for p in funded_keep:
+        if re.search(p, t):
+            return False  # Keep it
+
+    # DELETE pure job listings
+    job_patterns = [
+        r'senior (scientist|researcher|manager|engineer|director|officer|analyst|consultant)',
+        r'(scientific|research|program|project) manager',
+        r'director (general|of )',
+        r'assistant dean',
+        r'chief (officer|executive|scientist|editor)',
+        r'^lecturer,?\s',
+        r'^associate lecturer',
+        r'^professor,?\s',
+        r'assistant professor',
+        r'associate professor',
+        r'full professor',
+        r'instructional faculty',
+        r'faculty position',
+        r'job fair',
+        r'hiring now',
+        r'\bvacancy\b',
+        r'\bvacancies\b',
+        r'open (call for)? (staff|employees|applicants for position)',
+        r'^\d{2,} positions? (at|in)',  # "152 positions at X"
+        r'^top \d+',
+        r'countries where tuition is free',
+        r'^best scholarships',
+        r'^list of scholarships',
+    ]
+    for p in job_patterns:
+        if re.search(p, t):
+            return True
+
+    return False
+
 def extract_deadline(text):
     months = "january|february|march|april|may|june|july|august|september|october|november|december"
     patterns = [
@@ -124,10 +182,10 @@ def extract_deadline(text):
     for p in patterns:
         m = re.search(p, text, re.IGNORECASE)
         if m:
-            groups = [g for g in m.groups() if g and not g.lower() in ['close','due']]
+            groups = [g for g in m.groups() if g and g.lower() not in ['close', 'due']]
             if groups:
                 return groups[-1].strip()
-    return None  # Return None if no deadline found — we need real data
+    return None
 
 def extract_ielts(text):
     patterns = [
@@ -139,7 +197,7 @@ def extract_ielts(text):
         m = re.search(p, text, re.IGNORECASE)
         if m:
             score = float(m.group(1))
-            if 4.0 <= score <= 9.0:  # Valid IELTS range
+            if 4.0 <= score <= 9.0:
                 return str(score)
     if re.search(r'\bielts\b', text, re.IGNORECASE):
         return "Required"
@@ -159,7 +217,6 @@ def extract_gpa(text):
     patterns = [
         r'(?:minimum\s+)?gpa[:\s]*(?:of\s+)?(\d+\.?\d*)',
         r'cgpa[:\s]*(?:of\s+)?(\d+\.?\d*)',
-        r'grade point average[:\s]*(\d+\.?\d*)',
         r'(\d+\.?\d*)\s*(?:out of\s*)?\d*\s*gpa',
         r'(\d{2,3})%\s*(?:or above|minimum|at least)',
         r'first class|2:1|upper second',
@@ -181,7 +238,7 @@ def extract_degree(text):
         levels.append("PhD")
     if re.search(r'\bpostdoc|post-doc\b', text, re.IGNORECASE):
         levels.append("Postdoc")
-    return levels  # Return LIST not string
+    return levels
 
 def extract_funding(text):
     if re.search(r'full.?fund|fully.?fund|full scholarship|covers all', text, re.IGNORECASE):
@@ -193,41 +250,27 @@ def extract_funding(text):
     return "Check website"
 
 def extract_eligible_countries(text):
-    """Extract actual country names from text"""
     all_countries = [
         "Pakistan", "India", "Bangladesh", "Nepal", "Sri Lanka",
         "Afghanistan", "Nigeria", "Ghana", "Kenya", "Ethiopia",
         "Tanzania", "Uganda", "Rwanda", "Zimbabwe", "Zambia",
         "South Africa", "Egypt", "Morocco", "Tunisia", "Algeria",
         "Indonesia", "Malaysia", "Philippines", "Vietnam", "Thailand",
-        "Cambodia", "Myanmar", "Laos", "China", "Mongolia",
+        "Cambodia", "Myanmar", "China", "Mongolia",
         "Brazil", "Colombia", "Peru", "Argentina", "Mexico",
-        "Bolivia", "Ecuador", "Paraguay", "Venezuela",
-        "developing countries", "low-income countries",
-        "middle-income countries", "African countries",
-        "Asian countries", "all countries", "international students",
-        "worldwide", "global"
     ]
-
     found = []
     text_lower = text.lower()
-
-    # Check for specific country mentions
     for country in all_countries:
         if country.lower() in text_lower:
             found.append(country)
-
     if found:
         return found
-
-    # Check for open to all
     if any(w in text_lower for w in ['all nationalities', 'all countries', 'international', 'worldwide', 'global']):
         return ["Open to international students worldwide"]
-
     return ["Check official website for eligible countries"]
 
 def extract_benefits(text):
-    """Extract what the scholarship covers"""
     benefits = []
     patterns = {
         "Full tuition fee": r'full tuition|tuition fee.*cover|covers.*tuition',
@@ -242,80 +285,91 @@ def extract_benefits(text):
             benefits.append(benefit)
     return benefits if benefits else None
 
-def extract_official_link(soup, current_url, text):
-    """Find the actual official application/university link"""
-    # Keywords that indicate official links
-    official_keywords = [
+def extract_official_link(soup, current_url, source_is_aggregator):
+    """
+    If source is aggregator: find the external official link they point to.
+    If source is already official: return current_url.
+    """
+    if not source_is_aggregator:
+        return current_url
+
+    # Priority 1: buttons/links with apply text pointing to external domain
+    apply_keywords = [
         'apply now', 'apply here', 'apply online', 'official website',
-        'application portal', 'click here to apply', 'submit application',
-        'online application', 'application form', 'apply for this',
-        'visit official', 'official link', 'apply at'
+        'official link', 'visit official', 'click here to apply',
+        'application portal', 'submit application', 'apply for this',
+        'more information', 'learn more', 'visit website', 'official page'
     ]
 
-    # Domain patterns for universities and official sources
-    official_domains = [
-        '.edu', '.ac.uk', '.edu.au', '.ac.jp', '.ac.kr', '.edu.cn',
-        '.gov', '.org', 'daad.de', 'chevening.org', 'fulbright',
-        'erasmus', 'scholarship', 'stipendium', 'turkiyeburslari',
-        'campuschina', 'studyinkorea', 'mext.go.jp'
-    ]
-
+    current_domain = urlparse(current_url).netloc.replace('www.', '')
     candidates = []
 
     for a in soup.find_all('a', href=True):
         href = a['href']
         link_text = a.get_text(strip=True).lower()
 
-        # Skip social media, navigation links
-        if any(skip in href for skip in ['facebook', 'twitter', 'instagram', 'linkedin', '#', 'javascript', 'mailto']):
+        # Skip non-links
+        if any(skip in href for skip in ['#', 'javascript:', 'mailto:', 'facebook.com',
+                                          'twitter.com', 'instagram.com', 'linkedin.com',
+                                          'youtube.com', '.pdf', '.doc', '.docx']):
             continue
 
-        # Make absolute URL
+        # Make absolute
         if href.startswith('/'):
             parsed = urlparse(current_url)
             href = f"{parsed.scheme}://{parsed.netloc}{href}"
         elif not href.startswith('http'):
             continue
 
+        href_domain = urlparse(href).netloc.replace('www.', '')
+
+        # Must be external (not same aggregator domain)
+        if href_domain == current_domain:
+            continue
+
+        # Must not be another aggregator
+        if is_aggregator(href):
+            continue
+
         score = 0
 
-        # Score based on link text
-        for kw in official_keywords:
+        # High score for apply/official keywords in link text
+        for kw in apply_keywords:
             if kw in link_text:
+                score += 15
+
+        # High score for official domains
+        official_tlds = ['.edu', '.ac.uk', '.edu.au', '.ac.jp', '.ac.kr',
+                         '.edu.cn', '.gov', '.ac.nz', '.ac.za']
+        for tld in official_tlds:
+            if href_domain.endswith(tld):
                 score += 10
 
-        # Score based on domain
-        for domain in official_domains:
-            if domain in href:
-                score += 5
+        # Score for known scholarship orgs
+        known_orgs = ['chevening.org', 'daad.de', 'fulbright', 'campuschina',
+                      'turkiyeburslari', 'stipendiumhungaricum', 'studyinkorea',
+                      'schwarzmanscholars.org', 'aauw.org', 'commonwealthscholarships',
+                      'australiaawards', 'erasmus', 'worldbank.org', 'oecd.org']
+        for org in known_orgs:
+            if org in href_domain:
+                score += 8
 
-        # Penalize 3rd party aggregator domains
-        aggregator_domains = [
-            'scholars4dev', 'scholarshipdb', 'opportunitydesk',
-            'afterschoolafrica', 'youthop', 'mastersportal',
-            'phdportal', 'opportunitiesforafricans'
-        ]
-        for agg in aggregator_domains:
-            if agg in href:
-                score -= 20
+        # Any external link gets base score
+        if score == 0:
+            score = 1
 
-        if score > 0:
-            candidates.append((score, href))
+        candidates.append((score, href))
 
     if candidates:
         candidates.sort(reverse=True)
-        return candidates[0][1]
+        best = candidates[0][1]
+        # Don't return PDFs or OECD DAC lists or irrelevant docs
+        if '.pdf' not in best.lower():
+            return best
 
-    # Fallback: return current URL if it's already an official source
-    parsed = urlparse(current_url)
-    domain = parsed.netloc
-    if any(d in domain for d in ['.edu', '.ac.', '.gov', 'daad', 'chevening', 'fulbright', 'erasmus']):
-        return current_url
-
-    return None  # No official link found
+    return None  # No good official link found — skip this scholarship
 
 def detect_country(domain, text=""):
-    """Detect country from domain and text"""
     tld_map = {
         '.ac.uk': 'United Kingdom', '.co.uk': 'United Kingdom', '.uk': 'United Kingdom',
         '.edu.au': 'Australia', '.com.au': 'Australia', '.au': 'Australia',
@@ -326,16 +380,29 @@ def detect_country(domain, text=""):
         '.es': 'Spain', '.pt': 'Portugal', '.pl': 'Poland',
         '.cz': 'Czech Republic', '.hu': 'Hungary', '.ro': 'Romania',
         '.tr': 'Turkey', '.sa': 'Saudi Arabia', '.ae': 'UAE',
-        '.qa': 'Qatar', '.jo': 'Jordan', '.kw': 'Kuwait',
-        '.cn': 'China', '.jp': 'Japan', '.kr': 'South Korea',
-        '.my': 'Malaysia', '.sg': 'Singapore', '.th': 'Thailand',
-        '.nz': 'New Zealand', '.za': 'South Africa',
-        '.edu': 'USA', '.gov': 'USA',
-        '.pk': 'Pakistan', '.in': 'India',
+        '.qa': 'Qatar', '.cn': 'China', '.jp': 'Japan', '.kr': 'South Korea',
+        '.my': 'Malaysia', '.sg': 'Singapore', '.nz': 'New Zealand',
+        '.za': 'South Africa', '.edu': 'USA', '.gov': 'USA',
     }
     for tld, country in sorted(tld_map.items(), key=lambda x: -len(x[0])):
         if domain.endswith(tld):
             return country
+
+    country_hints = {
+        'germany': 'Germany', 'uk': 'United Kingdom', 'britain': 'United Kingdom',
+        'australia': 'Australia', 'canada': 'Canada', 'japan': 'Japan',
+        'china': 'China', 'korea': 'South Korea', 'turkey': 'Turkey',
+        'france': 'France', 'netherlands': 'Netherlands', 'sweden': 'Sweden',
+        'norway': 'Norway', 'finland': 'Finland', 'hungary': 'Hungary',
+        'usa': 'USA', 'united states': 'USA', 'america': 'USA',
+        'saudi arabia': 'Saudi Arabia', 'malaysia': 'Malaysia',
+        'singapore': 'Singapore', 'new zealand': 'New Zealand',
+        'italy': 'Italy', 'belgium': 'Belgium', 'switzerland': 'Switzerland',
+    }
+    text_lower = text.lower()[:800]
+    for hint, c in country_hints.items():
+        if hint in text_lower:
+            return c
     return "International"
 
 def detect_region(country):
@@ -343,13 +410,12 @@ def detect_region(country):
         'Europe': ['United Kingdom','Germany','France','Netherlands','Sweden',
                    'Norway','Finland','Denmark','Switzerland','Austria','Belgium',
                    'Italy','Spain','Portugal','Poland','Czech Republic','Hungary',
-                   'Romania','Slovakia','Slovenia','Croatia','Greece','Bulgaria',
-                   'Lithuania','Latvia','Estonia','Ireland','Luxembourg'],
+                   'Romania','Ireland','Luxembourg'],
         'Middle East': ['Turkey','Saudi Arabia','UAE','Qatar','Jordan',
-                        'Kuwait','Oman','Bahrain','Egypt','Morocco','Tunisia','Algeria'],
+                        'Kuwait','Egypt','Morocco','Tunisia','Algeria'],
         'Asia': ['China','Japan','South Korea','Malaysia','Singapore',
-                 'Thailand','Indonesia','Vietnam','Taiwan','Hong Kong',
-                 'Pakistan','India','Bangladesh','Sri Lanka','Nepal','Philippines'],
+                 'Thailand','Indonesia','Vietnam','Pakistan','India',
+                 'Bangladesh','Sri Lanka','Nepal','Philippines'],
         'Oceania': ['Australia','New Zealand'],
         'North America': ['USA','Canada','Mexico'],
         'Africa': ['Nigeria','South Africa','Kenya','Ghana','Ethiopia',
@@ -361,7 +427,6 @@ def detect_region(country):
             return region
     return "International"
 
-# ── BLOG WRITER ───────────────────────────────────────────
 def write_blog(data):
     title = data['title']
     country = data['country']
@@ -378,7 +443,6 @@ def write_blog(data):
     eligible_countries = data['eligible_countries']
     official_link = data['scholarship_link']
 
-    # Build language requirement string
     lang_parts = []
     if ielts and ielts != "Not required":
         lang_parts.append(f"IELTS {ielts}")
@@ -388,34 +452,14 @@ def write_blog(data):
         lang_parts.append(f"TOEFL {toefl}")
     lang_str = " / ".join(lang_parts) if lang_parts else "No English test required"
 
-    # Build eligible countries string
-    if isinstance(eligible_countries, list):
-        countries_str = ", ".join(eligible_countries[:10])
-    else:
-        countries_str = str(eligible_countries)
+    countries_str = ", ".join(eligible_countries[:10]) if isinstance(eligible_countries, list) else str(eligible_countries)
+    benefits_str = "\n".join([f"- {b}" for b in benefits]) if isinstance(benefits, list) and benefits else "- Check official website for complete benefits"
+    degree_str = ", ".join(degree_levels) if isinstance(degree_levels, list) and degree_levels else "All levels"
 
-    # Build benefits string
-    if isinstance(benefits, list) and benefits:
-        benefits_str = "\n".join([f"- {b}" for b in benefits])
-    else:
-        benefits_str = "- Check official website for complete benefits"
-
-    # Build degree string
-    if isinstance(degree_levels, list) and degree_levels:
-        degree_str = ", ".join(degree_levels)
-    else:
-        degree_str = str(degree_levels) if degree_levels else "All levels"
-
-    seo_title = f"{title} {CURRENT_YEAR} — Complete Guide, Eligibility & How to Apply"
-    seo_title = seo_title[:70]
-
-    seo_desc = (
-        f"Apply for {title} {CURRENT_YEAR}. "
-        f"Deadline: {deadline}. "
-        f"Open for {degree_str} students. "
-        f"{lang_str}. "
-        f"Eligible countries: {countries_str[:80]}."
-    )[:160]
+    seo_title = f"{title} {CURRENT_YEAR} — Complete Guide, Eligibility & How to Apply"[:70]
+    seo_desc = (f"Apply for {title} {CURRENT_YEAR}. Deadline: {deadline}. "
+                f"Open for {degree_str} students. {lang_str}. "
+                f"Eligible: {countries_str[:80]}.")[:160]
 
     blog = f"""# {title} {CURRENT_YEAR}
 
@@ -425,9 +469,7 @@ def write_blog(data):
 
 ## About This Scholarship
 
-The **{title}** is offered by **{uni}** in **{country}**, {region}. This is a genuine opportunity for international students who want to pursue world-class education abroad without paying lakhs of rupees to agents.
-
-If you are a student from Pakistan, India, Bangladesh, Africa or any developing country — this scholarship is worth reading about carefully. We have gathered all the information you need in one place.
+The **{title}** is offered by **{uni}** in **{country}**, {region}. This is a genuine opportunity for international students who want to pursue world-class education abroad.
 
 ---
 
@@ -438,193 +480,73 @@ If you are a student from Pakistan, India, Bangladesh, Africa or any developing 
 | **Scholarship Name** | {title} |
 | **Host University** | {uni} |
 | **Country** | {country} |
-| **Region** | {region} |
 | **Degree Level** | {degree_str} |
 | **Funding Type** | {funding} |
-| **Application Deadline** | {deadline} |
+| **Deadline** | {deadline} |
 | **IELTS Required** | {ielts or "Not required"} |
-| **PTE Required** | {pte or "Not required"} |
 | **TOEFL Required** | {toefl or "Not required"} |
 | **Minimum GPA** | {gpa or "Check official website"} |
-| **Last Verified** | {datetime.now().strftime("%B %Y")} |
 
 ---
 
-## Who Is Eligible?
+## Eligibility
 
-**Countries eligible to apply:**
-{countries_str}
+**Countries:** {countries_str}
 
-{"This scholarship is open to students from all over the world. Students from Pakistan, India, Bangladesh, Nigeria, Kenya, Ghana and other developing countries are strongly encouraged to apply." if any(w in countries_str.lower() for w in ['international', 'worldwide', 'all countries', 'open to']) else f"Students from the following countries or regions can apply: {countries_str}"}
-
-**Academic level:**
-This scholarship is available for: **{degree_str}** students.
-
-Make sure your intended program and field of study is covered under this scholarship before applying.
+**Degree Level:** {degree_str}
 
 ---
 
-## What Does This Scholarship Cover?
+## What Does It Cover?
 
-**Funding type: {funding}**
+**Funding: {funding}**
 
 {benefits_str}
-
-Always check the official website for the most accurate and updated breakdown of what this scholarship covers. Benefits can include tuition fees, monthly living allowance, travel grant, health insurance and accommodation.
 
 ---
 
 ## English Language Requirements
 
-{"This scholarship does not specifically require an IELTS or English test. However, if your previous education was not in English, some universities may still ask for proof of English proficiency. Check the official requirements carefully." if not lang_parts else f"""
-**Language tests required:**
-
-{chr(10).join([f"- {l}" for l in lang_parts])}
-
-**Tips to meet the requirement:**
-
-- Start preparation at least 3 months before the application deadline
-- Practice reading, writing, listening and speaking sections daily
-- Take a mock test first to know your current level
-- British Council and IDP offer IELTS in Pakistan — available in Karachi, Lahore, Islamabad and other cities
-- Many students from Pakistan score 6.5 to 7.0 within 2 to 3 months of focused preparation
-- Some universities accept TOEFL or Duolingo as alternatives — check official requirements
-"""}
+{f"IELTS: {ielts}" if ielts and ielts != 'Not required' else "No English test specifically required — verify on official website."}
+{f"TOEFL: {toefl}" if toefl else ""}
+{f"PTE: {pte}" if pte else ""}
 
 ---
 
-## Academic Requirements
+## Deadline
 
-**Minimum GPA / CGPA:** {gpa or "Check official website for specific GPA requirements"}
-
-General guidance:
-- Bachelor scholarships typically require 60% or above, or 2.5+ GPA
-- Master scholarships often require First Class or 3.0+ GPA
-- PhD scholarships usually require a strong Master's degree with research experience
-- Some scholarships focus more on research output and motivation than GPA alone
+**{deadline}** — Always verify on the official website.
 
 ---
 
-## Application Deadline
+## How to Apply
 
-**Deadline: {deadline}**
-
-Do not wait until the last week. Here is a realistic timeline you should follow:
-
-- 3 months before: Start gathering documents
-- 2 months before: Write your SOP and get feedback
-- 1 month before: Request recommendation letters
-- 2 weeks before: Submit your application
-- Keep confirmation receipt safe
-
-Always verify the deadline on the official website as it can change.
-
----
-
-## How to Apply — Step by Step
-
-1. Visit the official scholarship website using the link at the bottom of this page
-2. Read all eligibility criteria carefully before starting
-3. Create an account on the application portal
-4. Fill in all personal and academic information accurately
-5. Upload all required documents in the specified format
-6. Write your Statement of Purpose (see guide below)
-7. Request recommendation letters from professors or employers
-8. Review everything carefully before submission
-9. Submit before the deadline: **{deadline}**
-10. Save a copy of your submission confirmation
-
----
-
-## Documents You Will Need
-
-Prepare all of these well in advance:
-
-- Valid Passport (must be valid throughout the scholarship period)
-- Academic Transcripts (all previous degrees, certified copies)
-- Degree Certificates or Provisional Certificates
-- IELTS / PTE / TOEFL Certificate (if required — score: {lang_str})
-- Statement of Purpose — 600 to 1000 words
-- 2 to 3 Recommendation Letters (from professors or supervisors)
-- Updated Academic CV or Resume
-- Passport-size photographs
-- Research Proposal (required for PhD applicants)
-- Proof of English Medium Education (may waive IELTS requirement)
-- Any other documents specified by the university
-
----
-
-## How to Write a Winning SOP
-
-Your Statement of Purpose is the most critical part of your application. Scholarship committees read thousands of SOPs. Yours must stand out.
-
-**Structure that works:**
-
-**Opening paragraph — Your story**
-Do not start with "I am applying for..." Start with something real. A challenge you overcame. A moment that defined your direction. Make the reader feel something in the first three lines.
-
-**Academic background**
-Mention your degree, institution, GPA and the most relevant courses or projects you did. Be specific. Numbers matter — "published 2 research papers" is stronger than "I did research."
-
-**Why this specific scholarship**
-This is where most students fail. They write generic reasons. Research the university, the faculty, the specific program. Mention specific professors whose work aligns with yours. Show that you chose this scholarship deliberately — not because it was the first one you found.
-
-**Career goals**
-Where do you want to be in 5 years? 10 years? How does this scholarship fit into that path? How will you use this education to contribute to your country or field? Committees want to fund people who will make a difference — show them that is you.
-
-**Why you deserve it**
-Highlight what makes you different. Leadership roles, research experience, community work, awards, challenges you have overcome. Not bragging — evidence.
-
-**Strong closing**
-Thank the committee, restate your commitment, express genuine excitement. End on a confident, forward-looking note.
-
-**Length:** 600 to 1000 words unless specified otherwise. Never exceed the given limit.
-
----
-
-## Frequently Asked Questions
-
-**Can students from Pakistan apply?**
-{f"Yes — Pakistan is listed among the eligible countries for this scholarship." if "Pakistan" in countries_str else f"Check the eligibility section above and verify on the official website. Many international scholarships accept Pakistani students even if Pakistan is not explicitly listed."}
-
-**Is IELTS compulsory?**
-{f"Yes — the minimum IELTS score required is {ielts}. Some universities may accept TOEFL or PTE as alternatives." if ielts and ielts not in ["Not required", "Check website"] else "No IELTS requirement has been mentioned for this scholarship. Verify on the official website."}
-
-**When is the deadline?**
-**{deadline}** — Always confirm on the official website as deadlines can be updated.
-
-**Is this scholarship fully funded?**
-Funding type: **{funding}**. Visit the official page for the exact breakdown of what is covered.
-
-**What if I am not selected?**
-Do not stop. Most successful scholarship recipients applied to 5 to 10 scholarships before getting selected. Use this application as practice. Browse our website for more opportunities matched to your profile.
+1. Visit the official link below
+2. Check full eligibility criteria
+3. Prepare documents: passport, transcripts, SOP, recommendation letters
+4. Submit before **{deadline}**
 
 ---
 
 ## Apply Now
 
-Visit the official scholarship page for complete and updated information:
-
 **Official Link:** {official_link}
 
-> **Important:** Scholarship details including deadlines, requirements and benefits may change without notice. Always verify on the official website before applying.
 > Last verified by AdmitGoal: {datetime.now().strftime("%B %d, %Y")}
 
 ---
 
-*Share this with a friend who is looking for scholarships. One share can change someone's life.*
+*Share this with a friend who is looking for scholarships.*
 """
-
     return blog, seo_title, seo_desc
 
-# ── SAVE TO DATABASE ──────────────────────────────────────
 def save(conn, data):
     if not data.get('title') or len(data['title']) < 10:
         return False
     if not data.get('scholarship_link'):
         return False
     if not data.get('deadline'):
-        return False  # Only save scholarships with known deadlines
+        return False
 
     blog, seo_title, seo_desc = write_blog(data)
 
@@ -700,9 +622,7 @@ def save(conn, data):
         print(f"    DB Error: {e}")
         return False
 
-# ── SCRAPE INDIVIDUAL SCHOLARSHIP PAGE ───────────────────
-def scrape_scholarship_page(url, source_domain, conn):
-    """Scrape a single scholarship detail page"""
+def scrape_scholarship_page(url, source_is_aggregator, conn):
     r = fetch(url)
     if not r:
         return False
@@ -713,11 +633,9 @@ def scrape_scholarship_page(url, source_domain, conn):
 
     full_text = ' '.join(soup.get_text(separator=' ', strip=True).split())
 
-    # Skip if clearly not about a scholarship
-    if not any(kw in full_text.lower() for kw in ['scholarship', 'fellowship', 'grant', 'award', 'funding']):
+    if not any(kw in full_text.lower() for kw in ['scholarship', 'fellowship', 'grant', 'award', 'funding', 'stipend']):
         return False
 
-    # Check freshness
     if not is_open(full_text):
         return False
 
@@ -734,21 +652,33 @@ def scrape_scholarship_page(url, source_domain, conn):
     if not title or len(title) < 10:
         return False
 
-    # Skip list pages — must be individual scholarship
-    list_indicators = [
-        'top 10', 'top 20', 'top 25', 'top 50', 'top 100',
-        'list of', 'best scholarships', 'scholarships for 2025',
-        'scholarships in 2026', '10 scholarships', '20 scholarships',
-        '25 scholarships', '50 scholarships'
-    ]
-    if any(indicator in title.lower() for indicator in list_indicators):
-        print(f"    Skip list page: {title[:50]}")
+    # Skip list pages
+    list_indicators = ['top 10', 'top 20', 'top 50', 'top 100', 'list of',
+                       'best scholarships', '10 scholarships', '20 scholarships']
+    if any(ind in title.lower() for ind in list_indicators):
         return False
 
-    # Extract all data
+    # Skip job listings
+    if is_job_not_scholarship(title):
+        print(f"    Skip (job listing): {title[:50]}")
+        return False
+
     deadline = extract_deadline(full_text)
     if not deadline:
-        return False  # Skip if no deadline found
+        return False
+
+    # Get official link
+    official_link = extract_official_link(soup, url, source_is_aggregator)
+    if not official_link:
+        if source_is_aggregator:
+            print(f"    Skip (no official link found)")
+            return False
+        else:
+            official_link = url
+
+    # Don't save if official link is a PDF
+    if official_link.lower().endswith('.pdf'):
+        return False
 
     ielts = extract_ielts(full_text)
     pte = extract_pte(full_text)
@@ -759,44 +689,18 @@ def scrape_scholarship_page(url, source_domain, conn):
     eligible_countries = extract_eligible_countries(full_text)
     benefits = extract_benefits(full_text)
 
-    # Find official link
-    official_link = extract_official_link(soup, url, full_text)
-    if not official_link:
-        official_link = url  # Use current URL as fallback
-
-    # Detect country and region
-    parsed_url = urlparse(official_link)
-    domain = parsed_url.netloc
+    parsed_official = urlparse(official_link)
+    domain = parsed_official.netloc
     country = detect_country(domain, full_text)
     region = detect_region(country)
 
-    # If country is unknown try from text
-    if country == "International":
-        country_hints = {
-            'germany': 'Germany', 'uk': 'United Kingdom', 'australia': 'Australia',
-            'canada': 'Canada', 'japan': 'Japan', 'china': 'China',
-            'korea': 'South Korea', 'turkey': 'Turkey', 'france': 'France',
-            'netherlands': 'Netherlands', 'sweden': 'Sweden', 'norway': 'Norway',
-            'usa': 'USA', 'united states': 'USA', 'america': 'USA',
-            'saudi arabia': 'Saudi Arabia', 'malaysia': 'Malaysia',
-            'singapore': 'Singapore', 'new zealand': 'New Zealand',
-        }
-        for hint, c in country_hints.items():
-            if hint in full_text.lower()[:500]:
-                country = c
-                region = detect_region(country)
-                break
-
-    # Extract university name
     uni_name = "Check official website"
-    # Try to find uni name from meta or title
     meta_site = soup.find('meta', {'property': 'og:site_name'})
     if meta_site:
         uni_name = meta_site.get('content', '')[:80]
     elif domain:
-        uni_name = domain.replace('www.', '').replace('.edu', '').replace('.ac.uk', '').replace('.com', '').title()[:80]
+        uni_name = domain.replace('www.', '').replace('-', ' ').title()[:80]
 
-    # Build description
     desc = ""
     for p in soup.find_all('p'):
         t = p.get_text(strip=True)
@@ -826,49 +730,58 @@ def scrape_scholarship_page(url, source_domain, conn):
 
     return save(conn, data)
 
-# ── SOURCES TO SCRAPE ────────────────────────────────────
-# These are listing pages — we extract individual scholarship links from them
+# ── SOURCES ───────────────────────────────────────────────
 LISTING_PAGES = [
-    # scholars4dev — reliable individual scholarship pages
-    "https://www.scholars4dev.com/",
-    "https://www.scholars4dev.com/page/2/",
-    "https://www.scholars4dev.com/page/3/",
-    "https://www.scholars4dev.com/page/4/",
-    "https://www.scholars4dev.com/page/5/",
+    # Aggregators — will follow external official links
+    ("https://www.scholars4dev.com/", True),
+    ("https://www.scholars4dev.com/page/2/", True),
+    ("https://www.scholars4dev.com/page/3/", True),
+    ("https://www.scholars4dev.com/page/4/", True),
+    ("https://www.scholars4dev.com/page/5/", True),
+    ("https://www.scholars4dev.com/page/6/", True),
+    ("https://www.scholars4dev.com/page/7/", True),
+    ("https://www.scholars4dev.com/page/8/", True),
+    ("https://opportunitydesk.org/category/scholarships/", True),
+    ("https://opportunitydesk.org/category/scholarships/page/2/", True),
+    ("https://opportunitydesk.org/category/scholarships/page/3/", True),
+    ("https://opportunitydesk.org/category/scholarships/page/4/", True),
+    ("https://opportunitydesk.org/category/scholarships/page/5/", True),
+    ("https://afterschoolafrica.com/scholarships/", True),
+    ("https://afterschoolafrica.com/scholarships/page/2/", True),
+    ("https://afterschoolafrica.com/scholarships/page/3/", True),
+    ("https://scholarshipdb.net/scholarships-in-Germany?page=1", True),
+    ("https://scholarshipdb.net/scholarships-in-United-Kingdom?page=1", True),
+    ("https://scholarshipdb.net/scholarships-in-China?page=1", True),
+    ("https://scholarshipdb.net/scholarships-in-Turkey?page=1", True),
+    ("https://scholarshipdb.net/scholarships-in-South-Korea?page=1", True),
+    ("https://scholarshipdb.net/scholarships-in-Japan?page=1", True),
+    ("https://scholarshipdb.net/scholarships-in-Australia?page=1", True),
+    ("https://scholarshipdb.net/scholarships-in-Canada?page=1", True),
+    ("https://scholarshipdb.net/scholarships-in-Netherlands?page=1", True),
+    ("https://scholarshipdb.net/scholarships-in-Norway?page=1", True),
+    ("https://scholarshipdb.net/scholarships-in-Sweden?page=1", True),
+    ("https://scholarshipdb.net/scholarships-in-Finland?page=1", True),
+    ("https://scholarshipdb.net/scholarships-in-Hungary?page=1", True),
+    ("https://scholarshipdb.net/scholarships-in-France?page=1", True),
+    ("https://scholarshipdb.net/scholarships-in-Italy?page=1", True),
+    ("https://scholarshipdb.net/scholarships-in-USA?page=1", True),
 
-    # Scholarship by country — individual pages
-    "https://scholarshipdb.net/scholarships-in-Germany?page=1",
-    "https://scholarshipdb.net/scholarships-in-United-Kingdom?page=1",
-    "https://scholarshipdb.net/scholarships-in-China?page=1",
-    "https://scholarshipdb.net/scholarships-in-Turkey?page=1",
-    "https://scholarshipdb.net/scholarships-in-South-Korea?page=1",
-    "https://scholarshipdb.net/scholarships-in-Japan?page=1",
-    "https://scholarshipdb.net/scholarships-in-Australia?page=1",
-    "https://scholarshipdb.net/scholarships-in-Canada?page=1",
-    "https://scholarshipdb.net/scholarships-in-Saudi-Arabia?page=1",
-    "https://scholarshipdb.net/scholarships-in-Netherlands?page=1",
-    "https://scholarshipdb.net/scholarships-in-Norway?page=1",
-    "https://scholarshipdb.net/scholarships-in-Sweden?page=1",
-    "https://scholarshipdb.net/scholarships-in-Finland?page=1",
-    "https://scholarshipdb.net/scholarships-in-Hungary?page=1",
-    "https://scholarshipdb.net/scholarships-in-France?page=1",
-    "https://scholarshipdb.net/scholarships-in-Italy?page=1",
-    "https://scholarshipdb.net/scholarships-in-Malaysia?page=1",
-    "https://scholarshipdb.net/scholarships-in-Singapore?page=1",
-    "https://scholarshipdb.net/scholarships-in-New-Zealand?page=1",
-    "https://scholarshipdb.net/scholarships-in-USA?page=1",
-
-    # Government official scholarship pages
-    "https://www.chevening.org/scholarships/",
-    "https://www.daad.de/en/study-and-research-in-germany/scholarships/",
-    "https://www.campuschina.org/scholarships/index.html",
-    "https://www.turkiyeburslari.gov.tr/en",
-    "https://stipendiumhungaricum.hu/en/",
-    "https://www.studyinkorea.go.kr/en/sub/gks/allnew_invite.do",
+    # Official sources — use their own URL directly
+    ("https://www.chevening.org/scholarships/", False),
+    ("https://www.daad.de/en/study-and-research-in-germany/scholarships/", False),
+    ("https://www.campuschina.org/scholarships/index.html", False),
+    ("https://www.turkiyeburslari.gov.tr/en", False),
+    ("https://stipendiumhungaricum.hu/en/", False),
+    ("https://www.studyinkorea.go.kr/en/sub/gks/allnew_invite.do", False),
+    ("https://cscuk.fcdo.gov.uk/scholarships/", False),
+    ("https://www.australiaawards.gov.au/scholarships", False),
+    ("https://www.aauw.org/resources/programs/fellowships-grants/current-opportunities/international/", False),
+    ("https://foreign.fulbrightonline.org/about/foreign-fulbright", False),
+    ("https://www.vliruos.be/en/scholarships/", False),
+    ("https://www.nuffic.nl/en/subjects/orange-knowledge-programme/", False),
 ]
 
-def get_individual_links(listing_url):
-    """Extract individual scholarship page links from a listing page"""
+def get_individual_links(listing_url, is_aggregator_source):
     r = fetch(listing_url)
     if not r:
         return []
@@ -877,81 +790,84 @@ def get_individual_links(listing_url):
     links = []
     seen = set()
 
-    # Get base domain
     parsed = urlparse(listing_url)
     base = f"{parsed.scheme}://{parsed.netloc}"
+    listing_domain = parsed.netloc.replace('www.', '')
 
-    # Find all article/post links
+    skip_patterns = [
+        '/category/', '/tag/', '/page/', '/author/', '#',
+        'javascript', 'mailto', 'facebook', 'twitter',
+        'instagram', 'linkedin', 'youtube',
+        '/about', '/contact', '/privacy', '/terms',
+        'search', 'login', 'register', 'signup', '.pdf', '.doc'
+    ]
+
     for a in soup.find_all('a', href=True):
         href = a['href']
         text = a.get_text(strip=True)
 
-        # Make absolute
         if href.startswith('/'):
             href = base + href
         elif not href.startswith('http'):
             continue
 
-        # Skip navigation, category, tag pages
-        skip_patterns = [
-            '/category/', '/tag/', '/page/', '/author/', '#',
-            'javascript', 'mailto', 'facebook', 'twitter',
-            'instagram', 'linkedin', 'youtube',
-            '/about', '/contact', '/privacy', '/terms',
-            'search', 'login', 'register', 'signup'
-        ]
         if any(skip in href.lower() for skip in skip_patterns):
             continue
 
-        # Skip if same as listing page
         if href == listing_url or href == listing_url.rstrip('/'):
             continue
 
-        # Must be from same domain or known scholarship domain
-        href_domain = urlparse(href).netloc
-        listing_domain = urlparse(listing_url).netloc
+        href_domain = urlparse(href).netloc.replace('www.', '')
 
-        if href_domain == listing_domain:
-            # Individual content page
-            path = urlparse(href).path
-            if len(path.split('/')) >= 2 and len(text) > 15:
-                if href not in seen:
-                    seen.add(href)
-                    links.append(href)
+        if is_aggregator_source:
+            # For aggregators: only follow same-domain links (their article pages)
+            if href_domain == listing_domain:
+                path = urlparse(href).path
+                if len(path.split('/')) >= 2 and len(text) > 15:
+                    if href not in seen:
+                        seen.add(href)
+                        links.append(href)
+        else:
+            # For official sources: follow same-domain links
+            if href_domain == listing_domain:
+                path = urlparse(href).path
+                if len(path.split('/')) >= 2 and len(text) > 10:
+                    if href not in seen:
+                        seen.add(href)
+                        links.append(href)
 
-    return links[:20]  # Max 20 links per listing page
+    return links[:25]
 
-# ── MAIN ─────────────────────────────────────────────────
 if __name__ == "__main__":
     print("=" * 60)
-    print("  ADMITGOAL MASTER SCRAPER v3.0")
+    print("  ADMITGOAL MASTER SCRAPER v4.0")
     print(f"  Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}")
-    print(f"  Target: Individual fresh scholarships only")
     print(f"  Sources: {len(LISTING_PAGES)} listing pages")
+    print(f"  Mode: Official links only, no job listings")
     print("=" * 60)
 
     conn = get_db()
     total_saved = 0
     total_skipped = 0
 
-    for listing_url in LISTING_PAGES:
+    for listing_url, is_agg in LISTING_PAGES:
         parsed = urlparse(listing_url)
-        print(f"\n[SOURCE] {parsed.netloc}")
+        source_type = "AGGREGATOR" if is_agg else "OFFICIAL"
+        print(f"\n[{source_type}] {parsed.netloc}")
         print(f"  URL: {listing_url}")
 
-        # Get individual scholarship links
-        individual_links = get_individual_links(listing_url)
+        individual_links = get_individual_links(listing_url, is_agg)
         print(f"  Found {len(individual_links)} individual links")
 
         for link in individual_links:
             print(f"\n  Checking: {link[:70]}")
             try:
-                saved = scrape_scholarship_page(link, parsed.netloc, conn)
+                saved = scrape_scholarship_page(link, is_agg, conn)
                 if saved:
                     print(f"  SAVED")
                     total_saved += 1
                 else:
-                    print(f"  Skipped (outdated/incomplete/list)")
+                    print(f"  Skipped")
                     total_skipped += 1
             except Exception as e:
                 print(f"  Error: {e}")
@@ -961,7 +877,6 @@ if __name__ == "__main__":
 
         time.sleep(random.uniform(3, 6))
 
-    # Final count
     cur = conn.cursor()
     cur.execute("SELECT COUNT(*) FROM scholarship_details")
     db_total = cur.fetchone()[0]
@@ -973,8 +888,4 @@ if __name__ == "__main__":
     print(f"  Saved      : {total_saved}")
     print(f"  Skipped    : {total_skipped}")
     print(f"  Total in DB: {db_total}")
-    print(f"  Quality    : Individual pages only")
-    print(f"               Official links only")
-    print(f"               Open scholarships only")
-    print(f"               Complete data only")
     print(f"{'=' * 60}")
