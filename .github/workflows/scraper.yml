@@ -1,4 +1,4 @@
-name: Daily Scholarship Scraper
+name: AdmitGoal Scholarship Scraper
 
 on:
   schedule:
@@ -15,7 +15,11 @@ jobs:
           python-version: '3.11'
       - name: Install dependencies
         run: pip install requests beautifulsoup4 lxml psycopg2-binary
-      - name: Run scraper
+      - name: Fix outdated and update deadlines
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: python quick_scraper.py
+        run: python fix_data.py
+      - name: Scrape fresh scholarships
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python master_scraper_v2.py
