@@ -22,4 +22,4 @@ jobs:
       - name: Scrape fresh scholarships
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: python master_scraper_v2.py
+        run: python smart_scraper.py
