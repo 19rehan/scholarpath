@@ -1,25 +1,52 @@
-name: AdmitGoal Scholarship Scraper
+name: AdmitGoal Scrapers
 
 on:
-  schedule:
-    - cron: '0 */6 * * *'
   workflow_dispatch:
 
 jobs:
-  scrape:
+  official-scraper:
+    name: Official Sources Scraper
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-      - name: Install dependencies
+      - name: Install
         run: pip install requests beautifulsoup4 lxml psycopg2-binary
-      - name: Fix outdated and update deadlines
+      - name: Run official scraper
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: python fix_data.py
-      - name: Scrape fresh scholarships
+        run: python scraper_official.py
+
+  aggregator-scraper:
+    name: Aggregator Sources Scraper
+    runs-on: ubuntu-latest
+    needs: official-scraper
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install
+        run: pip install requests beautifulsoup4 lxml psycopg2-binary
+      - name: Run aggregator scraper
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: python smart_scraper.py
+        run: python scraper_aggregator.py
+
+  clean-data:
+    name: Clean Bad Data
+    runs-on: ubuntu-latest
+    needs: aggregator-scraper
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install
+        run: pip install psycopg2-binary
+      - name: Clean outdated and bad data
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python clean_data.py
