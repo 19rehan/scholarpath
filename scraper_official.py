@@ -24,37 +24,71 @@ MONTHS = {
 
 # 100+ official sources worldwide
 OFFICIAL_SOURCES = [
-    # ── EUROPE ────────────────────────────────────────────
+    # ── UK ────────────────────────────────────────────────
     {'url':'https://www.chevening.org/scholarships/','country':'United Kingdom','region':'Europe'},
     {'url':'https://cscuk.fcdo.gov.uk/scholarships/','country':'United Kingdom','region':'Europe'},
+    {'url':'https://www.ed.ac.uk/student-funding/postgraduate/international','country':'United Kingdom','region':'Europe'},
+    {'url':'https://www.manchester.ac.uk/study/international/finance-and-scholarships/scholarships-and-bursaries/','country':'United Kingdom','region':'Europe'},
+    {'url':'https://www.sheffield.ac.uk/international/fees-and-funding/scholarships','country':'United Kingdom','region':'Europe'},
+    {'url':'https://www.birmingham.ac.uk/international/students/finance/scholarships','country':'United Kingdom','region':'Europe'},
+    {'url':'https://www.leeds.ac.uk/scholarships','country':'United Kingdom','region':'Europe'},
+    {'url':'https://www.bristol.ac.uk/fees-funding/scholarships/','country':'United Kingdom','region':'Europe'},
+    {'url':'https://www.kcl.ac.uk/study/postgraduate/fees-and-funding/scholarships','country':'United Kingdom','region':'Europe'},
+    {'url':'https://www.ucl.ac.uk/scholarships/','country':'United Kingdom','region':'Europe'},
+    {'url':'https://www.imperial.ac.uk/study/fees-and-funding/scholarships/','country':'United Kingdom','region':'Europe'},
+    {'url':'https://www.ox.ac.uk/admissions/graduate/fees-and-funding/graduate-scholarships','country':'United Kingdom','region':'Europe'},
+    {'url':'https://www.cam.ac.uk/funding','country':'United Kingdom','region':'Europe'},
+    {'url':'https://www.nottingham.ac.uk/studywithus/international-applicants/scholarships-and-bursaries/scholarships-and-bursaries.aspx','country':'United Kingdom','region':'Europe'},
+    {'url':'https://www.southampton.ac.uk/study/fees-funding/scholarships','country':'United Kingdom','region':'Europe'},
+    {'url':'https://www.exeter.ac.uk/study/funding/','country':'United Kingdom','region':'Europe'},
+    {'url':'https://www.glasgow.ac.uk/study-at-glasgow/fees-and-funding/scholarships/','country':'United Kingdom','region':'Europe'},
+    {'url':'https://www.st-andrews.ac.uk/fees-and-funding/scholarships/','country':'United Kingdom','region':'Europe'},
+
+    # ── GERMANY ───────────────────────────────────────────
     {'url':'https://www.daad.de/en/study-and-research-in-germany/scholarships/','country':'Germany','region':'Europe'},
+    {'url':'https://www.tum.de/en/studies/fees-and-financial-aid/scholarships','country':'Germany','region':'Europe'},
+    {'url':'https://www.lmu.de/en/study/all-degrees-and-offerings/fees-and-funding/scholarships/','country':'Germany','region':'Europe'},
+    {'url':'https://www.heidelberg.de/en/studying/financing-your-studies/scholarships.html','country':'Germany','region':'Europe'},
+    {'url':'https://www.uni-bonn.de/en/studying/international-students/scholarships','country':'Germany','region':'Europe'},
+    {'url':'https://www.fu-berlin.de/en/studium/studienfinanzierung/stipendien/index.html','country':'Germany','region':'Europe'},
+    {'url':'https://www.hu-berlin.de/en/studies/counselling/financing','country':'Germany','region':'Europe'},
+    {'url':'https://www.kit.edu/english/studying/scholarship.php','country':'Germany','region':'Europe'},
+    {'url':'https://www.rwth-aachen.de/cms/root/Studium/Im-Studium/Finanzierung-Foerderung/~bkj/Stipendien/','country':'Germany','region':'Europe'},
+
+    # ── EUROPE ────────────────────────────────────────────
     {'url':'https://stipendiumhungaricum.hu/en/','country':'Hungary','region':'Europe'},
     {'url':'https://www.eacea.ec.europa.eu/scholarships/erasmus-mundus-catalogue_en','country':'Europe','region':'Europe'},
     {'url':'https://www.uu.se/en/study/scholarships','country':'Sweden','region':'Europe'},
     {'url':'https://www.helsinki.fi/en/studying/fees-and-financial-aid/scholarships-and-grants','country':'Finland','region':'Europe'},
     {'url':'https://studies.ku.dk/masters/financing/scholarships/','country':'Denmark','region':'Europe'},
     {'url':'https://www.uio.no/english/studies/admission/scholarships/','country':'Norway','region':'Europe'},
-    {'url':'https://www.ugent.be/en/research/funding/devcoop/scholarships','country':'Belgium','region':'Europe'},
     {'url':'https://www.uva.nl/en/education/master-s/scholarships--tuition/scholarships-and-loans/scholarships-and-loans.html','country':'Netherlands','region':'Europe'},
-    {'url':'https://www.tum.de/en/studies/fees-and-financial-aid/scholarships','country':'Germany','region':'Europe'},
+    {'url':'https://www.tudelft.nl/en/education/practical-matters/scholarships','country':'Netherlands','region':'Europe'},
+    {'url':'https://www.tue.nl/en/education/student-services/scholarships-and-grants','country':'Netherlands','region':'Europe'},
+    {'url':'https://www.ugent.be/en/research/funding/devcoop/scholarships','country':'Belgium','region':'Europe'},
     {'url':'https://international.univie.ac.at/scholarships/','country':'Austria','region':'Europe'},
+    {'url':'https://www.uzh.ch/en/studies/application/scholarships.html','country':'Switzerland','region':'Europe'},
+    {'url':'https://www.epfl.ch/education/scholarships/','country':'Switzerland','region':'Europe'},
+    {'url':'https://www.ethz.ch/en/studies/financial/scholarships.html','country':'Switzerland','region':'Europe'},
+    {'url':'https://www.unipd.it/en/scholarships-and-grants','country':'Italy','region':'Europe'},
+    {'url':'https://www.polimi.it/en/programmes/scholarships-and-prizes','country':'Italy','region':'Europe'},
+    {'url':'https://www.tcd.ie/study/fees-funding/scholarships/','country':'Ireland','region':'Europe'},
     {'url':'https://en.uw.edu.pl/education/scholarships/','country':'Poland','region':'Europe'},
     {'url':'https://cuni.cz/UKEN-178.html','country':'Czech Republic','region':'Europe'},
     {'url':'https://ut.ee/en/scholarships','country':'Estonia','region':'Europe'},
-    {'url':'https://www.tcd.ie/study/fees-funding/scholarships/','country':'Ireland','region':'Europe'},
-    {'url':'https://www.uzh.ch/en/studies/application/scholarships.html','country':'Switzerland','region':'Europe'},
-    {'url':'https://www.unipd.it/en/scholarships-and-grants','country':'Italy','region':'Europe'},
-    {'url':'https://www.uni-bonn.de/en/studying/international-students/scholarships','country':'Germany','region':'Europe'},
-    {'url':'https://www.lmu.de/en/study/all-degrees-and-offerings/fees-and-funding/scholarships/','country':'Germany','region':'Europe'},
+    {'url':'https://russia.study/en','country':'Russia','region':'Europe'},
 
     # ── MIDDLE EAST ───────────────────────────────────────
     {'url':'https://www.turkiyeburslari.gov.tr/en','country':'Turkey','region':'Middle East'},
     {'url':'https://www.kaust.edu.sa/en/study/financial-support','country':'Saudi Arabia','region':'Middle East'},
-    {'url':'https://www.kau.edu.sa/Content.aspx?Site_ID=0&lng=EN&CID=206','country':'Saudi Arabia','region':'Middle East'},
+    {'url':'https://www.kfupm.edu.sa/deanships/deanship-of-graduate-studies/scholarships','country':'Saudi Arabia','region':'Middle East'},
     {'url':'https://www.qu.edu.qa/students/student_life/scholarships','country':'Qatar','region':'Middle East'},
+    {'url':'https://www.hbku.edu.qa/en/admissions/scholarships','country':'Qatar','region':'Middle East'},
     {'url':'https://www.uaeu.ac.ae/en/admissions/scholarships.shtml','country':'UAE','region':'Middle East'},
     {'url':'https://www.ju.edu.jo/en/home/scholarships.aspx','country':'Jordan','region':'Middle East'},
+    {'url':'https://www.aau.ac.ae/en/admissions/scholarships','country':'UAE','region':'Middle East'},
     {'url':'https://www.iau.edu.sa/en/admission/scholarships','country':'Saudi Arabia','region':'Middle East'},
+    {'url':'https://scholarships.moe.gov.eg','country':'Egypt','region':'Middle East'},
 
     # ── ASIA ──────────────────────────────────────────────
     {'url':'https://www.campuschina.org/scholarships/index.html','country':'China','region':'Asia'},
@@ -64,21 +98,26 @@ OFFICIAL_SOURCES = [
     {'url':'https://www.kyoto-u.ac.jp/en/education-campus/international/students2/scholarship','country':'Japan','region':'Asia'},
     {'url':'https://en.snu.ac.kr/apply/scholarship','country':'South Korea','region':'Asia'},
     {'url':'https://international.kaist.ac.kr/cms/FR_CON/index.do?MENU_ID=90','country':'South Korea','region':'Asia'},
+    {'url':'https://www.postech.ac.kr/eng/admission/scholarship.do','country':'South Korea','region':'Asia'},
     {'url':'https://www.nus.edu.sg/oam/scholarships','country':'Singapore','region':'Asia'},
+    {'url':'https://www.ntu.edu.sg/admissions/undergraduate/financial-matters/scholarships','country':'Singapore','region':'Asia'},
     {'url':'https://um.edu.my/study-at-um/scholarships','country':'Malaysia','region':'Asia'},
-    {'url':'https://www.ait.ac.th/admissions/scholarships/','country':'Thailand','region':'Asia'},
+    {'url':'https://mohe.gov.my/en/scholarships','country':'Malaysia','region':'Asia'},
     {'url':'https://www.tsinghua.edu.cn/en/Admission/Scholarships.htm','country':'China','region':'Asia'},
     {'url':'https://en.sjtu.edu.cn/admissions/scholarships/','country':'China','region':'Asia'},
     {'url':'https://www.zju.edu.cn/english/2020/0709/c19573a2138573/page.htm','country':'China','region':'Asia'},
+    {'url':'https://en.whu.edu.cn/Admissions/Scholarship.htm','country':'China','region':'Asia'},
+    {'url':'https://www.fudan.edu.cn/en/','country':'China','region':'Asia'},
     {'url':'https://www.hec.gov.pk/english/scholarshipsgrants/Pages/default.aspx','country':'Pakistan','region':'Asia'},
-    {'url':'https://mohe.gov.my/en/scholarships','country':'Malaysia','region':'Asia'},
     {'url':'https://www.scholarship.or.th/en/','country':'Thailand','region':'Asia'},
-    {'url':'https://www.vied.vn/en/scholarships','country':'Vietnam','region':'Asia'},
-    {'url':'https://www.most.gov.tw/scholarship','country':'Taiwan','region':'Asia'},
-    {'url':'https://www.ugc.edu.hk/eng/rgc/funding_opport/ras/','country':'Hong Kong','region':'Asia'},
     {'url':'https://iccr.gov.in/scholarships','country':'India','region':'Asia'},
-    {'url':'https://www.itb.ac.id/admission/scholarship','country':'Indonesia','region':'Asia'},
+    {'url':'https://www.ait.ac.th/admissions/scholarships/','country':'Thailand','region':'Asia'},
+    {'url':'https://most.gov.tw/scholarship','country':'Taiwan','region':'Asia'},
+    {'url':'https://www.ugc.edu.hk/eng/rgc/funding_opport/ras/','country':'Hong Kong','region':'Asia'},
     {'url':'https://international.ui.ac.id/scholarships/','country':'Indonesia','region':'Asia'},
+    {'url':'https://www.itb.ac.id/admission/scholarship','country':'Indonesia','region':'Asia'},
+    {'url':'https://www.ugm.ac.id/en/academic/scholarship','country':'Indonesia','region':'Asia'},
+    {'url':'https://www.vied.vn/en/scholarships','country':'Vietnam','region':'Asia'},
 
     # ── OCEANIA ───────────────────────────────────────────
     {'url':'https://www.studyinaustralia.gov.au/english/australian-scholarships','country':'Australia','region':'Oceania'},
@@ -86,31 +125,82 @@ OFFICIAL_SOURCES = [
     {'url':'https://www.anu.edu.au/study/scholarships','country':'Australia','region':'Oceania'},
     {'url':'https://scholarships.uq.edu.au/','country':'Australia','region':'Oceania'},
     {'url':'https://www.unsw.edu.au/study/scholarships','country':'Australia','region':'Oceania'},
+    {'url':'https://www.sydney.edu.au/scholarships/','country':'Australia','region':'Oceania'},
+    {'url':'https://www.monash.edu/scholarships','country':'Australia','region':'Oceania'},
+    {'url':'https://www.adelaide.edu.au/scholarships/','country':'Australia','region':'Oceania'},
+    {'url':'https://www.uwa.edu.au/study/scholarships','country':'Australia','region':'Oceania'},
     {'url':'https://www.studyinnewzealand.govt.nz/how-to-apply/scholarships','country':'New Zealand','region':'Oceania'},
     {'url':'https://www.auckland.ac.nz/en/study/fees-and-money/scholarships.html','country':'New Zealand','region':'Oceania'},
+    {'url':'https://www.victoria.ac.nz/study/scholarships','country':'New Zealand','region':'Oceania'},
+    {'url':'https://www.canterbury.ac.nz/scholarships/','country':'New Zealand','region':'Oceania'},
 
     # ── NORTH AMERICA ─────────────────────────────────────
     {'url':'https://foreign.fulbrightonline.org/','country':'USA','region':'North America'},
-    {'url':'https://www.iie.org/programs/','country':'USA','region':'North America'},
     {'url':'https://www.scholarships.gc.ca/scholarships-bourses/index.aspx','country':'Canada','region':'North America'},
     {'url':'https://www.sgs.utoronto.ca/awards/','country':'Canada','region':'North America'},
     {'url':'https://students.ubc.ca/enrolment/finances/scholarships-awards-bursaries','country':'Canada','region':'North America'},
     {'url':'https://www.mcgill.ca/studentaid/scholarships-awards','country':'Canada','region':'North America'},
+    {'url':'https://www.ualberta.ca/admissions/scholarships/index.html','country':'Canada','region':'North America'},
+    {'url':'https://uwaterloo.ca/graduate-studies-postdoctoral-affairs/awards','country':'Canada','region':'North America'},
+    {'url':'https://www.yorku.ca/gradstudies/students/current-students/awards-and-funding/','country':'Canada','region':'North America'},
 
     # ── AFRICA ────────────────────────────────────────────
     {'url':'https://www.uct.ac.za/main/explore-uct/funding','country':'South Africa','region':'Africa'},
-    {'url':'https://www.africanscholarships.com/','country':'Africa','region':'Africa'},
-    {'url':'https://scholarshipdb.net/scholarships-in-Egypt','country':'Egypt','region':'Africa'},
-    {'url':'https://scholarshipdb.net/scholarships-in-Morocco','country':'Morocco','region':'Africa'},
+    {'url':'https://www.up.ac.za/bursaries','country':'South Africa','region':'Africa'},
+    {'url':'https://www.wits.ac.za/study/postgraduate/funding/','country':'South Africa','region':'Africa'},
 
     # ── LATIN AMERICA ─────────────────────────────────────
     {'url':'https://www.cnpq.br/web/guest/chamadas-publicas','country':'Brazil','region':'Latin America'},
-    {'url':'https://www.conicet.gov.ar/becas/','country':'Argentina','region':'Latin America'},
 
-    # ── RUSSIA & CENTRAL ASIA ─────────────────────────────
-    {'url':'https://russia.study/en','country':'Russia','region':'Europe'},
+    # ── SCHOLARSHIPDB BY COUNTRY (bulk data) ──────────────
+    {'url':'https://scholarshipdb.net/scholarships-in-Germany','country':'Germany','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-United-Kingdom','country':'United Kingdom','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-France','country':'France','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Netherlands','country':'Netherlands','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Sweden','country':'Sweden','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Norway','country':'Norway','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Finland','country':'Finland','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Denmark','country':'Denmark','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Switzerland','country':'Switzerland','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Belgium','country':'Belgium','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Italy','country':'Italy','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Spain','country':'Spain','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Hungary','country':'Hungary','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Czech-Republic','country':'Czech Republic','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Poland','country':'Poland','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Austria','country':'Austria','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Ireland','country':'Ireland','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Portugal','country':'Portugal','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Romania','country':'Romania','region':'Europe'},
     {'url':'https://scholarshipdb.net/scholarships-in-Russia','country':'Russia','region':'Europe'},
+    {'url':'https://scholarshipdb.net/scholarships-in-China','country':'China','region':'Asia'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Japan','country':'Japan','region':'Asia'},
+    {'url':'https://scholarshipdb.net/scholarships-in-South-Korea','country':'South Korea','region':'Asia'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Turkey','country':'Turkey','region':'Middle East'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Malaysia','country':'Malaysia','region':'Asia'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Singapore','country':'Singapore','region':'Asia'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Thailand','country':'Thailand','region':'Asia'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Indonesia','country':'Indonesia','region':'Asia'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Vietnam','country':'Vietnam','region':'Asia'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Taiwan','country':'Taiwan','region':'Asia'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Hong-Kong','country':'Hong Kong','region':'Asia'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Pakistan','country':'Pakistan','region':'Asia'},
+    {'url':'https://scholarshipdb.net/scholarships-in-India','country':'India','region':'Asia'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Saudi-Arabia','country':'Saudi Arabia','region':'Middle East'},
+    {'url':'https://scholarshipdb.net/scholarships-in-UAE','country':'UAE','region':'Middle East'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Qatar','country':'Qatar','region':'Middle East'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Egypt','country':'Egypt','region':'Middle East'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Morocco','country':'Morocco','region':'Middle East'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Australia','country':'Australia','region':'Oceania'},
+    {'url':'https://scholarshipdb.net/scholarships-in-New-Zealand','country':'New Zealand','region':'Oceania'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Canada','country':'Canada','region':'North America'},
+    {'url':'https://scholarshipdb.net/scholarships-in-USA','country':'USA','region':'North America'},
+    {'url':'https://scholarshipdb.net/scholarships-in-South-Africa','country':'South Africa','region':'Africa'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Nigeria','country':'Nigeria','region':'Africa'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Kenya','country':'Kenya','region':'Africa'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Brazil','country':'Brazil','region':'Latin America'},
     {'url':'https://scholarshipdb.net/scholarships-in-Kazakhstan','country':'Kazakhstan','region':'Asia'},
+    {'url':'https://scholarshipdb.net/scholarships-in-Bangladesh','country':'Bangladesh','region':'Asia'},
 ]
 
 def get_headers():
@@ -249,11 +339,38 @@ def extract_ielts(text):
     return "Not required"
 
 def extract_degree(text):
-    levels = []
-    if re.search(r'\bundergraduate|bachelor\b', text, re.IGNORECASE): levels.append("Bachelor")
-    if re.search(r'\bmaster|postgraduate|msc|mba\b', text, re.IGNORECASE): levels.append("Master")
-    if re.search(r'\bphd|doctoral\b', text, re.IGNORECASE): levels.append("PhD")
-    return ", ".join(levels) if levels else "All levels"
+    """Extract SPECIFIC degree level — not everything"""
+    text_lower = text.lower()
+
+    # Check for specific sections first
+    # Look for degree level in context
+    phd_score = len(re.findall(r'\bphd|doctoral|doctorate\b', text_lower))
+    master_score = len(re.findall(r'\bmaster|postgraduate|msc\b|mba\b', text_lower))
+    bachelor_score = len(re.findall(r'\bundergraduate|bachelor\b', text_lower))
+    postdoc_score = len(re.findall(r'\bpostdoc|post-doc\b', text_lower))
+
+    # If one level dominates heavily — use only that
+    scores = {
+        'PhD': phd_score,
+        'Master': master_score,
+        'Bachelor': bachelor_score,
+        'Postdoc': postdoc_score
+    }
+
+    max_score = max(scores.values())
+    if max_score == 0:
+        return "All levels"
+
+    # If one level has 3x more mentions — it is the primary level
+    dominant = [level for level, score in scores.items()
+                if score >= max_score * 0.6 and score > 0]
+
+    if len(dominant) == 1:
+        return dominant[0]
+
+    # Multiple levels — return all that are mentioned significantly
+    return ", ".join([l for l in ['Bachelor','Master','PhD','Postdoc']
+                      if scores[l] > 0])
 
 def extract_funding(text):
     if re.search(r'full.?fund|fully.?fund|full scholarship|covers all', text, re.IGNORECASE):
