@@ -1,45 +1,26 @@
-name: AdmitGoal Daily Scrapers
+name: AdmitGoal Quality Scraper
 
 on:
   schedule:
-    - cron: '0 1,7,13,19 * * *'   # Official: 1am, 7am, 1pm, 7pm UTC
-    - cron: '0 4,10,16,22 * * *'  # Aggregator: 4am, 10am, 4pm, 10pm UTC
+    - cron: '0 2,8,14,20 * * *'
   workflow_dispatch:
 
 jobs:
-  official-scraper:
-    name: Official Sources
+  quality-scraper:
+    name: Quality Scholarship Scraper
     runs-on: ubuntu-latest
+    timeout-minutes: 55
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-      - name: Install
+      - name: Install dependencies
         run: pip install requests beautifulsoup4 lxml psycopg2-binary
-      - name: Scrape official sources
+      - name: Run quality scraper
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: python scraper_official.py
-      - name: Clean bad data
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: python clean_data.py
-
-  aggregator-scraper:
-    name: Aggregator Sources
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-      - name: Install
-        run: pip install requests beautifulsoup4 lxml psycopg2-binary
-      - name: Scrape aggregator sources
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: python scraper_aggregator.py
+        run: python quality_scraper.py
       - name: Clean bad data
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
