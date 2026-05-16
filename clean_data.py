@@ -1,96 +1,93 @@
+"""
+ADMITGOAL — Database Cleaner
+Removes garbage, expired, and duplicate scholarships
+"""
+
 import psycopg2
-import re
+from datetime import datetime
 
 DATABASE_URL = 'postgresql://postgres.deqyxksflvlxjelppgxz:Rehan1819Rehan@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres'
 
-CURRENT_YEAR = 2026
-CURRENT_MONTH = 5
+CURRENT_YEAR = datetime.now().year
 
-def is_bad(title):
-    if not title:
-        return True, "no title"
-    t = title.lower()
-    bad = [
-        'position', 'professor', 'lecturer', 'statistician',
-        'postdoc', 'instructor', 'faculty', 'director', 'dean',
-        'researcher', 'scientist', 'engineer', 'developer',
-        'analyst', 'coordinator', 'manager', 'officer',
-        'job fair', 'recruitment', 'hiring', 'vacancy',
-        'top 10', 'top 5', 'top 20', 'top 25', 'top 50',
-        'list of', 'best scholarships', 'countries where',
-        'csc evaluation',
-        'information for uk host',
+def clean_database():
+    print("="*60)
+    print("🧹 CLEANING DATABASE")
+    print("="*60)
+    
+    conn = psycopg2.connect(DATABASE_URL)
+    conn.autocommit = True
+    cur = conn.cursor()
+    
+    # Count before
+    cur.execute("SELECT COUNT(*) FROM scholarship_details")
+    before = cur.fetchone()[0]
+    print(f"\n📊 Before: {before} scholarships")
+    
+    # 1. Delete garbage titles
+    garbage_patterns = [
+        "consent", "cookies", "apply now", "read more", "click here",
+        "scholars4dev", "opportunitydesk", "afterschool", "scholarshipdb",
+        "top 10", "top 20", "top 25", "best scholarships", "list of"
     ]
-    for b in bad:
-        if b in t:
-            return True, f"bad keyword: {b}"
-    return False, None
+    
+    deleted_garbage = 0
+    for pattern in garbage_patterns:
+        cur.execute(f"DELETE FROM scholarship_details WHERE LOWER(title) LIKE '%{pattern}%'")
+        deleted_garbage += cur.rowcount
+    
+    print(f"❌ Deleted {deleted_garbage} garbage titles")
+    
+    # 2. Delete expired deadlines (anything with year < current year in deadline)
+    cur.execute(f"""
+        DELETE FROM scholarship_details 
+        WHERE deadline LIKE '%2017%' OR deadline LIKE '%2018%' 
+           OR deadline LIKE '%2019%' OR deadline LIKE '%2020%'
+           OR deadline LIKE '%2021%' OR deadline LIKE '%2022%'
+           OR deadline LIKE '%2023%' OR deadline LIKE '%2024%'
+           OR deadline LIKE '%2025%'
+    """)
+    deleted_expired = cur.rowcount
+    print(f"❌ Deleted {deleted_expired} expired deadlines")
+    
+    # 3. Delete short titles (< 15 chars)
+    cur.execute("DELETE FROM scholarship_details WHERE LENGTH(title) < 15")
+    deleted_short = cur.rowcount
+    print(f"❌ Deleted {deleted_short} short titles")
+    
+    # 4. Delete job listings
+    job_keywords = ['professor', 'lecturer', 'position', 'vacancy', 'hiring', 'recruitment']
+    deleted_jobs = 0
+    for keyword in job_keywords:
+        cur.execute(f"DELETE FROM scholarship_details WHERE LOWER(title) LIKE '%{keyword}%'")
+        deleted_jobs += cur.rowcount
+    
+    print(f"❌ Deleted {deleted_jobs} job listings")
+    
+    # 5. Delete duplicates (keep newest)
+    cur.execute("""
+        DELETE FROM scholarship_details a
+        USING scholarship_details b
+        WHERE a.id < b.id 
+        AND a.scholarship_link = b.scholarship_link
+    """)
+    deleted_dupes = cur.rowcount
+    print(f"❌ Deleted {deleted_dupes} duplicates")
+    
+    # 6. Delete missing official links
+    cur.execute("DELETE FROM scholarship_details WHERE scholarship_link IS NULL OR scholarship_link = ''")
+    deleted_no_link = cur.rowcount
+    print(f"❌ Deleted {deleted_no_link} missing links")
+    
+    # Count after
+    cur.execute("SELECT COUNT(*) FROM scholarship_details")
+    after = cur.fetchone()[0]
+    
+    print(f"\n📊 After: {after} scholarships")
+    print(f"✅ Cleaned: {before - after} removed")
+    
+    cur.close()
+    conn.close()
 
-def is_outdated(deadline):
-    if not deadline:
-        return False
-    months = {
-        'january':1,'february':2,'march':3,'april':4,'may':5,'june':6,
-        'july':7,'august':8,'september':9,'october':10,'november':11,'december':12
-    }
-    dl = deadline.lower()
-    year_m = re.search(r'(\d{4})', dl)
-    if not year_m:
-        return False
-    year = int(year_m.group(1))
-    if year < CURRENT_YEAR:
-        return True
-    if year == CURRENT_YEAR:
-        for month_name, month_num in months.items():
-            if month_name in dl:
-                if month_num < CURRENT_MONTH:
-                    return True
-    return False
-
-conn = psycopg2.connect(DATABASE_URL)
-conn.autocommit = True
-cur = conn.cursor()
-
-# Step 1: Remove duplicates — keep only the latest entry per title
-print("Step 1: Removing duplicates...")
-cur.execute("""
-    DELETE FROM scholarship_details
-    WHERE id NOT IN (
-        SELECT MAX(id)
-        FROM scholarship_details
-        GROUP BY LOWER(title)
-    )
-""")
-print(f"  Duplicates removed")
-
-# Step 2: Remove bad titles and outdated
-cur.execute("SELECT id, title, deadline, scholarship_link FROM scholarship_details")
-rows = cur.fetchall()
-print(f"\nStep 2: Checking {len(rows)} scholarships...")
-
-deleted = 0
-kept = 0
-
-for sid, title, deadline, link in rows:
-    bad, reason = is_bad(title)
-    outdated = is_outdated(deadline)
-
-    if bad or outdated:
-        cur.execute("DELETE FROM scholarship_details WHERE id=%s", (sid,))
-        cur.execute("DELETE FROM scholarships WHERE link=%s", (link,))
-        print(f"  DELETED ({reason or 'outdated'}): {title[:60]}")
-        deleted += 1
-    else:
-        print(f"  KEPT: {title[:60]}")
-        kept += 1
-
-cur.execute("SELECT COUNT(*) FROM scholarship_details")
-remaining = cur.fetchone()[0]
-cur.close()
-conn.close()
-
-print(f"\n{'='*55}")
-print(f"  Duplicates removed : yes")
-print(f"  Bad titles deleted : {deleted}")
-print(f"  Clean remaining    : {remaining}")
-print(f"{'='*55}")
+if __name__ == "__main__":
+    clean_database()

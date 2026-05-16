@@ -1,0 +1,1200 @@
+2026-05-13 12:20:49,726 - INFO - 
+============================================================
+Processing: https://www.scholars4dev.com/category/scholarships/
+============================================================
+2026-05-13 12:20:53,045 - INFO - Page type: listing
+2026-05-13 12:21:08,567 - INFO - Found 15 scholarship links
+2026-05-13 12:22:07,676 - INFO - 
+============================================================
+Processing: https://opportunitydesk.org/scholarships/
+============================================================
+2026-05-13 12:22:09,734 - INFO - Page type: listing
+2026-05-13 12:22:41,837 - INFO - Found 15 scholarship links
+2026-05-13 12:23:24,445 - INFO - 
+============================================================
+Processing: https://www.afterschoolafrica.com/scholarships/
+============================================================
+2026-05-13 12:23:27,457 - INFO - Page type: unknown
+2026-05-13 12:36:31,927 - INFO - 
+============================================================
+Processing: https://www.scholars4dev.com/category/scholarships/
+============================================================
+2026-05-13 12:36:34,499 - INFO - Page type: listing
+2026-05-13 12:36:49,855 - INFO - Found 15 scholarship links
+2026-05-13 12:36:49,856 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/category/scholarships-list/...
+2026-05-13 12:36:51,537 - INFO -   Title candidates: [('List of List of Scholarships, ', 90, 'heading'), ('UNICAF Scholarships for Online', 90, 'heading'), ('Top 10 Prestigious Scholarship', 90, 'heading')]
+2026-05-13 12:36:51,549 - INFO -   Title: List of List of Scholarships, Grants, and Fellowsh
+2026-05-13 12:36:51,550 - INFO -   Quality: 62
+2026-05-13 12:36:51,551 - INFO -   Deadline: 6123-01-13
+2026-05-13 12:36:51,552 - INFO -   University: None
+2026-05-13 12:36:52,787 - INFO -   SAVED
+2026-05-13 12:36:54,789 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/category/scholarships-list/scho...
+2026-05-13 12:36:56,421 - INFO -   Title candidates: [('List of Scholarship Tips Schol', 90, 'heading'), ('UNICAF Scholarships for Online', 90, 'heading'), ('Scholarship Application Questi', 90, 'heading')]
+2026-05-13 12:36:56,426 - INFO -   Title: List of Scholarship Tips Scholarships, Grants, and
+2026-05-13 12:36:56,427 - INFO -   Quality: 42
+2026-05-13 12:36:56,427 - INFO -   Deadline: None
+2026-05-13 12:36:56,427 - INFO -   University: None
+2026-05-13 12:36:56,427 - INFO -   Quality too low (42 < 55)
+2026-05-13 12:36:58,428 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/29443/unicaf-scholarships-for-o...
+2026-05-13 12:37:00,303 - INFO -   Title candidates: [('Referrals - Unicaf', 60, 'title')]
+2026-05-13 12:37:00,308 - INFO -   Title: Referrals - Unicaf
+2026-05-13 12:37:00,308 - INFO -   Quality: 53
+2026-05-13 12:37:00,309 - INFO -   Deadline: None
+2026-05-13 12:37:00,309 - INFO -   University: Unicaf University
+2026-05-13 12:37:00,309 - INFO -   Quality too low (53 < 55)
+2026-05-13 12:37:02,310 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/6268/top-10-scholarships-for-in...
+2026-05-13 12:37:03,960 - INFO -   Title candidates: [('Top 10 Prestigious Scholarship', 90, 'heading'), ('Government-funded Internationa', 90, 'heading'), ('University-funded Internationa', 90, 'heading')]
+2026-05-13 12:37:03,967 - INFO -   Title: Top 10 Prestigious Scholarships for the Best Inter
+2026-05-13 12:37:03,967 - INFO -   Quality: 57
+2026-05-13 12:37:03,967 - INFO -   Deadline: None
+2026-05-13 12:37:03,967 - INFO -   University: Students 
+
+ 
+
+
+
+University
+2026-05-13 12:37:05,124 - INFO -   SAVED
+2026-05-13 12:37:07,125 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/12039/scholarships-in-developme...
+2026-05-13 12:37:08,846 - INFO -   Title candidates: [('35+ International Scholarships', 90, 'heading'), ('International Scholarships for', 90, 'heading'), ('International Scholarships for', 90, 'heading')]
+2026-05-13 12:37:08,855 - INFO -   Title: 35+ International Scholarships for Development-Rel
+2026-05-13 12:37:08,856 - INFO -   Quality: 57
+2026-05-13 12:37:08,856 - INFO -   Deadline: None
+2026-05-13 12:37:08,857 - INFO -   University: University of Sheffield
+2026-05-13 12:37:10,074 - INFO -   SAVED
+2026-05-13 12:37:12,075 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/11693/scholarships-in-italy-sch...
+2026-05-13 12:37:13,644 - INFO -   Title candidates: [('Top 10+ Scholarships in Italy ', 90, 'heading'), ('International Scholarships for', 90, 'article')]
+2026-05-13 12:37:13,649 - INFO -   Title: Top 10+ Scholarships in Italy for International St
+2026-05-13 12:37:13,649 - INFO -   Quality: 57
+2026-05-13 12:37:13,650 - INFO -   Deadline: None
+2026-05-13 12:37:13,650 - INFO -   University: University of Milan
+2026-05-13 12:37:14,853 - INFO -   SAVED
+2026-05-13 12:37:16,854 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/8544/tuition-scholarships-for-i...
+2026-05-13 12:37:18,466 - INFO -   Title candidates: [('Tuition Fee Waiver Scholarship', 100, 'meta'), ('20 Tuition Scholarships offere', 90, 'heading'), ('Tuition Scholarships for All I', 90, 'heading')]
+2026-05-13 12:37:18,470 - INFO -   Title: Tuition Fee Waiver Scholarships for International 
+2026-05-13 12:37:18,471 - INFO -   Quality: 59
+2026-05-13 12:37:18,471 - INFO -   Deadline: None
+2026-05-13 12:37:18,472 - INFO -   University: University of Oregon
+2026-05-13 12:37:19,535 - INFO -   SAVED
+2026-05-13 12:37:21,537 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/11217/scholarships-in-new-zeala...
+2026-05-13 12:37:23,119 - INFO -   Title candidates: [('Top 10 Scholarships in New Zea', 90, 'heading'), ('New Zealand Government Scholar', 90, 'heading'), ('New Zealand University Scholar', 90, 'heading')]
+2026-05-13 12:37:23,129 - INFO -   Title: Top 10 Scholarships in New Zealand for Internation
+2026-05-13 12:37:23,129 - INFO -   Quality: 57
+2026-05-13 12:37:23,129 - INFO -   Deadline: None
+2026-05-13 12:37:23,129 - INFO -   University: Zealand University
+2026-05-13 12:37:24,232 - INFO -   SAVED
+2026-05-13 12:37:26,234 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/1892/government-scholarships-fo...
+2026-05-13 12:37:27,871 - INFO -   Title candidates: [('Top 25 Foreign Government Scho', 90, 'heading'), ('United States Government Schol', 90, 'heading'), ('UK & British Commonwealth Gove', 90, 'heading')]
+2026-05-13 12:37:27,878 - INFO -   Title: Top 25 Foreign Government Scholarships for Interna
+2026-05-13 12:37:27,878 - INFO -   Quality: 57
+2026-05-13 12:37:27,878 - INFO -   Deadline: None
+2026-05-13 12:37:27,878 - INFO -   University: Singapore University
+2026-05-13 12:37:28,849 - INFO -   SAVED
+2026-05-13 12:37:30,851 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/8434/scholarships-study-any-cou...
+2026-05-13 12:37:32,487 - INFO -   Title candidates: [('Top 5+ Scholarships for Study ', 90, 'heading'), ('Global Scholarships for Study ', 90, 'heading'), ('Global Scholarships for Study ', 90, 'heading')]
+2026-05-13 12:37:32,490 - INFO -   Title: Top 5+ Scholarships for Study in Any Country or An
+2026-05-13 12:37:32,491 - INFO -   Quality: 42
+2026-05-13 12:37:32,491 - INFO -   Deadline: None
+2026-05-13 12:37:32,491 - INFO -   University: None
+2026-05-13 12:37:32,491 - INFO -   Quality too low (42 < 55)
+2026-05-13 12:37:34,492 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/4950/australia-scholarships/...
+2026-05-13 12:37:36,103 - INFO -   Title candidates: [('10+ Scholarships in Australia ', 90, 'heading'), ('Australian Government Scholars', 90, 'heading'), ('Australian University Scholars', 90, 'heading')]
+2026-05-13 12:37:36,107 - INFO -   Title: 10+ Scholarships in Australia for International St
+2026-05-13 12:37:36,107 - INFO -   Quality: 57
+2026-05-13 12:37:36,107 - INFO -   Deadline: None
+2026-05-13 12:37:36,107 - INFO -   University: Australian University
+2026-05-13 12:37:37,334 - INFO -   SAVED
+2026-05-13 12:37:39,335 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/10017/top-100-international-sch...
+2026-05-13 12:37:40,934 - INFO -   Title candidates: [('Top 75 International Scholarsh', 100, 'heading'), ('International Scholarships 202', 100, 'title'), ('Distance Learning Scholarships', 90, 'heading')]
+2026-05-13 12:37:40,943 - INFO -   Title: Top 75 International Scholarships to Watch out for
+2026-05-13 12:37:40,944 - INFO -   Quality: 59
+2026-05-13 12:37:40,944 - INFO -   Deadline: None
+2026-05-13 12:37:40,944 - INFO -   University: Degrees
+University
+2026-05-13 12:37:43,030 - INFO -   SAVED
+2026-05-13 12:37:45,031 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/5642/scholarships-in-uk-for-int...
+2026-05-13 12:37:46,642 - INFO -   Title candidates: [('Top 15+ UK Scholarships for In', 90, 'heading'), ('UK Government Scholarships»', 90, 'heading'), ('UK University Scholarships»', 90, 'heading')]
+2026-05-13 12:37:46,648 - INFO -   Title: Top 15+ UK Scholarships for International Students
+2026-05-13 12:37:46,649 - INFO -   Quality: 57
+2026-05-13 12:37:46,649 - INFO -   Deadline: None
+2026-05-13 12:37:46,649 - INFO -   University: University of Cambridge
+2026-05-13 12:37:47,852 - INFO -   SAVED
+2026-05-13 12:37:49,854 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/6599/scholarships-in-sweden-for...
+2026-05-13 12:37:51,475 - INFO -   Title candidates: [('Top 20+ Scholarships in Sweden', 90, 'heading'), ('Sweden Government Scholarships', 90, 'heading'), ('University Scholarships in Swe', 90, 'heading')]
+2026-05-13 12:37:51,481 - INFO -   Title: Top 20+ Scholarships in Sweden for International S
+2026-05-13 12:37:51,482 - INFO -   Quality: 57
+2026-05-13 12:37:51,482 - INFO -   Deadline: None
+2026-05-13 12:37:51,482 - INFO -   University: University of Bor
+2026-05-13 12:37:52,530 - INFO -   SAVED
+2026-05-13 12:37:54,530 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/8909/scholarships-france-foreig...
+2026-05-13 12:37:56,107 - INFO -   Title candidates: [('Top 10 Scholarships in France ', 90, 'heading'), ('French University Scholarships', 90, 'heading'), ('International Scholarships for', 90, 'article')]
+2026-05-13 12:37:56,109 - INFO -   Title: Top 10 Scholarships in France for Foreign Students
+2026-05-13 12:37:56,111 - INFO -   Quality: 57
+2026-05-13 12:37:56,111 - INFO -   Deadline: None
+2026-05-13 12:37:56,111 - INFO -   University: French University
+2026-05-13 12:37:57,264 - INFO -   SAVED
+2026-05-13 12:38:02,266 - INFO - 
+============================================================
+Processing: https://opportunitydesk.org/scholarships/
+============================================================
+2026-05-13 12:38:04,322 - INFO - Page type: listing
+2026-05-13 12:38:36,069 - INFO - Found 15 scholarship links
+2026-05-13 12:38:36,071 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:38:36,725 - INFO -   Title candidates: [('Mastercard Foundation Doctoral', 100, 'heading'), ('66 Grants, Study Abroad, Train', 100, 'heading'), ('Cecil Renaud Overseas Scholars', 100, 'heading')]
+2026-05-13 12:38:36,727 - INFO -   Title: Mastercard Foundation Doctoral Scholarships 2026-2
+2026-05-13 12:38:36,728 - INFO -   Quality: 79
+2026-05-13 12:38:36,728 - INFO -   Deadline: 2026-10-10
+2026-05-13 12:38:36,729 - INFO -   University: University of Toronto
+2026-05-13 12:38:37,771 - INFO -   SAVED
+2026-05-13 12:38:39,773 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:38:40,437 - INFO -   Title candidates: [('CLA Foundation Opportunity Sch', 100, 'heading'), ('NYC Mayor’s Scholarship Progra', 100, 'heading'), ('50 Scholarships, Grants and Gl', 100, 'heading')]
+2026-05-13 12:38:40,441 - INFO -   Title: CLA Foundation Opportunity Scholarship Program 202
+2026-05-13 12:38:40,441 - INFO -   Quality: 79
+2026-05-13 12:38:40,441 - INFO -   Deadline: 2026-05-19
+2026-05-13 12:38:40,442 - INFO -   University: Foundation University
+2026-05-13 12:38:41,502 - INFO -   SAVED
+2026-05-13 12:38:43,503 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:38:44,137 - INFO -   Title candidates: [('12 Global Scholarships Current', 100, 'heading'), ('40 Grants, Scholarships, Award', 100, 'heading'), ('SUNx Malta Climate Friendly Tr', 100, 'heading')]
+2026-05-13 12:38:44,144 - INFO -   Title: 12 Global Scholarships Currently Open – December 1
+2026-05-13 12:38:44,145 - INFO -   Quality: 59
+2026-05-13 12:38:44,145 - INFO -   Deadline: None
+2026-05-13 12:38:44,145 - INFO -   University: Foundation University
+2026-05-13 12:38:45,512 - INFO -   SAVED
+2026-05-13 12:38:47,514 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:38:48,078 - INFO -   Title candidates: [('66 Grants, Study Abroad, Train', 100, 'heading'), ('137 Grants, Scholarships, Trav', 100, 'heading'), ('British Council English and Sc', 100, 'heading')]
+2026-05-13 12:38:48,084 - INFO -   Title: 66 Grants, Study Abroad, Trainings and Professiona
+2026-05-13 12:38:48,085 - INFO -   Quality: 79
+2026-05-13 12:38:48,085 - INFO -   Deadline: 2026-09-13
+2026-05-13 12:38:48,085 - INFO -   University: State University
+2026-05-13 12:38:49,306 - INFO -   SAVED
+2026-05-13 12:38:51,308 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:38:51,941 - INFO -   Title candidates: [('66 Grants, Study Abroad, Train', 100, 'heading'), ('Cecil Renaud Overseas Scholars', 100, 'heading'), ('137 Grants, Scholarships, Trav', 100, 'heading')]
+2026-05-13 12:38:51,941 - INFO -   Title: 66 Grants, Study Abroad, Trainings and Professiona
+2026-05-13 12:38:51,941 - INFO -   Quality: 79
+2026-05-13 12:38:51,941 - INFO -   Deadline: 2026-09-30
+2026-05-13 12:38:51,941 - INFO -   University: Atlantic University
+2026-05-13 12:38:52,979 - INFO -   SAVED
+2026-05-13 12:38:54,981 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:38:55,606 - INFO -   Title candidates: [('Mastercard Foundation Doctoral', 100, 'heading'), ('Cecil Renaud Overseas Scholars', 100, 'heading'), ('CCCU PhD Scholarship in Educat', 100, 'heading')]
+2026-05-13 12:38:55,610 - INFO -   Title: Mastercard Foundation Doctoral Scholarships 2026-2
+2026-05-13 12:38:55,611 - INFO -   Quality: 79
+2026-05-13 12:38:55,611 - INFO -   Deadline: 2026-10-10
+2026-05-13 12:38:55,612 - INFO -   University: University of Toronto
+2026-05-13 12:38:56,749 - INFO -   SAVED
+2026-05-13 12:38:58,750 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:38:59,377 - INFO -   Title candidates: [('137 Grants, Scholarships, Trav', 100, 'heading'), ('CDC Steven M. Teutsch Preventi', 100, 'heading'), ('137 Grants, Scholarships, Trav', 100, 'article')]
+2026-05-13 12:38:59,384 - INFO -   Title: 137 Grants, Scholarships, Travel Abroad Opportunit
+2026-05-13 12:38:59,384 - INFO -   Quality: 59
+2026-05-13 12:38:59,385 - INFO -   Deadline: None
+2026-05-13 12:38:59,385 - INFO -   University: Hopkins University
+2026-05-13 12:39:00,469 - INFO -   SAVED
+2026-05-13 12:39:02,471 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:39:03,045 - INFO -   Title candidates: [('66 Grants, Study Abroad, Train', 100, 'heading'), ('137 Grants, Scholarships, Trav', 100, 'heading'), ('66 Grants, Study Abroad, Train', 100, 'article')]
+2026-05-13 12:39:03,051 - INFO -   Title: 66 Grants, Study Abroad, Trainings and Professiona
+2026-05-13 12:39:03,052 - INFO -   Quality: 79
+2026-05-13 12:39:03,052 - INFO -   Deadline: 2026-09-13
+2026-05-13 12:39:03,052 - INFO -   University: Foundation University
+2026-05-13 12:39:04,282 - INFO -   SAVED
+2026-05-13 12:39:06,283 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:39:06,878 - INFO -   Title candidates: [('137 Grants, Scholarships, Trav', 100, 'heading'), ('12 Global Scholarships Current', 100, 'heading'), ('40 Grants, Scholarships, Award', 100, 'heading')]
+2026-05-13 12:39:06,884 - INFO -   Title: 137 Grants, Scholarships, Travel Abroad Opportunit
+2026-05-13 12:39:06,885 - INFO -   Quality: 59
+2026-05-13 12:39:06,885 - INFO -   Deadline: None
+2026-05-13 12:39:06,885 - INFO -   University: Foundation University
+2026-05-13 12:39:08,129 - INFO -   SAVED
+2026-05-13 12:39:10,130 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:39:10,770 - INFO -   Title candidates: [('137 Grants, Scholarships, Trav', 100, 'heading'), ('40 Grants, Scholarships, Award', 100, 'heading'), ('57 Global Grants, Scholarships', 100, 'heading')]
+2026-05-13 12:39:10,777 - INFO -   Title: 137 Grants, Scholarships, Travel Abroad Opportunit
+2026-05-13 12:39:10,778 - INFO -   Quality: 59
+2026-05-13 12:39:10,778 - INFO -   Deadline: None
+2026-05-13 12:39:10,778 - INFO -   University: Peking University
+2026-05-13 12:39:11,872 - INFO -   SAVED
+2026-05-13 12:39:13,873 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:39:14,479 - INFO -   Title candidates: [('137 Grants, Scholarships, Trav', 100, 'heading'), ('40 Grants, Scholarships, Award', 100, 'heading'), ('57 Global Grants, Scholarships', 100, 'heading')]
+2026-05-13 12:39:14,484 - INFO -   Title: 137 Grants, Scholarships, Travel Abroad Opportunit
+2026-05-13 12:39:14,485 - INFO -   Quality: 59
+2026-05-13 12:39:14,485 - INFO -   Deadline: None
+2026-05-13 12:39:14,485 - INFO -   University: Stanford University
+2026-05-13 12:39:15,629 - INFO -   SAVED
+2026-05-13 12:39:17,631 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:39:18,260 - INFO -   Title candidates: [('137 Grants, Scholarships, Trav', 100, 'heading'), ('50 Scholarships, Grants and Gl', 100, 'heading'), ('137 Grants, Scholarships, Trav', 100, 'article')]
+2026-05-13 12:39:18,265 - INFO -   Title: 137 Grants, Scholarships, Travel Abroad Opportunit
+2026-05-13 12:39:18,265 - INFO -   Quality: 79
+2026-05-13 12:39:18,265 - INFO -   Deadline: 2026-07-13
+2026-05-13 12:39:18,265 - INFO -   University: Northeastern University
+2026-05-13 12:39:19,283 - INFO -   SAVED
+2026-05-13 12:39:21,284 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:39:21,858 - INFO -   Title candidates: [('137 Grants, Scholarships, Trav', 100, 'heading'), ('12 Global Scholarships Current', 100, 'heading'), ('40 Grants, Scholarships, Award', 100, 'heading')]
+2026-05-13 12:39:21,864 - INFO -   Title: 137 Grants, Scholarships, Travel Abroad Opportunit
+2026-05-13 12:39:21,865 - INFO -   Quality: 59
+2026-05-13 12:39:21,865 - INFO -   Deadline: None
+2026-05-13 12:39:21,865 - INFO -   University: Foundation University
+2026-05-13 12:39:22,872 - INFO -   SAVED
+2026-05-13 12:39:24,873 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/awards-and-grants/...
+2026-05-13 12:39:26,047 - INFO -   Title candidates: [('66 Grants, Study Abroad, Train', 100, 'heading'), ('TWAS-Mohammad A. Hamdan Award ', 100, 'heading'), ('TWAS-Samira Omar Innovation fo', 100, 'heading')]
+2026-05-13 12:39:26,050 - INFO -   Title: 66 Grants, Study Abroad, Trainings and Professiona
+2026-05-13 12:39:26,050 - INFO -   Quality: 64
+2026-05-13 12:39:26,050 - INFO -   Deadline: 2026-06-30
+2026-05-13 12:39:26,050 - INFO -   University: None
+2026-05-13 12:39:27,074 - INFO -   SAVED
+2026-05-13 12:39:29,076 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/grants/...
+2026-05-13 12:39:29,688 - INFO -   Title candidates: [('Call for Proposals: Thrive Gra', 100, 'heading'), ('ECZF Growth, Engagement and Re', 100, 'heading'), ('Call for Proposals: Thrive Gra', 100, 'article')]
+2026-05-13 12:39:29,688 - INFO -   Title: Call for Proposals: Thrive Grant 2026 (up to $30,0
+2026-05-13 12:39:29,688 - INFO -   Quality: 64
+2026-05-13 12:39:29,688 - INFO -   Deadline: 2026-06-01
+2026-05-13 12:39:29,688 - INFO -   University: None
+2026-05-13 12:39:30,593 - INFO -   SAVED
+2026-05-13 12:39:35,596 - INFO - 
+============================================================
+Processing: https://www.afterschoolafrica.com/scholarships/
+============================================================
+2026-05-13 12:39:38,704 - INFO - Page type: unknown
+2026-05-13 12:39:38,705 - INFO - Unknown page type, skipping
+2026-05-13 12:39:41,707 - INFO - 
+============================================================
+Total saved: 27
+============================================================
+2026-05-13 12:44:49,673 - INFO - 
+============================================================
+Processing: https://www.scholars4dev.com/18903/postgraduate-scholarships/
+============================================================
+2026-05-13 12:44:53,050 - INFO - Page type: listing
+2026-05-13 12:45:12,030 - INFO - Found 15 scholarship links
+2026-05-13 12:45:12,031 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/category/scholarships-list/...
+2026-05-13 12:45:13,675 - INFO -   Title candidates: [('List of List of Scholarships, ', 90, 'heading'), ('UNICAF Scholarships for Online', 90, 'heading'), ('Top 10 Prestigious Scholarship', 90, 'heading')]
+2026-05-13 12:45:13,683 - INFO -   Title: List of List of Scholarships, Grants, and Fellowsh
+2026-05-13 12:45:13,684 - INFO -   Quality: 62
+2026-05-13 12:45:13,684 - INFO -   Deadline: 6123-01-13
+2026-05-13 12:45:13,685 - INFO -   University: None
+2026-05-13 12:45:14,683 - INFO -   SAVED
+2026-05-13 12:45:16,684 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/category/scholarships-list/scho...
+2026-05-13 12:45:18,281 - INFO -   Title candidates: [('List of Scholarship Tips Schol', 90, 'heading'), ('UNICAF Scholarships for Online', 90, 'heading'), ('Scholarship Application Questi', 90, 'heading')]
+2026-05-13 12:45:18,285 - INFO -   Title: List of Scholarship Tips Scholarships, Grants, and
+2026-05-13 12:45:18,286 - INFO -   Quality: 42
+2026-05-13 12:45:18,286 - INFO -   Deadline: None
+2026-05-13 12:45:18,286 - INFO -   University: None
+2026-05-13 12:45:18,286 - INFO -   Quality too low (42 < 55)
+2026-05-13 12:45:20,288 - INFO - 
+Processing scholarship: https://www.ntu.ac.uk/international/scholarships-and-fees/sc...
+2026-05-13 12:45:20,781 - INFO -   Title candidates: [('Just a moment...', 60, 'title')]
+2026-05-13 12:45:20,782 - INFO -   Title: Just a moment...
+2026-05-13 12:45:20,782 - INFO -   Quality: 23
+2026-05-13 12:45:20,782 - INFO -   Deadline: None
+2026-05-13 12:45:20,784 - INFO -   University: None
+2026-05-13 12:45:20,784 - INFO -   Quality too low (23 < 55)
+2026-05-13 12:45:22,785 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/2043/gates-scholarships-for-int...
+2026-05-13 12:45:24,436 - INFO -   Title candidates: [('Gates Cambridge Scholarships f', 90, 'heading'), ('International Scholarships for', 90, 'article')]
+2026-05-13 12:45:24,440 - INFO -   Title: Gates Cambridge Scholarships for International Stu
+2026-05-13 12:45:24,441 - INFO -   Quality: 57
+2026-05-13 12:45:24,441 - INFO -   Deadline: None
+2026-05-13 12:45:24,441 - INFO -   University: University of Cambridge
+2026-05-13 12:45:25,512 - INFO -   SAVED
+2026-05-13 12:45:27,515 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/2269/clarendon-scholarships-at-...
+2026-05-13 12:45:29,120 - INFO -   Title candidates: [('Clarendon Fund Scholarships at', 90, 'heading'), ('International Scholarships for', 90, 'article')]
+2026-05-13 12:45:29,124 - INFO -   Title: Clarendon Fund Scholarships at University of Oxfor
+2026-05-13 12:45:29,124 - INFO -   Quality: 57
+2026-05-13 12:45:29,124 - INFO -   Deadline: None
+2026-05-13 12:45:29,125 - INFO -   University: University of Oxford
+2026-05-13 12:45:30,328 - INFO -   SAVED
+2026-05-13 12:45:32,328 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/3751/international-postgraduate...
+2026-05-13 12:45:34,044 - INFO -   Title candidates: [('Bristol University Think Big S', 90, 'heading'), ('International Scholarships for', 90, 'article')]
+2026-05-13 12:45:34,050 - INFO -   Title: Bristol University Think Big Scholarships
+2026-05-13 12:45:34,050 - INFO -   Quality: 57
+2026-05-13 12:45:34,051 - INFO -   Deadline: None
+2026-05-13 12:45:34,051 - INFO -   University: Bristol University
+2026-05-13 12:45:35,168 - INFO -   SAVED
+2026-05-13 12:45:37,168 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/26025/the-marshall-scholarship-...
+2026-05-13 12:45:38,772 - INFO -   Title candidates: [('The Marshall Scholarship for U', 90, 'heading'), ('International Scholarships for', 90, 'article')]
+2026-05-13 12:45:38,777 - INFO -   Title: The Marshall Scholarship for US citizens to study 
+2026-05-13 12:45:38,777 - INFO -   Quality: 57
+2026-05-13 12:45:38,778 - INFO -   Deadline: None
+2026-05-13 12:45:38,779 - INFO -   University: British University
+2026-05-13 12:45:39,766 - INFO -   SAVED
+2026-05-13 12:45:41,767 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/6268/top-10-scholarships-for-in...
+2026-05-13 12:45:43,382 - INFO -   Title candidates: [('Top 10 Prestigious Scholarship', 90, 'heading'), ('Government-funded Internationa', 90, 'heading'), ('University-funded Internationa', 90, 'heading')]
+2026-05-13 12:45:43,388 - INFO -   Title: Top 10 Prestigious Scholarships for the Best Inter
+2026-05-13 12:45:43,389 - INFO -   Quality: 57
+2026-05-13 12:45:43,389 - INFO -   Deadline: None
+2026-05-13 12:45:43,389 - INFO -   University: Students 
+
+ 
+
+
+
+University
+2026-05-13 12:45:44,447 - INFO -   SAVED
+2026-05-13 12:45:46,448 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/11693/scholarships-in-italy-sch...
+2026-05-13 12:45:48,071 - INFO -   Title candidates: [('Top 10+ Scholarships in Italy ', 90, 'heading'), ('International Scholarships for', 90, 'article')]
+2026-05-13 12:45:48,076 - INFO -   Title: Top 10+ Scholarships in Italy for International St
+2026-05-13 12:45:48,076 - INFO -   Quality: 57
+2026-05-13 12:45:48,077 - INFO -   Deadline: None
+2026-05-13 12:45:48,077 - INFO -   University: University of Milan
+2026-05-13 12:45:49,137 - INFO -   SAVED
+2026-05-13 12:45:51,139 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/11217/scholarships-in-new-zeala...
+2026-05-13 12:45:52,686 - INFO -   Title candidates: [('Top 10 Scholarships in New Zea', 90, 'heading'), ('New Zealand Government Scholar', 90, 'heading'), ('New Zealand University Scholar', 90, 'heading')]
+2026-05-13 12:45:52,689 - INFO -   Title: Top 10 Scholarships in New Zealand for Internation
+2026-05-13 12:45:52,690 - INFO -   Quality: 57
+2026-05-13 12:45:52,690 - INFO -   Deadline: None
+2026-05-13 12:45:52,690 - INFO -   University: Zealand University
+2026-05-13 12:45:53,923 - INFO -   SAVED
+2026-05-13 12:45:55,924 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/1892/government-scholarships-fo...
+2026-05-13 12:45:57,490 - INFO -   Title candidates: [('Top 25 Foreign Government Scho', 90, 'heading'), ('United States Government Schol', 90, 'heading'), ('UK & British Commonwealth Gove', 90, 'heading')]
+2026-05-13 12:45:57,496 - INFO -   Title: Top 25 Foreign Government Scholarships for Interna
+2026-05-13 12:45:57,497 - INFO -   Quality: 57
+2026-05-13 12:45:57,497 - INFO -   Deadline: None
+2026-05-13 12:45:57,497 - INFO -   University: Singapore University
+2026-05-13 12:45:58,628 - INFO -   SAVED
+2026-05-13 12:46:00,630 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/8434/scholarships-study-any-cou...
+2026-05-13 12:46:02,276 - INFO -   Title candidates: [('Top 5+ Scholarships for Study ', 90, 'heading'), ('Global Scholarships for Study ', 90, 'heading'), ('Global Scholarships for Study ', 90, 'heading')]
+2026-05-13 12:46:02,280 - INFO -   Title: Top 5+ Scholarships for Study in Any Country or An
+2026-05-13 12:46:02,281 - INFO -   Quality: 42
+2026-05-13 12:46:02,281 - INFO -   Deadline: None
+2026-05-13 12:46:02,282 - INFO -   University: None
+2026-05-13 12:46:02,282 - INFO -   Quality too low (42 < 55)
+2026-05-13 12:46:04,282 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/10017/top-100-international-sch...
+2026-05-13 12:46:05,900 - INFO -   Title candidates: [('Top 75 International Scholarsh', 100, 'heading'), ('International Scholarships 202', 100, 'title'), ('Distance Learning Scholarships', 90, 'heading')]
+2026-05-13 12:46:05,910 - INFO -   Title: Top 75 International Scholarships to Watch out for
+2026-05-13 12:46:05,910 - INFO -   Quality: 59
+2026-05-13 12:46:05,910 - INFO -   Deadline: None
+2026-05-13 12:46:05,910 - INFO -   University: Degrees
+University
+2026-05-13 12:46:06,902 - INFO -   SAVED
+2026-05-13 12:46:08,903 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/5642/scholarships-in-uk-for-int...
+2026-05-13 12:46:10,481 - INFO -   Title candidates: [('Top 15+ UK Scholarships for In', 90, 'heading'), ('UK Government Scholarships»', 90, 'heading'), ('UK University Scholarships»', 90, 'heading')]
+2026-05-13 12:46:10,486 - INFO -   Title: Top 15+ UK Scholarships for International Students
+2026-05-13 12:46:10,486 - INFO -   Quality: 57
+2026-05-13 12:46:10,486 - INFO -   Deadline: None
+2026-05-13 12:46:10,486 - INFO -   University: University of Cambridge
+2026-05-13 12:46:11,709 - INFO -   SAVED
+2026-05-13 12:46:13,712 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/6599/scholarships-in-sweden-for...
+2026-05-13 12:46:15,361 - INFO -   Title candidates: [('Top 20+ Scholarships in Sweden', 90, 'heading'), ('Sweden Government Scholarships', 90, 'heading'), ('University Scholarships in Swe', 90, 'heading')]
+2026-05-13 12:46:15,366 - INFO -   Title: Top 20+ Scholarships in Sweden for International S
+2026-05-13 12:46:15,366 - INFO -   Quality: 57
+2026-05-13 12:46:15,366 - INFO -   Deadline: None
+2026-05-13 12:46:15,368 - INFO -   University: University of Bor
+2026-05-13 12:46:16,451 - INFO -   SAVED
+2026-05-13 12:46:18,454 - INFO - 
+============================================================
+Processing: https://www.scholars4dev.com/18900/undergraduate-scholarships/
+============================================================
+2026-05-13 12:46:21,673 - INFO - Page type: listing
+2026-05-13 12:46:44,066 - INFO - Found 10 scholarship links
+2026-05-13 12:46:44,066 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/category/scholarships-list/scho...
+2026-05-13 12:46:45,702 - INFO -   Title candidates: [('List of Scholarship Tips Schol', 90, 'heading'), ('UNICAF Scholarships for Online', 90, 'heading'), ('Scholarship Application Questi', 90, 'heading')]
+2026-05-13 12:46:45,708 - INFO -   Title: List of Scholarship Tips Scholarships, Grants, and
+2026-05-13 12:46:45,708 - INFO -   Quality: 42
+2026-05-13 12:46:45,708 - INFO -   Deadline: None
+2026-05-13 12:46:45,709 - INFO -   University: None
+2026-05-13 12:46:45,710 - INFO -   Quality too low (42 < 55)
+2026-05-13 12:46:47,710 - INFO - 
+Processing scholarship: https://www.westminster.ac.uk/study/fees-and-funding/scholar...
+2026-05-13 12:46:48,694 - INFO -   Title candidates: [('Scholarships | University of W', 90, 'title'), ('Postgraduate scholarships', 80, 'heading'), ('Undergraduate scholarships', 80, 'heading')]
+2026-05-13 12:46:48,697 - INFO -   Title: Scholarships | University of Westminster, London
+2026-05-13 12:46:48,697 - INFO -   Quality: 83
+2026-05-13 12:46:48,698 - INFO -   Deadline: 2026-06-29
+2026-05-13 12:46:48,698 - INFO -   University: University of Westminster
+2026-05-13 12:46:49,749 - INFO -   SAVED
+2026-05-13 12:46:51,750 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/2053/international-scholarships...
+2026-05-13 12:46:53,401 - INFO -   Title candidates: [('University of Sydney Internati', 90, 'heading'), ('International Scholarships for', 90, 'article')]
+2026-05-13 12:46:53,404 - INFO -   Title: University of Sydney International Stipend Scholar
+2026-05-13 12:46:53,405 - INFO -   Quality: 77
+2026-05-13 12:46:53,407 - INFO -   Deadline: 2026-12-18
+2026-05-13 12:46:53,409 - INFO -   University: University of Sydney
+2026-05-13 12:46:54,480 - INFO -   SAVED
+2026-05-13 12:46:56,481 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/6578/switzerland-univeristy-lau...
+2026-05-13 12:46:58,140 - INFO -   Title candidates: [('UNIL Master’s Grants in Switze', 90, 'heading'), ('International Scholarships for', 90, 'article')]
+2026-05-13 12:46:58,146 - INFO -   Title: UNIL Master’s Grants in Switzerland for Foreign St
+2026-05-13 12:46:58,146 - INFO -   Quality: 57
+2026-05-13 12:46:58,146 - INFO -   Deadline: None
+2026-05-13 12:46:58,147 - INFO -   University: University of Lausanne
+2026-05-13 12:46:59,174 - INFO -   SAVED
+2026-05-13 12:47:01,175 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/1877/aauw-international-fellows...
+2026-05-13 12:47:02,776 - INFO -   Title candidates: [('AAUW International Fellowships', 90, 'heading'), ('International Scholarships for', 90, 'article')]
+2026-05-13 12:47:02,779 - INFO -   Title: AAUW International Fellowships in USA for Women
+2026-05-13 12:47:02,779 - INFO -   Quality: 77
+2026-05-13 12:47:02,780 - INFO -   Deadline: 2026-07-01
+2026-05-13 12:47:02,781 - INFO -   University: University of Twente
+2026-05-13 12:47:03,850 - INFO -   SAVED
+2026-05-13 12:47:05,851 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/2333/ilot-scholarships-at-unive...
+2026-05-13 12:47:07,497 - INFO -   Title candidates: [('International Scholarships for', 90, 'article'), ('International Scholars Program', 60, 'heading')]
+2026-05-13 12:47:07,503 - INFO -   Title: International Scholarships for Developing Countrie
+2026-05-13 12:47:07,503 - INFO -   Quality: 57
+2026-05-13 12:47:07,503 - INFO -   Deadline: None
+2026-05-13 12:47:07,504 - INFO -   University: University of British
+2026-05-13 12:47:08,451 - INFO -   SAVED
+2026-05-13 12:47:10,452 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/9822/chalmers-ipoet-scholarship...
+2026-05-13 12:47:12,118 - INFO -   Title candidates: [('Chalmers IPOET Scholarships fo', 90, 'heading'), ('International Scholarships for', 90, 'article')]
+2026-05-13 12:47:12,124 - INFO -   Title: Chalmers IPOET Scholarships for International Stud
+2026-05-13 12:47:12,124 - INFO -   Quality: 57
+2026-05-13 12:47:12,124 - INFO -   Deadline: None
+2026-05-13 12:47:12,125 - INFO -   University: Chalmers University
+2026-05-13 12:47:13,093 - INFO -   SAVED
+2026-05-13 12:47:15,094 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/8434/scholarships-study-any-cou...
+2026-05-13 12:47:16,767 - INFO -   Title candidates: [('Top 5+ Scholarships for Study ', 90, 'heading'), ('Global Scholarships for Study ', 90, 'heading'), ('Global Scholarships for Study ', 90, 'heading')]
+2026-05-13 12:47:16,773 - INFO -   Title: Top 5+ Scholarships for Study in Any Country or An
+2026-05-13 12:47:16,773 - INFO -   Quality: 42
+2026-05-13 12:47:16,773 - INFO -   Deadline: None
+2026-05-13 12:47:16,774 - INFO -   University: None
+2026-05-13 12:47:16,774 - INFO -   Quality too low (42 < 55)
+2026-05-13 12:47:18,775 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/8909/scholarships-france-foreig...
+2026-05-13 12:47:20,396 - INFO -   Title candidates: [('Top 10 Scholarships in France ', 90, 'heading'), ('French University Scholarships', 90, 'heading'), ('International Scholarships for', 90, 'article')]
+2026-05-13 12:47:20,402 - INFO -   Title: Top 10 Scholarships in France for Foreign Students
+2026-05-13 12:47:20,403 - INFO -   Quality: 57
+2026-05-13 12:47:20,406 - INFO -   Deadline: None
+2026-05-13 12:47:20,408 - INFO -   University: French University
+2026-05-13 12:47:21,328 - INFO -   SAVED
+2026-05-13 12:47:23,329 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/...
+2026-05-13 12:47:24,975 - INFO -   Title candidates: [('International Scholarships for', 90, 'heading'), ('UNICAF Scholarships for Online', 90, 'heading'), ('Top 10 Prestigious Scholarship', 90, 'heading')]
+2026-05-13 12:47:24,978 - INFO -   Title: International Scholarships for Developing Countrie
+2026-05-13 12:47:24,978 - INFO -   Quality: 77
+2026-05-13 12:47:24,979 - INFO -   Deadline: 2026-05-22
+2026-05-13 12:47:24,979 - INFO -   University: Students
+University
+2026-05-13 12:47:26,203 - INFO -   SAVED
+2026-05-13 12:47:28,206 - INFO - 
+============================================================
+Processing: https://opportunitydesk.org/tag/fully-funded/
+============================================================
+2026-05-13 12:47:30,243 - INFO - Page type: listing
+2026-05-13 12:48:07,764 - INFO - Found 15 scholarship links
+2026-05-13 12:48:07,765 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:48:08,410 - INFO -   Title candidates: [('137 Grants, Scholarships, Trav', 100, 'heading'), ('12 Global Scholarships Current', 100, 'heading'), ('40 Grants, Scholarships, Award', 100, 'heading')]
+2026-05-13 12:48:08,423 - INFO -   Title: 137 Grants, Scholarships, Travel Abroad Opportunit
+2026-05-13 12:48:08,430 - INFO -   Quality: 59
+2026-05-13 12:48:08,440 - INFO -   Deadline: None
+2026-05-13 12:48:08,442 - INFO -   University: Foundation University
+2026-05-13 12:48:09,395 - INFO -   SAVED
+2026-05-13 12:48:11,396 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:48:12,051 - INFO -   Title candidates: [('137 Grants, Scholarships, Trav', 100, 'heading'), ('40 Grants, Scholarships, Award', 100, 'heading'), ('57 Global Grants, Scholarships', 100, 'heading')]
+2026-05-13 12:48:12,062 - INFO -   Title: 137 Grants, Scholarships, Travel Abroad Opportunit
+2026-05-13 12:48:12,062 - INFO -   Quality: 59
+2026-05-13 12:48:12,062 - INFO -   Deadline: None
+2026-05-13 12:48:12,062 - INFO -   University: Peking University
+2026-05-13 12:48:13,517 - INFO -   SAVED
+2026-05-13 12:48:15,518 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:48:16,434 - INFO -   Title candidates: [('137 Grants, Scholarships, Trav', 100, 'heading'), ('40 Grants, Scholarships, Award', 100, 'heading'), ('57 Global Grants, Scholarships', 100, 'heading')]
+2026-05-13 12:48:16,474 - INFO -   Title: 137 Grants, Scholarships, Travel Abroad Opportunit
+2026-05-13 12:48:16,474 - INFO -   Quality: 59
+2026-05-13 12:48:16,474 - INFO -   Deadline: None
+2026-05-13 12:48:16,476 - INFO -   University: Stanford University
+2026-05-13 12:48:17,566 - INFO -   SAVED
+2026-05-13 12:48:19,567 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:48:20,234 - INFO -   Title candidates: [('137 Grants, Scholarships, Trav', 100, 'heading'), ('50 Scholarships, Grants and Gl', 100, 'heading'), ('137 Grants, Scholarships, Trav', 100, 'article')]
+2026-05-13 12:48:20,243 - INFO -   Title: 137 Grants, Scholarships, Travel Abroad Opportunit
+2026-05-13 12:48:20,243 - INFO -   Quality: 79
+2026-05-13 12:48:20,243 - INFO -   Deadline: 2026-07-13
+2026-05-13 12:48:20,243 - INFO -   University: Northeastern University
+2026-05-13 12:48:21,357 - INFO -   SAVED
+2026-05-13 12:48:23,359 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships-and-scholar...
+2026-05-13 12:48:24,022 - INFO -   Title candidates: [('137 Grants, Scholarships, Trav', 100, 'heading'), ('12 Global Scholarships Current', 100, 'heading'), ('40 Grants, Scholarships, Award', 100, 'heading')]
+2026-05-13 12:48:24,032 - INFO -   Title: 137 Grants, Scholarships, Travel Abroad Opportunit
+2026-05-13 12:48:24,032 - INFO -   Quality: 59
+2026-05-13 12:48:24,034 - INFO -   Deadline: None
+2026-05-13 12:48:24,034 - INFO -   University: Foundation University
+2026-05-13 12:48:25,125 - INFO -   SAVED
+2026-05-13 12:48:27,126 - INFO - 
+Processing scholarship: https://opportunitydesk.org/category/fellowships/...
+2026-05-13 12:48:27,749 - INFO -   Title candidates: [('NextGen Women Leaders Fellowsh', 100, 'heading'), ('Carnegie Mellon University Afr', 100, 'heading'), ('Browsing:Fellowships', 80, 'heading')]
+2026-05-13 12:48:27,751 - INFO -   Title: NextGen Women Leaders Fellowship 2026 (Fully-funde
+2026-05-13 12:48:27,751 - INFO -   Quality: 79
+2026-05-13 12:48:27,751 - INFO -   Deadline: 2026-07-19
+2026-05-13 12:48:27,751 - INFO -   University: Mellon University
+2026-05-13 12:48:28,863 - INFO -   SAVED
+2026-05-13 12:48:30,864 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2016/02/11/grameen-foundation-fe...
+2026-05-13 12:48:32,450 - INFO -   Title candidates: [('Grameen Foundation Fellowships', 100, 'heading'), ('Grameen Foundation Fellowships', 100, 'title'), ('Grameen Foundation Fellowships', 100, 'article')]
+2026-05-13 12:48:32,456 - INFO -   Title: Grameen Foundation Fellowships 2016 (Fully-Funded)
+2026-05-13 12:48:32,457 - INFO -   Quality: 59
+2026-05-13 12:48:32,457 - INFO -   Deadline: None
+2026-05-13 12:48:32,457 - INFO -   University: University of Tartu
+2026-05-13 12:48:33,603 - INFO -   SAVED
+2026-05-13 12:48:35,604 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2016/02/08/vermont-law-school-su...
+2026-05-13 12:48:36,772 - INFO -   Title candidates: [('Vermont Law School Summer Medi', 100, 'heading'), ('Vermont Law School Summer Medi', 100, 'title'), ('Vermont Law School Summer Medi', 100, 'article')]
+2026-05-13 12:48:36,778 - INFO -   Title: Vermont Law School Summer Media Fellowships for Jo
+2026-05-13 12:48:36,778 - INFO -   Quality: 44
+2026-05-13 12:48:36,778 - INFO -   Deadline: None
+2026-05-13 12:48:36,778 - INFO -   University: None
+2026-05-13 12:48:36,778 - INFO -   Quality too low (44 < 55)
+2026-05-13 12:48:38,779 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2016/01/21/edward-r-murrow-press...
+2026-05-13 12:48:39,970 - INFO -   Title candidates: [('Edward R. Murrow Press Fellows', 90, 'heading'), ('Edward R. Murrow Press Fellows', 90, 'title'), ('Edward R. Murrow Press Fellows', 90, 'article')]
+2026-05-13 12:48:39,976 - INFO -   Title: Edward R. Murrow Press Fellowship – USA ($65,000 w
+2026-05-13 12:48:39,976 - INFO -   Quality: 57
+2026-05-13 12:48:39,977 - INFO -   Deadline: None
+2026-05-13 12:48:39,977 - INFO -   University: Article University
+2026-05-13 12:48:41,069 - INFO -   SAVED
+2026-05-13 12:48:43,070 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2016/01/07/dk-akademie-journalis...
+2026-05-13 12:48:44,381 - INFO -   Title candidates: [('DK Akademie Journalism Scholar', 100, 'heading'), ('DK Akademie Journalism Scholar', 100, 'title'), ('DK Akademie Journalism Scholar', 100, 'article')]
+2026-05-13 12:48:44,385 - INFO -   Title: DK Akademie Journalism Scholarships 2016 (Fully-Fu
+2026-05-13 12:48:44,385 - INFO -   Quality: 79
+2026-05-13 12:48:44,385 - INFO -   Deadline: 2026-11-13
+2026-05-13 12:48:44,385 - INFO -   University: University of Toronto
+2026-05-13 12:48:45,537 - INFO -   SAVED
+2026-05-13 12:48:47,539 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2016/01/01/knight-science-journa...
+2026-05-13 12:48:48,714 - INFO -   Title candidates: [('Knight Science Journalism Fell', 100, 'heading'), ('Knight Science Journalism Fell', 100, 'title'), ('Knight Science Journalism Fell', 100, 'article')]
+2026-05-13 12:48:48,732 - INFO -   Title: Knight Science Journalism Fellowship Program 2015 
+2026-05-13 12:48:48,732 - INFO -   Quality: 44
+2026-05-13 12:48:48,733 - INFO -   Deadline: None
+2026-05-13 12:48:48,733 - INFO -   University: None
+2026-05-13 12:48:48,733 - INFO -   Quality too low (44 < 55)
+2026-05-13 12:48:50,735 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2015/12/18/khadija-ismayilova-in...
+2026-05-13 12:48:51,934 - INFO -   Title candidates: [('Khadija Ismayilova Investigati', 100, 'heading'), ('Khadija Ismayilova Investigati', 100, 'title'), ('Khadija Ismayilova Investigati', 100, 'article')]
+2026-05-13 12:48:51,941 - INFO -   Title: Khadija Ismayilova Investigative Journalism Fellow
+2026-05-13 12:48:51,942 - INFO -   Quality: 44
+2026-05-13 12:48:51,942 - INFO -   Deadline: None
+2026-05-13 12:48:51,942 - INFO -   University: None
+2026-05-13 12:48:51,942 - INFO -   Quality too low (44 < 55)
+2026-05-13 12:48:53,943 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2026/05/12/thrive-grant-2026/...
+2026-05-13 12:48:54,580 - INFO -   Title candidates: [('Call for Proposals: Thrive Gra', 100, 'heading'), ('Call for Proposals: Thrive Gra', 100, 'title'), ('Call for Proposals: Thrive Gra', 100, 'article')]
+2026-05-13 12:48:54,580 - INFO -   Title: Call for Proposals: Thrive Grant 2026 (up to $30,0
+2026-05-13 12:48:54,580 - INFO -   Quality: 64
+2026-05-13 12:48:54,580 - INFO -   Deadline: 2026-06-01
+2026-05-13 12:48:54,580 - INFO -   University: None
+2026-05-13 12:48:55,687 - INFO -   SAVED
+2026-05-13 12:48:57,688 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2026/05/12/apsa-doctoral-dissert...
+2026-05-13 12:48:58,241 - WARNING - No title: https://opportunitydesk.org/2026/05/12/apsa-doctoral-dissertation-research-improvement-grants-2026/
+2026-05-13 12:48:58,241 - INFO -   No data extracted
+2026-05-13 12:49:00,243 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2026/05/12/nextgen-women-leaders...
+2026-05-13 12:49:00,839 - INFO -   Title candidates: [('NextGen Women Leaders Fellowsh', 100, 'heading'), ('NextGen Women Leaders Fellowsh', 100, 'title'), ('NextGen Women Leaders Fellowsh', 100, 'article')]
+2026-05-13 12:49:00,841 - INFO -   Title: NextGen Women Leaders Fellowship 2026 (Fully-funde
+2026-05-13 12:49:00,842 - INFO -   Quality: 64
+2026-05-13 12:49:00,842 - INFO -   Deadline: 2026-05-29
+2026-05-13 12:49:00,843 - INFO -   University: None
+2026-05-13 12:49:01,966 - INFO -   SAVED
+2026-05-13 12:49:03,969 - INFO - 
+============================================================
+Processing: https://opportunitydesk.org/tag/masters-scholarships/
+============================================================
+2026-05-13 12:49:05,993 - INFO - Page type: listing
+2026-05-13 12:50:04,243 - INFO - Found 15 scholarship links
+2026-05-13 12:50:04,243 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2020/01/08/government-of-brunei-...
+2026-05-13 12:50:05,537 - INFO -   Title candidates: [('Study in Asia: Government of B', 100, 'heading'), ('Study in Asia: Government of B', 100, 'title'), ('Study in Asia: Government of B', 100, 'article')]
+2026-05-13 12:50:05,544 - INFO -   Title: Study in Asia: Government of Brunei Darussalam Sch
+2026-05-13 12:50:05,544 - INFO -   Quality: 59
+2026-05-13 12:50:05,544 - INFO -   Deadline: None
+2026-05-13 12:50:05,545 - INFO -   University: Annual University
+2026-05-13 12:50:06,732 - INFO -   SAVED
+2026-05-13 12:50:08,733 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2018/03/28/edinburgh-global-onli...
+2026-05-13 12:50:10,147 - INFO -   Title candidates: [('Edinburgh Global Online Distan', 100, 'heading'), ('Edinburgh Global Online Distan', 100, 'title'), ('Edinburgh Global Online Distan', 100, 'article')]
+2026-05-13 12:50:10,153 - INFO -   Title: Edinburgh Global Online Distance Learning Masters 
+2026-05-13 12:50:10,153 - INFO -   Quality: 59
+2026-05-13 12:50:10,153 - INFO -   Deadline: None
+2026-05-13 12:50:10,154 - INFO -   University: The University
+2026-05-13 12:50:11,233 - INFO -   SAVED
+2026-05-13 12:50:13,234 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2018/01/16/association-of-common...
+2026-05-13 12:50:14,463 - INFO -   Title candidates: [('Association of Commonwealth Un', 100, 'heading'), ('Association of Commonwealth Un', 100, 'title'), ('Association of Commonwealth Un', 100, 'article')]
+2026-05-13 12:50:14,466 - INFO -   Title: Association of Commonwealth Universities (ACU) Com
+2026-05-13 12:50:14,468 - INFO -   Quality: 59
+2026-05-13 12:50:14,468 - INFO -   Deadline: None
+2026-05-13 12:50:14,468 - INFO -   University: University of Dhaka
+2026-05-13 12:50:15,692 - INFO -   SAVED
+2026-05-13 12:50:17,694 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2017/12/12/commonwealth-masters-...
+2026-05-13 12:50:19,427 - INFO -   Title candidates: [('Commonwealth Master’s Scholars', 100, 'heading'), ('Commonwealth Master’s Scholars', 100, 'article'), ('Commonwealth Master’s Scholars', 90, 'title')]
+2026-05-13 12:50:19,432 - INFO -   Title: Commonwealth Master’s Scholarships for full-time M
+2026-05-13 12:50:19,432 - INFO -   Quality: 44
+2026-05-13 12:50:19,432 - INFO -   Deadline: None
+2026-05-13 12:50:19,433 - INFO -   University: None
+2026-05-13 12:50:19,433 - INFO -   Quality too low (44 < 55)
+2026-05-13 12:50:21,433 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2017/12/07/scholarships-for-mast...
+2026-05-13 12:50:22,814 - INFO -   Title candidates: [('Apply: Scholarships for Master', 100, 'heading'), ('Apply: Scholarships for Master', 100, 'title'), ('Apply: Scholarships for Master', 100, 'article')]
+2026-05-13 12:50:22,814 - INFO -   Title: Apply: Scholarships for Masters in Sustainability 
+2026-05-13 12:50:22,814 - INFO -   Quality: 59
+2026-05-13 12:50:22,814 - INFO -   Deadline: None
+2026-05-13 12:50:22,814 - INFO -   University: Nations University
+2026-05-13 12:50:23,960 - INFO -   SAVED
+2026-05-13 12:50:25,967 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2017/12/01/commonwealth-eye-heal...
+2026-05-13 12:50:27,230 - INFO -   Title candidates: [('CECH Masters Scholarships at t', 100, 'heading'), ('CECH Masters Scholarships at t', 100, 'title'), ('CECH Masters Scholarships at t', 100, 'article')]
+2026-05-13 12:50:27,235 - INFO -   Title: CECH Masters Scholarships at the London School of 
+2026-05-13 12:50:27,236 - INFO -   Quality: 44
+2026-05-13 12:50:27,237 - INFO -   Deadline: None
+2026-05-13 12:50:27,237 - INFO -   University: None
+2026-05-13 12:50:27,237 - INFO -   Quality too low (44 < 55)
+2026-05-13 12:50:29,238 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2017/06/10/daad-masters-scholars...
+2026-05-13 12:50:30,655 - INFO -   Title candidates: [('DAAD Masters Scholarships for ', 100, 'heading'), ('DAAD Masters Scholarships for ', 100, 'title'), ('DAAD Masters Scholarships for ', 100, 'article')]
+2026-05-13 12:50:30,660 - INFO -   Title: DAAD Masters Scholarships for Public Policy and Go
+2026-05-13 12:50:30,661 - INFO -   Quality: 59
+2026-05-13 12:50:30,661 - INFO -   Deadline: None
+2026-05-13 12:50:30,661 - INFO -   University: University of Erfurt
+2026-05-13 12:50:31,673 - INFO -   SAVED
+2026-05-13 12:50:33,673 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2017/01/06/aims-masters-program-...
+2026-05-13 12:50:34,941 - INFO -   Title candidates: [('AIMS Co-operative Master’s Pro', 100, 'heading'), ('AIMS Co-operative Master’s Pro', 100, 'article')]
+2026-05-13 12:50:34,945 - INFO -   Title: AIMS Co-operative Master’s Program 2017-18 (Full-f
+2026-05-13 12:50:34,945 - INFO -   Quality: 79
+2026-05-13 12:50:34,945 - INFO -   Deadline: 2026-11-13
+2026-05-13 12:50:34,946 - INFO -   University: University of Toronto
+2026-05-13 12:50:36,094 - INFO -   SAVED
+2026-05-13 12:50:38,096 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2016/11/29/university-of-reading...
+2026-05-13 12:50:39,324 - INFO -   Title candidates: [('University of Reading’s Felix ', 100, 'heading'), ('University of Reading’s Felix ', 100, 'title'), ('University of Reading’s Felix ', 100, 'article')]
+2026-05-13 12:50:39,329 - INFO -   Title: University of Reading’s Felix Scholarships For Cit
+2026-05-13 12:50:39,330 - INFO -   Quality: 79
+2026-05-13 12:50:39,330 - INFO -   Deadline: 2026-11-13
+2026-05-13 12:50:39,331 - INFO -   University: University of Reading
+2026-05-13 12:50:40,303 - INFO -   SAVED
+2026-05-13 12:50:42,305 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2016/10/06/university-of-oxfords...
+2026-05-13 12:50:43,728 - INFO -   Title candidates: [('University of Oxford’s 2017/18', 100, 'heading'), ('University of Oxford’s 2017/18', 100, 'title'), ('University of Oxford’s 2017/18', 100, 'article')]
+2026-05-13 12:50:43,734 - INFO -   Title: University of Oxford’s 2017/18 Eni Master’s Schola
+2026-05-13 12:50:43,734 - INFO -   Quality: 79
+2026-05-13 12:50:43,734 - INFO -   Deadline: 2026-11-13
+2026-05-13 12:50:43,735 - INFO -   University: University of Oxford
+2026-05-13 12:50:44,728 - INFO -   SAVED
+2026-05-13 12:50:46,729 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2016/09/12/the-mastercard-founda...
+2026-05-13 12:50:47,888 - INFO -   Title candidates: [('The MasterCard Foundation Scho', 90, 'heading'), ('The MasterCard Foundation Scho', 90, 'title'), ('The MasterCard Foundation Scho', 90, 'article')]
+2026-05-13 12:50:47,892 - INFO -   Title: The MasterCard Foundation Scholarship- Michigan St
+2026-05-13 12:50:47,892 - INFO -   Quality: 77
+2026-05-13 12:50:47,892 - INFO -   Deadline: 2026-11-13
+2026-05-13 12:50:47,892 - INFO -   University: State University
+2026-05-13 12:50:48,866 - INFO -   SAVED
+2026-05-13 12:50:50,867 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2016/09/07/university-of-sussex-...
+2026-05-13 12:50:52,010 - INFO -   Title candidates: [('University of Sussex Masters S', 90, 'heading'), ('University of Sussex Masters S', 90, 'title'), ('University of Sussex Masters S', 90, 'article')]
+2026-05-13 12:50:52,014 - INFO -   Title: University of Sussex Masters Scholarships (US Nati
+2026-05-13 12:50:52,014 - INFO -   Quality: 77
+2026-05-13 12:50:52,015 - INFO -   Deadline: 2026-11-13
+2026-05-13 12:50:52,015 - INFO -   University: University of Sussex
+2026-05-13 12:50:53,122 - INFO -   SAVED
+2026-05-13 12:50:55,123 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2016/03/08/masters-scholarship-a...
+2026-05-13 12:50:56,326 - INFO -   Title candidates: [('Masters Scholarship at Hamburg', 90, 'heading'), ('Masters Scholarship at Hamburg', 90, 'title'), ('Masters Scholarship at Hamburg', 90, 'article')]
+2026-05-13 12:50:56,331 - INFO -   Title: Masters Scholarship at Hamburg University of Appli
+2026-05-13 12:50:56,331 - INFO -   Quality: 77
+2026-05-13 12:50:56,332 - INFO -   Deadline: 2026-11-13
+2026-05-13 12:50:56,332 - INFO -   University: Hamburg University
+2026-05-13 12:50:57,388 - INFO -   SAVED
+2026-05-13 12:50:59,391 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2016/01/13/education-for-sustain...
+2026-05-13 12:51:00,585 - INFO -   Title candidates: [('Education for Sustainable Ener', 100, 'heading'), ('Education for Sustainable Ener', 100, 'title'), ('Education for Sustainable Ener', 100, 'article')]
+2026-05-13 12:51:00,591 - INFO -   Title: Education for Sustainable Energy Development (ESED
+2026-05-13 12:51:00,591 - INFO -   Quality: 79
+2026-05-13 12:51:00,592 - INFO -   Deadline: 2026-11-13
+2026-05-13 12:51:00,592 - INFO -   University: University of Toronto
+2026-05-13 12:51:01,605 - INFO -   SAVED
+2026-05-13 12:51:03,606 - INFO - 
+Processing scholarship: https://opportunitydesk.org/tag/masters-scholarships/page/2/...
+2026-05-13 12:51:04,851 - INFO -   Title candidates: [('Visby Programme Scholarships t', 100, 'heading'), ('2015/16 University of Bradford', 100, 'heading'), ('Visby Programme Scholarships t', 100, 'article')]
+2026-05-13 12:51:04,856 - INFO -   Title: Visby Programme Scholarships to Study in Sweden 20
+2026-05-13 12:51:04,857 - INFO -   Quality: 59
+2026-05-13 12:51:04,857 - INFO -   Deadline: None
+2026-05-13 12:51:04,857 - INFO -   University: The University
+2026-05-13 12:51:05,800 - INFO -   SAVED
+2026-05-13 12:51:07,802 - INFO - 
+============================================================
+Processing: https://opportunitydesk.org/tag/phd-scholarships/
+============================================================
+2026-05-13 12:51:09,973 - INFO - Page type: listing
+2026-05-13 12:52:06,995 - INFO - Found 15 scholarship links
+2026-05-13 12:52:06,995 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2025/08/06/university-of-pretori...
+2026-05-13 12:52:10,566 - INFO -   Title candidates: [('University of Pretoria Commonw', 100, 'heading'), ('University of Pretoria Commonw', 100, 'title'), ('University of Pretoria Commonw', 100, 'article')]
+2026-05-13 12:52:10,586 - INFO -   Title: University of Pretoria Commonwealth Scholarship fo
+2026-05-13 12:52:10,586 - INFO -   Quality: 59
+2026-05-13 12:52:10,586 - INFO -   Deadline: None
+2026-05-13 12:52:10,586 - INFO -   University: University of Pretoria
+2026-05-13 12:52:11,816 - INFO -   SAVED
+2026-05-13 12:52:13,817 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2024/06/11/canon-collins-rmtf-sc...
+2026-05-13 12:52:15,041 - INFO -   Title candidates: [('Canon Collins RMTF Scholarship', 100, 'heading'), ('Canon Collins RMTF Scholarship', 100, 'title'), ('Canon Collins RMTF Scholarship', 100, 'article')]
+2026-05-13 12:52:15,045 - INFO -   Title: Canon Collins RMTF Scholarships for Postgraduate S
+2026-05-13 12:52:15,045 - INFO -   Quality: 44
+2026-05-13 12:52:15,046 - INFO -   Deadline: None
+2026-05-13 12:52:15,046 - INFO -   University: None
+2026-05-13 12:52:15,046 - INFO -   Quality too low (44 < 55)
+2026-05-13 12:52:17,047 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2020/04/25/asric-uemf-phd-schola...
+2026-05-13 12:52:18,313 - INFO -   Title candidates: [('Call for Applications: ASRIC/U', 100, 'heading'), ('Call for Applications: ASRIC/U', 100, 'title'), ('Call for Applications: ASRIC/U', 100, 'article')]
+2026-05-13 12:52:18,318 - INFO -   Title: Call for Applications: ASRIC/UEMF PhD Scholarship 
+2026-05-13 12:52:18,319 - INFO -   Quality: 79
+2026-05-13 12:52:18,319 - INFO -   Deadline: 2026-11-13
+2026-05-13 12:52:18,319 - INFO -   University: Mediterranean University
+2026-05-13 12:52:19,323 - INFO -   SAVED
+2026-05-13 12:52:21,324 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2018/10/13/commonwealth-phd-scho...
+2026-05-13 12:52:22,655 - INFO -   Title candidates: [('Commonwealth PhD Scholarships ', 100, 'heading'), ('Commonwealth PhD Scholarships ', 100, 'article'), ('Commonwealth PhD Scholarships ', 90, 'title')]
+2026-05-13 12:52:22,659 - INFO -   Title: Commonwealth PhD Scholarships for full-time Doctor
+2026-05-13 12:52:22,660 - INFO -   Quality: 44
+2026-05-13 12:52:22,660 - INFO -   Deadline: None
+2026-05-13 12:52:22,660 - INFO -   University: None
+2026-05-13 12:52:22,660 - INFO -   Quality too low (44 < 55)
+2026-05-13 12:52:24,661 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2018/10/13/cidri-africa-phd-scho...
+2026-05-13 12:52:26,077 - INFO -   Title candidates: [('CIDRI-Africa PhD Scholarships ', 100, 'heading'), ('CIDRI-Africa PhD Scholarships ', 100, 'article')]
+2026-05-13 12:52:26,083 - INFO -   Title: CIDRI-Africa PhD Scholarships and Postdoctoral Fel
+2026-05-13 12:52:26,083 - INFO -   Quality: 59
+2026-05-13 12:52:26,083 - INFO -   Deadline: None
+2026-05-13 12:52:26,083 - INFO -   University: The University
+2026-05-13 12:52:27,300 - INFO -   SAVED
+2026-05-13 12:52:29,300 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2018/05/04/commonwealth-phd-scho...
+2026-05-13 12:52:29,890 - INFO -   Title candidates: [('Commonwealth PhD Scholarships ', 100, 'heading'), ('Commonwealth PhD Scholarships ', 100, 'title'), ('Commonwealth PhD Scholarships ', 100, 'article')]
+2026-05-13 12:52:29,896 - INFO -   Title: Commonwealth PhD Scholarships 2018 for high income
+2026-05-13 12:52:29,896 - INFO -   Quality: 44
+2026-05-13 12:52:29,896 - INFO -   Deadline: None
+2026-05-13 12:52:29,896 - INFO -   University: None
+2026-05-13 12:52:29,896 - INFO -   Quality too low (44 < 55)
+2026-05-13 12:52:31,897 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2018/02/15/ssacab-phd-scholarshi...
+2026-05-13 12:52:33,120 - INFO -   Title candidates: [('Apply: PhD Scholarships in Bio', 100, 'heading'), ('Apply: PhD Scholarships in Bio', 100, 'article'), ('Apply: PhD Scholarships in Bio', 90, 'title')]
+2026-05-13 12:52:33,126 - INFO -   Title: Apply: PhD Scholarships in Biostatistics at the Su
+2026-05-13 12:52:33,127 - INFO -   Quality: 44
+2026-05-13 12:52:33,127 - INFO -   Deadline: None
+2026-05-13 12:52:33,127 - INFO -   University: None
+2026-05-13 12:52:33,127 - INFO -   Quality too low (44 < 55)
+2026-05-13 12:52:35,128 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2018/01/01/aga-khan-internationa...
+2026-05-13 12:52:36,356 - INFO -   Title candidates: [('Aga Khan International Scholar', 100, 'heading'), ('Aga Khan International Scholar', 100, 'title'), ('Aga Khan International Scholar', 100, 'article')]
+2026-05-13 12:52:36,361 - INFO -   Title: Aga Khan International Scholarship Programme 2018/
+2026-05-13 12:52:36,361 - INFO -   Quality: 44
+2026-05-13 12:52:36,361 - INFO -   Deadline: None
+2026-05-13 12:52:36,361 - INFO -   University: None
+2026-05-13 12:52:36,361 - INFO -   Quality too low (44 < 55)
+2026-05-13 12:52:38,363 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2017/12/06/commonwealth-scholars...
+2026-05-13 12:52:39,573 - INFO -   Title candidates: [('Commonwealth Scholarships for ', 90, 'heading'), ('Commonwealth Scholarships for ', 90, 'title'), ('Commonwealth Scholarships for ', 90, 'article')]
+2026-05-13 12:52:39,577 - INFO -   Title: Commonwealth Scholarships for PhD Study at Nanyang
+2026-05-13 12:52:39,577 - INFO -   Quality: 77
+2026-05-13 12:52:39,578 - INFO -   Deadline: 2026-11-13
+2026-05-13 12:52:39,578 - INFO -   University: Technological University
+2026-05-13 12:52:40,569 - INFO -   SAVED
+2026-05-13 12:52:42,570 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2017/08/18/singapore-internation...
+2026-05-13 12:52:43,800 - INFO -   Title candidates: [('Singapore International Gradua', 100, 'heading'), ('Singapore International Gradua', 100, 'article'), ('Singapore International Gradua', 90, 'title')]
+2026-05-13 12:52:43,804 - INFO -   Title: Singapore International Graduate Award (SINGA) – P
+2026-05-13 12:52:43,804 - INFO -   Quality: 59
+2026-05-13 12:52:43,804 - INFO -   Deadline: None
+2026-05-13 12:52:43,805 - INFO -   University: Singapore University
+2026-05-13 12:52:45,032 - INFO -   SAVED
+2026-05-13 12:52:47,034 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2016/11/29/cas-twas-presidents-p...
+2026-05-13 12:52:48,208 - INFO -   Title candidates: [('CAS-TWAS President’s PhD Fello', 100, 'heading'), ('CAS-TWAS President’s PhD Fello', 100, 'article')]
+2026-05-13 12:52:48,215 - INFO -   Title: CAS-TWAS President’s PhD Fellowship Programme 2017
+2026-05-13 12:52:48,215 - INFO -   Quality: 59
+2026-05-13 12:52:48,215 - INFO -   Deadline: None
+2026-05-13 12:52:48,216 - INFO -   University: University of Chinese
+2026-05-13 12:52:49,264 - INFO -   SAVED
+2026-05-13 12:52:51,265 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2016/10/23/sunway-university-pos...
+2026-05-13 12:52:52,388 - WARNING - No title: https://opportunitydesk.org/2016/10/23/sunway-university-postgraduate-by-research-scholarship/
+2026-05-13 12:52:52,389 - INFO -   No data extracted
+2026-05-13 12:52:54,390 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2016/09/30/john-l-goulandris-sch...
+2026-05-13 12:52:55,555 - INFO -   Title candidates: [('Apply to the John L. Goulandri', 100, 'heading'), ('Apply to the John L. Goulandri', 100, 'title'), ('Apply to the John L. Goulandri', 100, 'article')]
+2026-05-13 12:52:55,559 - INFO -   Title: Apply to the John L. Goulandris Scholarship 2017
+2026-05-13 12:52:55,560 - INFO -   Quality: 79
+2026-05-13 12:52:55,560 - INFO -   Deadline: 2026-11-13
+2026-05-13 12:52:55,560 - INFO -   University: University of Cambridge
+2026-05-13 12:52:56,684 - INFO -   SAVED
+2026-05-13 12:52:58,685 - INFO - 
+Processing scholarship: https://opportunitydesk.org/2016/07/26/japan-imf-scholarship...
+2026-05-13 12:52:59,914 - INFO -   Title candidates: [('Japan-IMF Scholarship Program ', 100, 'heading'), ('Japan-IMF Scholarship Program ', 100, 'article')]
+2026-05-13 12:52:59,918 - INFO -   Title: Japan-IMF Scholarship Program 2017
+2026-05-13 12:52:59,919 - INFO -   Quality: 79
+2026-05-13 12:52:59,919 - INFO -   Deadline: 2026-11-13
+2026-05-13 12:52:59,919 - INFO -   University: Harvard University
+2026-05-13 12:53:00,996 - INFO -   SAVED
+2026-05-13 12:53:02,997 - INFO - 
+Processing scholarship: https://opportunitydesk.org/tag/phd-scholarships/page/2/...
+2026-05-13 12:53:04,057 - INFO -   Title candidates: [('TaiwanICDF International Highe', 100, 'heading'), ('2015/16 NITDA Postgraduate Sch', 100, 'heading'), ('Study in Singapore – 2015 Sing', 100, 'heading')]
+2026-05-13 12:53:04,062 - INFO -   Title: TaiwanICDF International Higher Education Scholars
+2026-05-13 12:53:04,062 - INFO -   Quality: 44
+2026-05-13 12:53:04,062 - INFO -   Deadline: None
+2026-05-13 12:53:04,062 - INFO -   University: None
+2026-05-13 12:53:04,062 - INFO -   Quality too low (44 < 55)
+2026-05-13 13:31:37,746 - INFO - 
+============================================================
+Processing: https://www.scholars4dev.com/category/scholarships/
+============================================================
+2026-05-13 13:31:40,354 - INFO - Page type: listing
+2026-05-13 13:31:56,816 - INFO - Found 12 scholarship links
+2026-05-13 13:31:56,817 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/category/scholarships-list/...
+2026-05-13 13:31:58,461 - INFO -   Title candidates: [('List of List of Scholarships, ', 90, 'heading'), ('UNICAF Scholarships for Online', 90, 'heading'), ('Top 10 Prestigious Scholarship', 90, 'heading')]
+2026-05-13 13:31:58,466 - INFO -   Title: List of List of Scholarships, Grants, and Fellowsh
+2026-05-13 13:31:58,466 - INFO -   Quality: 62
+2026-05-13 13:31:58,467 - INFO -   Deadline: 6123-01-13
+2026-05-13 13:31:58,467 - INFO -   University: None
+2026-05-13 13:31:59,583 - INFO -   SAVED
+2026-05-13 13:32:01,585 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/category/scholarships-list/scho...
+2026-05-13 13:32:03,270 - INFO -   Title candidates: [('List of Scholarship Tips Schol', 90, 'heading'), ('UNICAF Scholarships for Online', 90, 'heading'), ('Scholarship Application Questi', 90, 'heading')]
+2026-05-13 13:32:03,275 - INFO -   Title: List of Scholarship Tips Scholarships, Grants, and
+2026-05-13 13:32:03,275 - INFO -   Quality: 42
+2026-05-13 13:32:03,276 - INFO -   Deadline: None
+2026-05-13 13:32:03,276 - INFO -   University: None
+2026-05-13 13:32:03,276 - INFO -   Quality too low (42 < 55)
+2026-05-13 13:32:05,277 - INFO - 
+Processing scholarship: https://www.scholars4dev.com/29443/unicaf-scholarships-for-o...
+2026-05-13 13:34:36,158 - 
+======================================================================
+2026-05-13 13:34:36,158 - Processing listing: https://opportunitydesk.org/scholarships/
+2026-05-13 13:34:36,159 - ======================================================================
+2026-05-13 13:34:48,000 - Found 8 scholarship posts
+2026-05-13 13:34:48,828 -   Scraping blog post: https://opportunitydesk.org/2016/01/08/onassis-fellowship-pr...
+2026-05-13 13:34:50,033 -     No valid title found
+2026-05-13 13:34:53,049 -   Scraping blog post: https://opportunitydesk.org/2016/01/10/developing-solutions-...
+2026-05-13 13:34:53,670 -     No valid title found
+2026-05-13 13:34:56,496 -   Scraping blog post: https://opportunitydesk.org/2026/05/11/mastercard-foundation...
+2026-05-13 13:34:57,141 -     No valid title found
+2026-05-13 13:35:00,148 -   Scraping blog post: https://opportunitydesk.org/2026/05/09/66-grants-study-abroa...
+2026-05-13 13:35:00,760 -     No valid title found
+2026-05-13 13:35:03,728 -   Scraping blog post: https://opportunitydesk.org/2026/05/09/cecil-renaud-overseas...
+2026-05-13 13:35:04,329 -     No valid title found
+2026-05-13 13:35:07,293 -   Scraping blog post: https://opportunitydesk.org/2026/05/12/apsa-doctoral-dissert...
+2026-05-13 13:35:07,948 -     No valid title found
+2026-05-13 13:35:11,047 -   Scraping blog post: https://opportunitydesk.org/2026/05/12/ioc-osc-research-gran...
+2026-05-13 13:35:11,696 -     No valid title found
+2026-05-13 13:35:14,683 -   Scraping blog post: https://opportunitydesk.org/2026/05/12/carnegie-mellon-unive...
+2026-05-13 13:35:15,319 -     No valid title found
+2026-05-13 13:35:22,323 - 
+======================================================================
+2026-05-13 13:35:22,323 - Processing listing: https://www.scholars4dev.com/category/scholarships/
+2026-05-13 13:35:22,323 - ======================================================================
+2026-05-13 13:35:36,728 - Found 10 scholarship posts
+2026-05-13 13:35:37,705 -   Scraping blog post: https://www.scholars4dev.com/29443/unicaf-scholarships-for-o...
+2026-05-13 13:35:39,761 -     No valid title found
+2026-05-13 13:35:42,741 -   Scraping blog post: https://www.scholars4dev.com/6268/top-10-scholarships-for-in...
+2026-05-13 13:35:44,385 -     ✗ No official link found
+2026-05-13 13:35:44,386 -     Title: Top 10 Prestigious Scholarships for the Best Inter
+2026-05-13 13:35:44,386 -     Quality: 55
+2026-05-13 13:35:44,386 -     Official Link: https://www.scholars4dev.com/6268/top-10-scholarships-for-in
+2026-05-13 13:35:44,386 -     Verified: False
+2026-05-13 13:35:44,387 -     ✗ Quality too low (55 < 60)
+2026-05-13 13:35:47,251 -   Scraping blog post: https://www.scholars4dev.com/11693/scholarships-in-italy-sch...
+2026-05-13 13:35:48,838 -     ✗ No official link found
+2026-05-13 13:35:48,839 -     Title: Top 10+ Scholarships in Italy for International St
+2026-05-13 13:35:48,840 -     Quality: 55
+2026-05-13 13:35:48,840 -     Official Link: https://www.scholars4dev.com/11693/scholarships-in-italy-sch
+2026-05-13 13:35:48,840 -     Verified: False
+2026-05-13 13:35:48,841 -     ✗ Quality too low (55 < 60)
+2026-05-13 13:35:51,807 -   Scraping blog post: https://www.scholars4dev.com/11217/scholarships-in-new-zeala...
+2026-05-13 13:35:53,464 -     ✗ No official link found
+2026-05-13 13:35:53,465 -     Title: Top 10 Scholarships in New Zealand for Internation
+2026-05-13 13:35:53,466 -     Quality: 55
+2026-05-13 13:35:53,466 -     Official Link: https://www.scholars4dev.com/11217/scholarships-in-new-zeala
+2026-05-13 13:35:53,466 -     Verified: False
+2026-05-13 13:35:53,466 -     ✗ Quality too low (55 < 60)
+2026-05-13 13:35:56,392 -   Scraping blog post: https://www.scholars4dev.com/1892/government-scholarships-fo...
+2026-05-13 13:35:58,036 -     ✗ No official link found
+2026-05-13 13:35:58,036 -     Title: Top 25 Foreign Government Scholarships for Interna
+2026-05-13 13:35:58,036 -     Quality: 55
+2026-05-13 13:35:58,036 -     Official Link: https://www.scholars4dev.com/1892/government-scholarships-fo
+2026-05-13 13:35:58,036 -     Verified: False
+2026-05-13 13:35:58,037 -     ✗ Quality too low (55 < 60)
+2026-05-13 13:36:01,056 -   Scraping blog post: https://www.scholars4dev.com/8434/scholarships-study-any-cou...
+2026-05-13 13:36:02,699 -     ✗ No official link found
+2026-05-13 13:36:02,700 -     Title: Top 5+ Scholarships for Study in Any Country or An
+2026-05-13 13:36:02,700 -     Quality: 40
+2026-05-13 13:36:02,700 -     Official Link: https://www.scholars4dev.com/8434/scholarships-study-any-cou
+2026-05-13 13:36:02,700 -     Verified: False
+2026-05-13 13:36:02,701 -     ✗ Quality too low (40 < 60)
+2026-05-13 13:36:05,660 -   Scraping blog post: https://www.scholars4dev.com/10017/top-100-international-sch...
+2026-05-13 13:36:07,281 -     ✓ Found official link: https://www.uopeople.edu/
+2026-05-13 13:36:07,979 -     ✓ Official link verified
+2026-05-13 13:36:07,980 -     Title: Top 75 International Scholarships to Watch out for
+2026-05-13 13:36:07,980 -     Quality: 75
+2026-05-13 13:36:07,980 -     Official Link: https://www.uopeople.edu/
+2026-05-13 13:36:07,980 -     Verified: True
+2026-05-13 13:36:09,196 -     ✓ SAVED
+2026-05-13 13:36:12,214 -   Scraping blog post: https://www.scholars4dev.com/5642/scholarships-in-uk-for-int...
+2026-05-13 13:36:13,803 -     ✗ No official link found
+2026-05-13 13:36:13,850 -     Title: Top 15+ UK Scholarships for International Students
+2026-05-13 13:36:13,850 -     Quality: 55
+2026-05-13 13:36:13,850 -     Official Link: https://www.scholars4dev.com/5642/scholarships-in-uk-for-int
+2026-05-13 13:36:13,850 -     Verified: False
+2026-05-13 13:36:13,850 -     ✗ Quality too low (55 < 60)
+2026-05-13 13:36:16,775 -   Scraping blog post: https://www.scholars4dev.com/6599/scholarships-in-sweden-for...
+2026-05-13 13:36:18,434 -     ✗ No official link found
+2026-05-13 13:36:18,435 -     Title: Top 20+ Scholarships in Sweden for International S
+2026-05-13 13:36:18,435 -     Quality: 55
+2026-05-13 13:36:18,436 -     Official Link: https://www.scholars4dev.com/6599/scholarships-in-sweden-for
+2026-05-13 13:36:18,436 -     Verified: False
+2026-05-13 13:36:18,436 -     ✗ Quality too low (55 < 60)
+2026-05-13 13:36:21,364 -   Scraping blog post: https://www.scholars4dev.com/8909/scholarships-france-foreig...
+2026-05-13 13:36:23,045 -     ✓ Found official link: http://mba.insead.edu/schlmgmt/
+2026-05-13 13:36:23,746 -     ✗ Official link not accessible
+2026-05-13 13:36:23,747 -     Title: Top 10 Scholarships in France for Foreign Students
+2026-05-13 13:36:23,747 -     Quality: 55
+2026-05-13 13:36:23,747 -     Official Link: https://www.scholars4dev.com/8909/scholarships-france-foreig
+2026-05-13 13:36:23,747 -     Verified: False
+2026-05-13 13:36:23,747 -     ✗ Quality too low (55 < 60)
+2026-05-13 13:36:30,750 - 
+======================================================================
+2026-05-13 13:36:30,750 - Processing listing: https://www.afterschoolafrica.com/scholarships/
+2026-05-13 13:36:30,750 - ======================================================================
+2026-05-13 13:36:32,646 - Found 0 scholarship posts
+2026-05-13 13:36:37,648 - 
+======================================================================
+2026-05-13 13:36:37,648 - ✓ COMPLETED: 1 scholarships saved
+2026-05-13 13:36:37,648 - ======================================================================
+2026-05-13 14:16:23,155 - 
+======================================================================
+2026-05-13 14:16:23,157 - Processing: https://opportunitydesk.org/scholarships/
+2026-05-13 14:16:23,157 - ======================================================================
+2026-05-13 14:16:34,462 - Found 8 posts
+2026-05-13 14:16:35,577 -   Scraping: https://opportunitydesk.org/2016/01/08/onassis-fellowship-program/...
+2026-05-13 14:16:36,510 -     X No valid title
+2026-05-13 14:16:39,596 -   Scraping: https://opportunitydesk.org/2016/01/10/developing-solutions-masters-sc...
+2026-05-13 14:16:40,316 -     X No valid title
+2026-05-13 14:16:43,393 -   Scraping: https://opportunitydesk.org/2026/05/11/mastercard-foundation-doctoral-...
+2026-05-13 14:16:44,250 -     X No valid title
+2026-05-13 14:16:47,372 -   Scraping: https://opportunitydesk.org/2026/05/09/66-grants-study-abroad-training...
+2026-05-13 14:16:48,279 -     X No valid title
+2026-05-13 14:16:51,422 -   Scraping: https://opportunitydesk.org/2026/05/09/cecil-renaud-overseas-scholarsh...
+2026-05-13 14:16:52,119 -     X No valid title
+2026-05-13 14:16:55,409 -   Scraping: https://opportunitydesk.org/2026/05/12/apsa-doctoral-dissertation-rese...
+2026-05-13 14:16:56,243 -     X No valid title
+2026-05-13 14:16:59,175 -   Scraping: https://opportunitydesk.org/2026/05/12/ioc-osc-research-grant-programm...
+2026-05-13 14:16:59,782 -     X No valid title
+2026-05-13 14:17:02,762 -   Scraping: https://opportunitydesk.org/2026/05/12/carnegie-mellon-university-afri...
+2026-05-13 14:17:03,543 -     X No valid title
+2026-05-13 14:17:10,548 - 
+======================================================================
+2026-05-13 14:17:10,548 - Processing: https://www.scholars4dev.com/category/scholarships/
+2026-05-13 14:17:10,548 - ======================================================================
+2026-05-13 14:17:26,882 - Found 10 posts
+2026-05-13 14:17:28,014 -   Scraping: https://www.scholars4dev.com/29443/unicaf-scholarships-for-online-degr...
+2026-05-13 14:17:30,176 -     X No valid title
+2026-05-13 14:17:33,202 -   Scraping: https://www.scholars4dev.com/6268/top-10-scholarships-for-internationa...
+2026-05-13 14:17:34,847 -     - No official link
+2026-05-13 14:17:34,847 -     Title: Top 10 Prestigious Scholarships for the Best Inter
+2026-05-13 14:17:34,847 -     Quality: 60
+2026-05-13 14:17:34,847 -     Deadline: None
+2026-05-13 14:17:34,847 -     Verified: False
+2026-05-13 14:17:35,949 -     SAVED
+2026-05-13 14:17:38,928 -   Scraping: https://www.scholars4dev.com/11693/scholarships-in-italy-scholarships-...
+2026-05-13 14:17:40,515 -     - No official link
+2026-05-13 14:17:40,515 -     Title: Top 10+ Scholarships in Italy for International St
+2026-05-13 14:17:40,522 -     Quality: 60
+2026-05-13 14:17:40,522 -     Deadline: None
+2026-05-13 14:17:40,522 -     Verified: False
+2026-05-13 14:17:41,717 -     SAVED
+2026-05-13 14:17:44,656 -   Scraping: https://www.scholars4dev.com/11217/scholarships-in-new-zealand-for-int...
+2026-05-13 14:17:46,310 -     - No official link
+2026-05-13 14:17:46,311 -     Title: Top 10 Scholarships in New Zealand for Internation
+2026-05-13 14:17:46,311 -     Quality: 60
+2026-05-13 14:17:46,311 -     Deadline: None
+2026-05-13 14:17:46,311 -     Verified: False
+2026-05-13 14:17:47,584 -     SAVED
+2026-05-13 14:17:50,392 -   Scraping: https://www.scholars4dev.com/1892/government-scholarships-for-developi...
+2026-05-13 14:17:52,009 -     - No official link
+2026-05-13 14:17:52,012 -     Title: Top 25 Foreign Government Scholarships for Interna
+2026-05-13 14:17:52,012 -     Quality: 60
+2026-05-13 14:17:52,012 -     Deadline: None
+2026-05-13 14:17:52,012 -     Verified: False
+2026-05-13 14:17:53,050 -     SAVED
+2026-05-13 14:17:56,122 -   Scraping: https://www.scholars4dev.com/8434/scholarships-study-any-country/...
+2026-05-13 14:17:57,776 -     - No official link
+2026-05-13 14:17:57,781 -     Title: Top 5+ Scholarships for Study in Any Country or An
+2026-05-13 14:17:57,781 -     Quality: 45
+2026-05-13 14:17:57,781 -     Deadline: None
+2026-05-13 14:17:57,781 -     Verified: False
+2026-05-13 14:17:57,781 -     Low quality (45)
+2026-05-13 14:18:00,871 -   Scraping: https://www.scholars4dev.com/10017/top-100-international-scholarships-...
+2026-05-13 14:18:02,543 -     + Official: https://www.uopeople.edu/
+2026-05-13 14:18:03,046 -     Title: Top 75 International Scholarships to Watch out for
+2026-05-13 14:18:03,046 -     Quality: 75
+2026-05-13 14:18:03,046 -     Deadline: None
+2026-05-13 14:18:03,046 -     Verified: True
+2026-05-13 14:18:07,205 -   Scraping: https://www.scholars4dev.com/5642/scholarships-in-uk-for-international...
+2026-05-13 14:18:08,777 -     - No official link
+2026-05-13 14:18:08,777 -     Title: Top 15+ UK Scholarships for International Students
+2026-05-13 14:18:08,777 -     Quality: 60
+2026-05-13 14:18:08,777 -     Deadline: None
+2026-05-13 14:18:08,777 -     Verified: False
+2026-05-13 14:18:09,815 -     SAVED
+2026-05-13 14:18:12,779 -   Scraping: https://www.scholars4dev.com/6599/scholarships-in-sweden-for-internati...
+2026-05-13 14:18:14,383 -     - No official link
+2026-05-13 14:18:14,383 -     Title: Top 20+ Scholarships in Sweden for International S
+2026-05-13 14:18:14,385 -     Quality: 60
+2026-05-13 14:18:14,385 -     Deadline: None
+2026-05-13 14:18:14,385 -     Verified: False
+2026-05-13 14:18:15,470 -     SAVED
+2026-05-13 14:18:18,454 -   Scraping: https://www.scholars4dev.com/8909/scholarships-france-foreign-students...
+2026-05-13 14:18:20,116 -     + Official: http://mba.insead.edu/schlmgmt/
+2026-05-13 14:18:20,769 -     Title: Top 10 Scholarships in France for Foreign Students
+2026-05-13 14:18:20,769 -     Quality: 60
+2026-05-13 14:18:20,769 -     Deadline: None
+2026-05-13 14:18:20,769 -     Verified: False
+2026-05-13 14:18:21,896 -     SAVED
+2026-05-13 14:18:28,900 - 
+======================================================================
+2026-05-13 14:18:28,901 - Processing: https://www.afterschoolafrica.com/scholarships/
+2026-05-13 14:18:28,904 - ======================================================================
+2026-05-13 14:18:32,446 - Found 0 posts
+2026-05-13 14:18:37,454 - 
+======================================================================
+2026-05-13 14:18:37,454 - COMPLETED: 7 scholarships saved
+2026-05-13 14:18:37,454 - ======================================================================
+2026-05-13 21:02:29,180 - 
+======================================================================
+2026-05-13 21:02:29,183 - Processing: https://opportunitydesk.org/scholarships/
+2026-05-13 21:02:29,183 - ======================================================================
+2026-05-13 21:02:42,744 - Found 7 posts
+2026-05-13 21:02:43,867 -   Scraping: https://opportunitydesk.org/2016/01/08/onassis-fellowship-program/...
+2026-05-13 21:02:45,089 -     X No valid title
+2026-05-13 21:02:48,033 -   Scraping: https://opportunitydesk.org/2016/01/10/developing-solutions-masters-sc...
+2026-05-13 21:02:49,272 -     X No valid title
+2026-05-13 21:02:52,353 -   Scraping: https://opportunitydesk.org/2026/05/09/66-grants-study-abroad-training...
+2026-05-13 21:02:52,993 -     X No valid title
+2026-05-13 21:02:55,998 -   Scraping: https://opportunitydesk.org/2026/05/13/sir-ratan-tata-postdoctoral-fel...
+2026-05-13 21:02:56,683 -     X No valid title
+2026-05-13 21:02:59,760 -   Scraping: https://opportunitydesk.org/2026/05/13/allstate-main-street-grants-pro...
+2026-05-13 21:03:00,314 -     X No valid title
+2026-05-13 21:03:03,206 -   Scraping: https://opportunitydesk.org/2026/05/13/uicc-technical-fellowships-2026...
+2026-05-13 21:03:03,807 -     X No valid title
+2026-05-13 21:03:06,751 -   Scraping: https://opportunitydesk.org/2026/05/13/french-institutes-for-advanced-...
+2026-05-13 21:03:07,430 -     X No valid title
+2026-05-13 21:03:14,437 - 
+======================================================================
+2026-05-13 21:03:14,437 - Processing: https://www.scholars4dev.com/category/scholarships/
+2026-05-13 21:03:14,437 - ======================================================================
+2026-05-13 21:03:17,086 - Error: 404 Client Error: Not Found for url: https://www.scholars4dev.com/category/scholarships/
+2026-05-13 21:03:22,109 - 
+======================================================================
+2026-05-13 21:03:22,114 - Processing: https://www.afterschoolafrica.com/scholarships/
+2026-05-13 21:03:22,117 - ======================================================================
+2026-05-13 21:03:25,158 - Found 0 posts
+2026-05-13 21:03:30,164 - 
+======================================================================
+2026-05-13 21:03:30,185 - COMPLETED: 0 scholarships saved
+2026-05-13 21:03:30,185 - ======================================================================
+2026-05-13 21:22:39,697 - 
+======================================================================
+2026-05-13 21:22:39,697 - Processing: https://opportunitydesk.org/scholarships/
+2026-05-13 21:22:39,697 - ======================================================================
+2026-05-13 21:23:06,621 - Found 7 posts
+2026-05-13 21:23:07,599 -   Scraping: https://opportunitydesk.org/2016/01/08/onassis-fellowship-program/...
+2026-05-13 21:23:08,248 -     X No valid title
+2026-05-13 21:23:11,129 -   Scraping: https://opportunitydesk.org/2016/01/10/developing-solutions-masters-sc...
+2026-05-13 21:23:11,800 -     X No valid title
+2026-05-13 21:23:14,908 -   Scraping: https://opportunitydesk.org/2026/05/09/66-grants-study-abroad-training...
+2026-05-13 21:23:15,548 -     X No valid title
+2026-05-13 21:23:18,509 -   Scraping: https://opportunitydesk.org/2026/05/13/sir-ratan-tata-postdoctoral-fel...
+2026-05-13 21:23:19,125 -     X No valid title
+2026-05-13 21:23:22,077 -   Scraping: https://opportunitydesk.org/2026/05/13/allstate-main-street-grants-pro...
+2026-05-13 21:23:22,697 -     X No valid title
+2026-05-13 21:23:25,797 -   Scraping: https://opportunitydesk.org/2026/05/13/uicc-technical-fellowships-2026...
+2026-05-13 21:23:26,464 -     X No valid title
+2026-05-13 21:23:29,320 -   Scraping: https://opportunitydesk.org/2026/05/13/french-institutes-for-advanced-...
+2026-05-13 21:23:29,897 -     X No valid title
+2026-05-13 21:23:36,908 - 
+======================================================================
+2026-05-13 21:23:36,908 - Processing: https://www.scholars4dev.com/category/scholarships/
+2026-05-13 21:23:36,908 - ======================================================================
+2026-05-13 21:23:38,506 - Error: 404 Client Error: Not Found for url: https://www.scholars4dev.com/category/scholarships/
+2026-05-13 21:23:43,508 - 
+======================================================================
+2026-05-13 21:23:43,509 - Processing: https://www.afterschoolafrica.com/scholarships/
+2026-05-13 21:23:43,509 - ======================================================================
+2026-05-13 21:23:45,277 - Found 0 posts
+2026-05-13 21:23:50,281 - 
+======================================================================
+2026-05-13 21:23:50,281 - COMPLETED: 0 scholarships saved
+2026-05-13 21:23:50,281 - ======================================================================
+2026-05-13 21:29:50,157 - 
+======================================================================
+2026-05-13 21:29:50,157 - Processing: https://opportunitydesk.org/scholarships/
+2026-05-13 21:29:50,157 - ======================================================================
+2026-05-13 21:30:09,566 - Found 7 posts
+2026-05-13 21:30:10,411 -   Scraping: https://opportunitydesk.org/2016/01/08/onassis-fellowship-program/...
+2026-05-13 21:30:11,045 -     X No valid title
+2026-05-13 21:30:14,144 -   Scraping: https://opportunitydesk.org/2016/01/10/developing-solutions-masters-sc...
+2026-05-13 21:30:14,779 -     X No valid title
+2026-05-13 21:30:17,734 -   Scraping: https://opportunitydesk.org/2026/05/09/66-grants-study-abroad-training...
+2026-05-13 21:30:18,433 -     X No valid title
+2026-05-13 21:30:21,568 -   Scraping: https://opportunitydesk.org/2026/05/13/sir-ratan-tata-postdoctoral-fel...
+2026-05-13 21:30:22,188 -     X No valid title
+2026-05-13 21:30:25,186 -   Scraping: https://opportunitydesk.org/2026/05/13/allstate-main-street-grants-pro...
+2026-05-13 21:30:25,810 -     X No valid title
+2026-05-13 21:30:28,984 -   Scraping: https://opportunitydesk.org/2026/05/13/uicc-technical-fellowships-2026...
+2026-05-13 21:30:29,592 -     X No valid title
+2026-05-13 21:30:32,505 -   Scraping: https://opportunitydesk.org/2026/05/13/french-institutes-for-advanced-...
+2026-05-13 21:30:33,133 -     X No valid title
+2026-05-13 21:30:40,136 - 
+======================================================================
+2026-05-13 21:30:40,137 - Processing: https://www.scholars4dev.com/category/scholarships/
+2026-05-13 21:30:40,137 - ======================================================================
+2026-05-13 21:30:41,542 - Error: 404 Client Error: Not Found for url: https://www.scholars4dev.com/category/scholarships/
+2026-05-13 21:30:46,544 - 
+======================================================================
+2026-05-13 21:30:46,545 - Processing: https://www.afterschoolafrica.com/scholarships/
+2026-05-13 21:30:46,545 - ======================================================================
+2026-05-13 21:30:55,592 - Found 0 posts
+2026-05-13 21:31:00,599 - 
+======================================================================
+2026-05-13 21:31:00,599 - COMPLETED: 0 scholarships saved
+2026-05-13 21:31:00,599 - ======================================================================
