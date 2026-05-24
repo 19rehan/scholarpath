@@ -1,0 +1,87 @@
+'use client';
+import { useState, useEffect } from 'react';
+import { supabase } from '../lib/supabase';
+import Link from 'next/link';
+
+export default function HomePage() {
+  const [scholarships, setScholarships] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const itemsPerPage = 30;
+
+  useEffect(() => {
+    fetchScholarships();
+  }, [currentPage]);
+
+  const fetchScholarships = async () => {
+    setLoading(true);
+    const from = (currentPage - 1) * itemsPerPage;
+    const to = from + itemsPerPage - 1;
+    const { count } = await supabase.from('scholarship_details').select('*', { count: 'exact', head: true }).gte('quality_score', 55);
+    setTotalCount(count || 0);
+    const { data } = await supabase.from('scholarship_details').select('*').gte('quality_score', 55).order('last_updated', { ascending: false }).range(from, to);
+    if (data) setScholarships(data);
+    setLoading(false);
+  };
+
+  const totalPages = Math.ceil(totalCount / itemsPerPage);
+
+  return (
+    
+      
+        
+          Find Your Dream Scholarship
+          {totalCount}+ Scholarships for International Students
+          
+            
+          
+        
+      
+      
+        
+          Latest Scholarships
+          Showing {((currentPage - 1) * itemsPerPage) + 1}-{Math.min(currentPage * itemsPerPage, totalCount)} of {totalCount}
+        
+        {loading ? (
+          
+            
+            Loading scholarships...
+          
+        ) : (
+          <>
+            
+              {scholarships.map((scholarship) => (
+                
+                  {scholarship.title}
+                  
+                    {scholarship.university_name && 🎓{scholarship.university_name}}
+                    {scholarship.country && 📍{scholarship.country}}
+                    {scholarship.degree_level && 📚{scholarship.degree_level}}
+                    {scholarship.deadline && ⏰Deadline: {new Date(scholarship.deadline).toLocaleDateString()}}
+                  
+                  
+                    Quality: {scholarship.quality_score}/100
+                    View Details →
+                  
+                
+              ))}
+            
+            
+               setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1} className="px-6 py-3 bg-blue-600 text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-blue-700 transition">Previous
+              Page {currentPage} of {totalPages}
+               setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="px-6 py-3 bg-blue-600 text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-blue-700 transition">Next
+            
+          
+        )}
+      
+      
+        
+          Need Help Finding the Perfect Scholarship?
+          Our AI assistant can guide you through eligibility and applications
+          Learn More
+        
+      
+    
+  );
+}

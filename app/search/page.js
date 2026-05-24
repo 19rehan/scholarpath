@@ -21,7 +21,7 @@ function SearchResults() {
       .select('*')
       .or(`title.ilike.%${query}%,seo_description.ilike.%${query}%,country.ilike.%${query}%,region.ilike.%${query}%,degree_level.ilike.%${query}%,funding_type.ilike.%${query}%,university_name.ilike.%${query}%`)
       .order('id', { ascending: false })
-      .limit(60)
+      .limit(500)
     setResults(data || [])
     setLoading(false)
   }
