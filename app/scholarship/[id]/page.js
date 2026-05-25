@@ -132,7 +132,7 @@ export default function ScholarshipPage({ params }) {
                 )}
               </div>
 
-              <h1 style={{ fontSize: 'clamp(22px,3.5vw,38px)', fontWeight: '800', color: mainTitleColor, lineHeight: '1.25', marginBottom: '24px', letterSpacing: '-0.5px', textShadow: '0 2px 20px rgba(0,0,0,0.3)' }}>
+              <h1 style={{ fontSize: '28', fontWeight: '800', color: mainTitleColor, lineHeight: '1.25', marginBottom: '24px', letterSpacing: '-0.5px', textShadow: '0 2px 20px rgba(0,0,0,0.3)' }}>
                 {s.seo_title || s.title}
               </h1>
 
