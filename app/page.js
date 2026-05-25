@@ -240,7 +240,7 @@ export default function Home() {
               </span>
             </div>
 
-            <h1 className="animate-in" style={{ fontSize: '56', fontWeight: '900', lineHeight: '1.05', letterSpacing: '-4px', marginBottom: '32px', animationDelay: '0.1s' }}>
+            <h1 className="animate-in" style={{ fontSize: '90px', fontWeight: '900', lineHeight: '1.05', letterSpacing: '-4px', marginBottom: '32px', animationDelay: '0.1s' }}>
               <span style={{ color: '#0f172a' }}>Find Your</span>
               <br />
               <span style={{ background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
