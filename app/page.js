@@ -125,7 +125,7 @@ export default function Home() {
         {showProfilePopup && (
           <div onClick={closePopup} style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999, background: 'rgba(15, 23, 42, 0.6)', backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
             <div onClick={e => e.stopPropagation()} style={{ background: 'white', borderRadius: '17px', maxWidth: '280px', width: '100%', overflow: 'hidden', boxShadow: '0 32px 80px rgba(0,0,0,0.25)', animation: 'popupIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards' }}>
-              <div style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed)', padding: '18px 28px 20px', position: 'relative' }}>
+              <div style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed)', padding: '18px 22px 20px', position: 'relative' }}>
                 <button onClick={closePopup} style={{ position: 'absolute', top: '20px', right: '20px', background: 'rgba(255,255,255,0.15)', border: 'none', cursor: 'pointer', width: '36px', height: '36px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' }} onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.25)'} onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.15)'}>
                   <X size={18} color="white" strokeWidth={2.5} />
                 </button>
