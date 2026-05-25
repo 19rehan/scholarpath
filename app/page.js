@@ -255,12 +255,12 @@ export default function Home() {
 
             {/* SEARCH BAR */}
             <form onSubmit={handleSearch} className="animate-in" style={{ maxWidth: '780px', margin: '0 auto 28px', animationDelay: '0.3s' }}>
-              <div style={{ display: 'flex', background: 'white', border: '2px solid #e2e8f0', borderRadius: '24px', padding: '10px', boxShadow: '0 20px 60px rgba(79, 70, 229, 0.12)', transition: 'all 0.3s ease' }}
+              <div style={{ display: 'flex', background: 'white', border: '2px solid #e2e8f0', borderRadius: '24px', padding: '6px', boxShadow: '0 20px 60px rgba(79, 70, 229, 0.12)', transition: 'all 0.3s ease' }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = '#c7d2fe'; e.currentTarget.style.boxShadow = '0 24px 70px rgba(79, 70, 229, 0.18)' }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(79, 70, 229, 0.12)' }}>
                 <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '18px', padding: '0 28px' }}>
                   <Search size={24} color="#94a3b8" strokeWidth={2.5} />
-                  <input type="text" value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by country, university, or field..." style={{ flex: 1, border: 'none', outline: 'none', fontSize: '18px', color: '#0f172a', background: 'transparent', fontFamily: 'inherit', fontWeight: '500' }} />
+                  <input type="text" value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by country, university, or field..." style={{ flex: 1, border: 'none', outline: 'none', fontSize: '15px', color: '#0f172a', background: 'transparent', fontFamily: 'inherit', fontWeight: '500' }} />
                 </div>
                 <button type="submit" style={{ padding: '18px 40px', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', border: 'none', borderRadius: '18px', fontSize: '17px', fontWeight: '700', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', boxShadow: '0 8px 24px rgba(139, 92, 246, 0.4)', transition: 'all 0.3s ease' }}
                   onMouseEnter={e => { e.target.style.transform = 'translateY(-2px)'; e.target.style.boxShadow = '0 12px 32px rgba(139, 92, 246, 0.5)' }}
