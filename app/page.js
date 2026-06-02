@@ -33,6 +33,15 @@ export default function Home() {
       setUser(currentUser)
     }
     checkUser()
+    
+    // Refetch scholarships when page regains focus
+    const handleFocus = () => {
+      if (scholarships.length === 0 && !loading) {
+        fetchScholarships()
+      }
+    }
+    window.addEventListener('focus', handleFocus)
+    return () => window.removeEventListener('focus', handleFocus)
   }, [])
 
   useEffect(() => {
@@ -268,6 +277,10 @@ export default function Home() {
 
                   {showProfileMenu && (
                     <div style={{ position: 'absolute', right: 0, top: '60px', width: '220px', background: 'white', borderRadius: '16px', boxShadow: '0 12px 40px rgba(0,0,0,0.15)', border: '1px solid #f0f0f0', overflow: 'hidden', zIndex: 999 }}>
+                      <div style={{ padding: '14px 20px', color: '#94a3b8', fontSize: '13px', fontWeight: '600', borderBottom: '1px solid #f8fafc' }}>
+                        Signed in as<br/>
+                        <span style={{ color: '#0f172a', fontWeight: '700' }}>{user.email?.split('@')[0]}</span>
+                      </div>
                       <Link href="/dashboard" style={{ display: 'block', padding: '14px 20px', color: '#0f172a', textDecoration: 'none', fontSize: '15px', fontWeight: '600', borderBottom: '1px solid #f8fafc', transition: 'all 0.2s' }}
                         onMouseEnter={e => { e.target.style.background = '#f8fafc'; e.target.style.color = '#4f46e5' }}
                         onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.color = '#0f172a' }}>
