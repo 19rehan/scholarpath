@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
+import { getUser, signOut } from '../lib/supabase-auth'
 import Link from 'next/link'
 import { Search, Sparkles, Globe2, TrendingUp, Zap, ArrowRight, GraduationCap, X, ChevronRight, Filter } from 'lucide-react'
 import ScholarshipCard from './components/ScholarshipCard'
@@ -18,16 +19,31 @@ export default function Home() {
   const [activeFunding, setActiveFunding] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [showProfilePopup, setShowProfilePopup] = useState(false)
+  const [user, setUser] = useState(null)
+  const [showProfileMenu, setShowProfileMenu] = useState(false)
+  const [menuTimeout, setMenuTimeout] = useState(null)
 
   useEffect(() => {
     fetchScholarships()
   }, [activeLevel, activeRegion, activeFunding, currentPage])
 
   useEffect(() => {
-    const hasProfile = localStorage.getItem('admitgoal_has_profile')
-    if (!hasProfile) {
-      setTimeout(() => setShowProfilePopup(true), 8000)
+    async function checkUser() {
+      const currentUser = await getUser()
+      setUser(currentUser)
     }
+    checkUser()
+  }, [])
+
+  useEffect(() => {
+    // Only show popup after user state is loaded AND user is not logged in
+    async function checkAndShowPopup() {
+      const currentUser = await getUser()
+      if (!currentUser) {
+        setTimeout(() => setShowProfilePopup(true), 8000)
+      }
+    }
+    checkAndShowPopup()
   }, [])
 
   async function fetchScholarships() {
@@ -77,6 +93,13 @@ export default function Home() {
       setActiveFunding(activeFunding === value ? '' : value)
     }
     setCurrentPage(1)
+  }
+
+  async function handleLogout() {
+    await signOut()
+    setUser(null)
+    setShowProfileMenu(false)
+    window.location.href = '/'
   }
 
   const regions = ['Europe', 'Asia', 'Middle East', 'Oceania', 'North America', 'Africa']
@@ -157,7 +180,7 @@ export default function Home() {
                   ))}
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  <Link href="/profile/create" style={{ textDecoration: 'none' }}>
+                  <Link href="/signup" style={{ textDecoration: 'none' }}>
                     <button style={{ width: '100%', padding: '16px', background: 'linear-gradient(135deg, #4f46e5, #7c3aed)', color: 'white', border: 'none', borderRadius: '14px', fontSize: '16px', fontWeight: '700', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', transition: 'all 0.3s', boxShadow: '0 8px 24px rgba(79,70,229,0.3)' }} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(79,70,229,0.4)' }} onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(79,70,229,0.3)' }}>
                       Create Free Profile <ChevronRight size={18} strokeWidth={2.5} />
                     </button>
@@ -217,11 +240,58 @@ export default function Home() {
                   {item}
                 </Link>
               ))}
-              <Link href="/contact" style={{ padding: '14px 32px', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', borderRadius: '16px', fontSize: '16px', fontWeight: '700', textDecoration: 'none', boxShadow: '0 8px 24px rgba(139, 92, 246, 0.35)', transition: 'all 0.3s ease' }}
-                onMouseEnter={e => { e.target.style.transform = 'translateY(-3px)'; e.target.style.boxShadow = '0 12px 32px rgba(139, 92, 246, 0.5)' }}
-                onMouseLeave={e => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = '0 8px 24px rgba(139, 92, 246, 0.35)' }}>
-                Get Started →
-              </Link>
+              
+              {!user ? (
+                <Link href="/signup" style={{ padding: '14px 32px', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', borderRadius: '16px', fontSize: '16px', fontWeight: '700', textDecoration: 'none', boxShadow: '0 8px 24px rgba(139, 92, 246, 0.35)', transition: 'all 0.3s ease' }}
+                  onMouseEnter={e => { e.target.style.transform = 'translateY(-3px)'; e.target.style.boxShadow = '0 12px 32px rgba(139, 92, 246, 0.5)' }}
+                  onMouseLeave={e => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = '0 8px 24px rgba(139, 92, 246, 0.35)' }}>
+                  Get Started →
+                </Link>
+              ) : (
+                <div 
+                  style={{ position: 'relative' }}
+                  onMouseEnter={() => {
+                    if (menuTimeout) clearTimeout(menuTimeout)
+                    setShowProfileMenu(true)
+                  }}
+                  onMouseLeave={() => {
+                    const timeout = setTimeout(() => setShowProfileMenu(false), 300)
+                    setMenuTimeout(timeout)
+                  }}
+                >
+                  <button
+                    style={{ padding: '14px 32px', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', borderRadius: '16px', fontSize: '16px', fontWeight: '700', border: 'none', cursor: 'pointer', boxShadow: '0 8px 24px rgba(139, 92, 246, 0.35)', transition: 'all 0.3s ease' }}
+                    onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(139, 92, 246, 0.5)' }}
+                    onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(139, 92, 246, 0.35)' }}>
+                    {user.user_metadata?.full_name || user.email?.split('@')[0] || 'Profile'} ▾
+                  </button>
+
+                  {showProfileMenu && (
+                    <div style={{ position: 'absolute', right: 0, top: '60px', width: '220px', background: 'white', borderRadius: '16px', boxShadow: '0 12px 40px rgba(0,0,0,0.15)', border: '1px solid #f0f0f0', overflow: 'hidden', zIndex: 999 }}>
+                      <Link href="/dashboard" style={{ display: 'block', padding: '14px 20px', color: '#0f172a', textDecoration: 'none', fontSize: '15px', fontWeight: '600', borderBottom: '1px solid #f8fafc', transition: 'all 0.2s' }}
+                        onMouseEnter={e => { e.target.style.background = '#f8fafc'; e.target.style.color = '#4f46e5' }}
+                        onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.color = '#0f172a' }}>
+                        Dashboard
+                      </Link>
+                      <Link href="/profile/edit" style={{ display: 'block', padding: '14px 20px', color: '#0f172a', textDecoration: 'none', fontSize: '15px', fontWeight: '600', borderBottom: '1px solid #f8fafc', transition: 'all 0.2s' }}
+                        onMouseEnter={e => { e.target.style.background = '#f8fafc'; e.target.style.color = '#4f46e5' }}
+                        onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.color = '#0f172a' }}>
+                        Edit Profile
+                      </Link>
+                      <Link href="/saved" style={{ display: 'block', padding: '14px 20px', color: '#0f172a', textDecoration: 'none', fontSize: '15px', fontWeight: '600', borderBottom: '1px solid #f8fafc', transition: 'all 0.2s' }}
+                        onMouseEnter={e => { e.target.style.background = '#f8fafc'; e.target.style.color = '#4f46e5' }}
+                        onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.color = '#0f172a' }}>
+                        Saved Scholarships
+                      </Link>
+                      <button onClick={handleLogout} style={{ display: 'block', width: '100%', textAlign: 'left', padding: '14px 20px', color: '#ef4444', background: 'transparent', border: 'none', fontSize: '15px', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s' }}
+                        onMouseEnter={e => { e.target.style.background = '#fef2f2' }}
+                        onMouseLeave={e => { e.target.style.background = 'transparent' }}>
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </nav>
         </div>
