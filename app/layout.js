@@ -7,12 +7,14 @@ export const metadata = {
   title: 'AdmitGoal – Free AI Scholarship Finder | Pakistan India Bangladesh Africa',
   description: 'Find fresh scholarships from universities worldwide. Free AI guidance on eligibility, IELTS, SOP writing. No agent needed. Updated daily.',
   keywords: 'scholarships, study abroad, Pakistan scholarships, fully funded scholarships, no IELTS scholarships',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         <meta name="google-site-verification" content="zKOcXjMcvxwhAnjJdQBtkxSOiyBWSJ2sU8fRXl7ZFUI" />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZSKBYXZS8J"></script>
         <script dangerouslySetInnerHTML={{
