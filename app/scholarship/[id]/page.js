@@ -1,9 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { supabase } from '../../../lib/supabase'
+import { getUser } from '../../../lib/supabase-auth'
 import { getRecommendations, getStarDisplay, getMatchColor } from '../../../lib/recommendations'
 import Link from 'next/link'
-import { GraduationCap, MapPin, Clock, ExternalLink, ChevronRight, ArrowLeft, Globe, DollarSign, FileText } from 'lucide-react'
+import { GraduationCap, MapPin, Clock, ExternalLink, ChevronRight, ArrowLeft, Globe, DollarSign, FileText, Bookmark } from 'lucide-react'
 
 export default function ScholarshipPage({ params }) {
   const [scholarship, setScholarship] = useState(null)
@@ -12,6 +13,8 @@ export default function ScholarshipPage({ params }) {
   const [recommendations, setRecommendations] = useState([])
   const [relatedScholarships, setRelatedScholarships] = useState({})
   const [hasUserProfile, setHasUserProfile] = useState(false)
+  const [user, setUser] = useState(null)
+  const [savedScholarships, setSavedScholarships] = useState(new Set())
 
   useEffect(() => {
     async function resolveParams() {
@@ -22,6 +25,17 @@ export default function ScholarshipPage({ params }) {
   }, [params])
 
   useEffect(() => {
+    async function checkUser() {
+      const currentUser = await getUser()
+      setUser(currentUser)
+      if (currentUser) {
+        fetchSavedScholarships(currentUser.id)
+      }
+    }
+    checkUser()
+  }, [])
+
+  useEffect(() => {
     if (resolvedId) {
       setScholarship(null)
       setRecommendations([])
@@ -29,6 +43,62 @@ export default function ScholarshipPage({ params }) {
       fetchScholarship()
     }
   }, [resolvedId])
+
+  async function fetchSavedScholarships(userId) {
+    try {
+      const { data, error } = await supabase
+        .from('user_saved_scholarships')
+        .select('scholarship_id')
+        .eq('user_id', userId)
+      if (error) throw error
+      const savedIds = new Set(data.map(item => item.scholarship_id))
+      setSavedScholarships(savedIds)
+    } catch (error) {
+      console.error('Error fetching saved scholarships:', error)
+    }
+  }
+
+  async function toggleSave(scholarshipId, e) {
+    e.preventDefault()
+    e.stopPropagation()
+    
+    if (!user) {
+      alert('Please login to save scholarships')
+      return
+    }
+
+    try {
+      if (savedScholarships.has(scholarshipId)) {
+        // Unsave
+        const { error } = await supabase
+          .from('user_saved_scholarships')
+          .delete()
+          .eq('user_id', user.id)
+          .eq('scholarship_id', scholarshipId)
+        if (error) throw error
+        
+        const newSaved = new Set(savedScholarships)
+        newSaved.delete(scholarshipId)
+        setSavedScholarships(newSaved)
+      } else {
+        // Save
+        const { error } = await supabase
+          .from('user_saved_scholarships')
+          .insert({
+            user_id: user.id,
+            scholarship_id: scholarshipId
+          })
+        if (error) throw error
+        
+        const newSaved = new Set(savedScholarships)
+        newSaved.add(scholarshipId)
+        setSavedScholarships(newSaved)
+      }
+    } catch (error) {
+      console.error('Error toggling save:', error)
+      alert('Failed to save. Please try again.')
+    }
+  }
 
   async function fetchScholarship() {
     try {
@@ -49,23 +119,23 @@ export default function ScholarshipPage({ params }) {
         if (allScholarships) {
           const recs = getRecommendations(data, allScholarships, 6)
           setRecommendations(recs)
-          
+
           // Get related scholarships for inline links
-          const sameCountry = allScholarships.filter(s => 
-            s.id !== data.id && 
+          const sameCountry = allScholarships.filter(s =>
+            s.id !== data.id &&
             s.country === data.country
           )[0]
-          
-          const sameDegree = allScholarships.filter(s => 
-            s.id !== data.id && 
+
+          const sameDegree = allScholarships.filter(s =>
+            s.id !== data.id &&
             s.degree_level?.includes(data.degree_level?.split(',')[0])
           )[0]
-          
-          const sameFunding = allScholarships.filter(s => 
-            s.id !== data.id && 
+
+          const sameFunding = allScholarships.filter(s =>
+            s.id !== data.id &&
             s.funding_type?.toLowerCase().includes('full')
           )[0]
-          
+
           setRelatedScholarships({ sameCountry, sameDegree, sameFunding })
         }
       }
@@ -86,11 +156,11 @@ export default function ScholarshipPage({ params }) {
 
   function formatBlogContent(html, scholarship, related) {
     if (!html) return ''
-    
+
     // Remove ALL ** asterisks
     let formatted = html
       .replace(/\*\*/g, '')
-      
+
       // Format headings with beautiful underlines
       .replace(/##\s*Introduction/gi, '<h2 id="introduction" style="font-size:24px;font-weight:800;color:#0f172a;margin:32px 0 20px;padding-bottom:14px;border-bottom:4px solid #e0e7ff;background:linear-gradient(to right, #f0f4ff, transparent);padding-left:16px;border-radius:8px">Introduction</h2>')
       .replace(/##\s*Quick Overview/gi, '<h2 style="font-size:24px;font-weight:800;color:#0f172a;margin:32px 0 20px;padding-bottom:14px;border-bottom:4px solid #dbeafe;background:linear-gradient(to right, #dbeafe, transparent);padding-left:16px;border-radius:8px">Quick Overview</h2>')
@@ -100,32 +170,32 @@ export default function ScholarshipPage({ params }) {
       .replace(/##\s*How to Apply/gi, '<h2 style="font-size:24px;font-weight:800;color:#0f172a;margin:32px 0 20px;padding-bottom:14px;border-bottom:4px solid #dbeafe;background:linear-gradient(to right, #dbeafe, transparent);padding-left:16px;border-radius:8px">How to Apply</h2>')
       .replace(/##\s*Required Documents/gi, '<h2 id="requirements" style="font-size:24px;font-weight:800;color:#0f172a;margin:32px 0 20px;padding-bottom:14px;border-bottom:4px solid #ede9fe;background:linear-gradient(to right, #ede9fe, transparent);padding-left:16px;border-radius:8px">Required Documents</h2>')
       .replace(/##\s*(.+?)$/gim, '<h2 style="font-size:24px;font-weight:800;color:#0f172a;margin:32px 0 20px;padding-bottom:14px;border-bottom:4px solid #f0f0f0;background:linear-gradient(to right, #f8fafc, transparent);padding-left:16px;border-radius:8px">$1</h2>')
-      
+
       // Highlight deadlines in red box
       .replace(/deadline[s]?:\s*([0-9-]+)/gi, '<div style="display:inline-block;background:#fee2e2;border-left:4px solid #dc2626;color:#991b1b;padding:8px 16px;border-radius:8px;font-weight:700;margin:8px 0;box-shadow:0 2px 8px rgba(220,38,38,0.15)"><strong style="color:#7f1d1d">Deadline:</strong> $1</div>')
       .replace(/(\d{4}-\d{2}-\d{2})/g, '<span style="background:#fee2e2;color:#dc2626;padding:4px 12px;border-radius:6px;font-weight:700;border:1px solid #fca5a5">$1</span>')
-      
+
       // Highlight funding amounts in green box
       .replace(/(CHF|USD|EUR|GBP|₹|Rs\.?)\s*\d+[,']?\d*/gi, '<span style="background:#d1fae5;color:#065f46;padding:4px 12px;border-radius:6px;font-weight:700;border:1px solid #6ee7b7;box-shadow:0 2px 6px rgba(16,185,129,0.15)">$&</span>')
-      
+
       // Highlight "Fully Funded" in green box
       .replace(/fully funded/gi, '<span style="background:#d1fae5;color:#065f46;padding:4px 12px;border-radius:6px;font-weight:700;border:1px solid #6ee7b7">Fully Funded</span>')
-      
+
       // Highlight countries
       .replace(/(Pakistan|India|Bangladesh|Africa|Switzerland|Germany|USA|UK|Canada|Australia|New Zealand|Netherlands|Sweden|Norway|Denmark)/gi, '<span style="background:#dbeafe;color:#1e40af;padding:2px 8px;border-radius:4px;font-weight:600">$1</span>')
-      
+
       // Format lists with better styling
       .replace(/<li>/g, '<li style="margin:12px 0;padding-left:12px;color:#475569;line-height:1.9;position:relative;padding-left:24px"><span style="position:absolute;left:0;color:#4f46e5;font-weight:800">•</span>')
       .replace(/<ul>/g, '<ul style="margin:20px 0;padding-left:8px;background:#f8fafc;padding:20px;border-radius:12px;border-left:4px solid #4f46e5">')
-      
+
       // Format paragraphs
       .replace(/<p>/g, '<p style="font-size:16px;line-height:1.9;color:#475569;margin:18px 0">')
-      
+
       // Bold text
       .replace(/<strong>/g, '<strong style="color:#0f172a;font-weight:800">')
-    
+
     // Insert inline scholarship links RIGHT AFTER headings
-    
+
     // Link 1: After Introduction heading
     if (related.sameDegree) {
       const linkHTML = `<p style="font-size:15px;line-height:1.8;color:#475569;margin:20px 0;background:#f0f4ff;padding:16px 20px;border-radius:10px;border-left:4px solid #4f46e5">💡 <strong style="color:#4f46e5">You may also check:</strong> <a href="/scholarship/${related.sameDegree.id}" target="_blank" rel="noopener noreferrer" style="color:#4f46e5;font-weight:700;text-decoration:none;border-bottom:2px solid #4f46e5;padding-bottom:2px">${related.sameDegree.title.slice(0, 60)}...</a></p>`
@@ -134,7 +204,7 @@ export default function ScholarshipPage({ params }) {
         `$1${linkHTML}`
       )
     }
-    
+
     // Link 2: After "What Does This Scholarship Cover?" heading
     if (related.sameCountry) {
       const linkHTML = `<p style="font-size:15px;line-height:1.8;color:#475569;margin:20px 0;background:#ecfdf5;padding:16px 20px;border-radius:10px;border-left:4px solid #10b981">🌍 <strong style="color:#059669">Related opportunity in ${scholarship.country}:</strong> <a href="/scholarship/${related.sameCountry.id}" target="_blank" rel="noopener noreferrer" style="color:#059669;font-weight:700;text-decoration:none;border-bottom:2px solid #10b981;padding-bottom:2px">${related.sameCountry.title.slice(0, 60)}...</a></p>`
@@ -144,7 +214,7 @@ export default function ScholarshipPage({ params }) {
         `$1${linkHTML}`
       )
     }
-    
+
     // Link 3: After Required Documents heading
     if (related.sameFunding) {
       const linkHTML = `<p style="font-size:15px;line-height:1.8;color:#475569;margin:20px 0;background:#fef3c7;padding:16px 20px;border-radius:10px;border-left:4px solid #f59e0b">💰 <strong style="color:#d97706">Another fully funded opportunity:</strong> <a href="/scholarship/${related.sameFunding.id}" target="_blank" rel="noopener noreferrer" style="color:#d97706;font-weight:700;text-decoration:none;border-bottom:2px solid #f59e0b;padding-bottom:2px">${related.sameFunding.title.slice(0, 60)}...</a></p>`
@@ -154,7 +224,7 @@ export default function ScholarshipPage({ params }) {
         `$1${linkHTML}`
       )
     }
-    
+
     return formatted
   }
 
@@ -283,7 +353,7 @@ export default function ScholarshipPage({ params }) {
             {s.blog_post ? (
               <div style={{ background: 'white', borderRadius: '16px', border: '1px solid #f0f0f0', padding: '40px', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
                 <div className="blog-content" dangerouslySetInnerHTML={{ __html: formatBlogContent(s.blog_post, s, relatedScholarships) }} />
-                
+
                 {/* SIMPLE APPLY SECTION AT END */}
                 <p style={{ fontSize: '16px', lineHeight: '1.9', color: '#0f172a', margin: '32px 0 16px', fontWeight: '700' }}>
                   Apply now before the deadline closes.
@@ -357,7 +427,7 @@ export default function ScholarshipPage({ params }) {
         </div>
       </div>
 
-      {/* RECOMMENDATIONS */}
+      {/* RECOMMENDATIONS WITH SAVE BUTTON */}
       {recommendations.length > 0 && (
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px 60px' }}>
           <div style={{ borderTop: '1px solid #f0f0f0', paddingTop: '40px' }}>
@@ -375,45 +445,85 @@ export default function ScholarshipPage({ params }) {
                 const recNoIelts = rec.ielts_score === 'Not required' || rec.ielts_score === 'Not mentioned'
                 const matchColor = getMatchColor(rec.matchPercentage)
                 const titleColor = getTitleColor(rec)
+                const isSaved = savedScholarships.has(rec.id)
+                
                 return (
-                  <Link key={rec.id} href={'/scholarship/' + rec.id} style={{ textDecoration: 'none' }}>
-                    <div style={{ background: 'white', borderRadius: '16px', border: '1px solid #f0f0f0', padding: '24px', transition: 'all 0.3s ease', cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '14px', height: '100%' }}
-                      onMouseEnter={e => { e.currentTarget.style.border = '1px solid #c7d2fe'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(79,70,229,0.15)'; e.currentTarget.style.transform = 'translateY(-4px)' }}
-                      onMouseLeave={e => { e.currentTarget.style.border = '1px solid #f0f0f0'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)' }}>
+                  <div key={rec.id} style={{ position: 'relative' }}>
+                    {/* SAVE BUTTON */}
+                    <button
+                      onClick={(e) => toggleSave(rec.id, e)}
+                      style={{
+                        position: 'absolute',
+                        top: '16px',
+                        right: '16px',
+                        zIndex: 10,
+                        width: '36px',
+                        height: '36px',
+                        borderRadius: '50%',
+                        border: 'none',
+                        background: isSaved ? 'linear-gradient(135deg, #4f46e5, #7c3aed)' : 'white',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'all 0.3s ease'
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.transform = 'scale(1.1)'
+                        e.currentTarget.style.boxShadow = '0 6px 20px rgba(79,70,229,0.3)'
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.transform = 'scale(1)'
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)'
+                      }}
+                    >
+                      <Bookmark
+                        size={18}
+                        color={isSaved ? 'white' : '#4f46e5'}
+                        fill={isSaved ? 'white' : 'none'}
+                      />
+                    </button>
 
-                      {hasUserProfile && (
-                        <div style={{ background: matchColor.bg, color: matchColor.text, borderRadius: '12px', padding: '12px', textAlign: 'center' }}>
-                          <div style={{ fontSize: '18px', marginBottom: '6px' }}>{getStarDisplay(rec.starRating)}</div>
-                          <div style={{ fontSize: '14px', fontWeight: '800' }}>{rec.matchPercentage}% {matchColor.label}</div>
+                    <Link href={'/scholarship/' + rec.id} style={{ textDecoration: 'none' }}>
+                      <div style={{ background: 'white', borderRadius: '16px', border: '1px solid #f0f0f0', padding: '24px', transition: 'all 0.3s ease', cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '14px', height: '100%' }}
+                        onMouseEnter={e => { e.currentTarget.style.border = '1px solid #c7d2fe'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(79,70,229,0.15)'; e.currentTarget.style.transform = 'translateY(-4px)' }}
+                        onMouseLeave={e => { e.currentTarget.style.border = '1px solid #f0f0f0'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)' }}>
+
+                        {hasUserProfile && (
+                          <div style={{ background: matchColor.bg, color: matchColor.text, borderRadius: '12px', padding: '12px', textAlign: 'center' }}>
+                            <div style={{ fontSize: '18px', marginBottom: '6px' }}>{getStarDisplay(rec.starRating)}</div>
+                            <div style={{ fontSize: '14px', fontWeight: '800' }}>{rec.matchPercentage}% {matchColor.label}</div>
+                          </div>
+                        )}
+
+                        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                          {recFunded && <span style={{ background: '#d1fae5', color: '#065f46', fontSize: '11px', fontWeight: '700', padding: '4px 10px', borderRadius: '100px' }}>Fully Funded</span>}
+                          {recNoIelts && <span style={{ background: '#ccfbf1', color: '#115e59', fontSize: '11px', fontWeight: '700', padding: '4px 10px', borderRadius: '100px' }}>No IELTS</span>}
+                          {rec.degree_level && <span style={{ background: '#e0e7ff', color: '#3730a3', fontSize: '11px', fontWeight: '700', padding: '4px 10px', borderRadius: '100px' }}>{rec.degree_level.split(',')[0].trim()}</span>}
                         </div>
-                      )}
 
-                      <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                        {recFunded && <span style={{ background: '#d1fae5', color: '#065f46', fontSize: '11px', fontWeight: '700', padding: '4px 10px', borderRadius: '100px' }}>Fully Funded</span>}
-                        {recNoIelts && <span style={{ background: '#ccfbf1', color: '#115e59', fontSize: '11px', fontWeight: '700', padding: '4px 10px', borderRadius: '100px' }}>No IELTS</span>}
-                        {rec.degree_level && <span style={{ background: '#e0e7ff', color: '#3730a3', fontSize: '11px', fontWeight: '700', padding: '4px 10px', borderRadius: '100px' }}>{rec.degree_level.split(',')[0].trim()}</span>}
+                        <h3 style={{ fontSize: '15px', fontWeight: '800', color: titleColor, lineHeight: '1.4', margin: 0, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                          {rec.title}
+                        </h3>
+
+                        {rec.university_name && <div style={{ fontSize: '13px', color: '#64748b', fontWeight: '500' }}>{rec.university_name}</div>}
+
+                        <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden', flex: 1 }}>
+                          {rec.seo_description || rec.full_description?.slice(0, 150) || (rec.blog_post ? rec.blog_post.replace(/<[^>]*>/g, '').slice(0, 150) : 'Click to view full scholarship details.')}
+                        </p>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: 'auto' }}>
+                          {rec.country && <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#475569', fontWeight: '500' }}><MapPin size={12} />{rec.country}</div>}
+                          {rec.deadline && rec.deadline !== 'See official website' && <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#dc2626', fontWeight: '600' }}><Clock size={12} />{rec.deadline}</div>}
+                        </div>
+
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '13px', fontWeight: '700', color: '#4f46e5', paddingTop: '12px', borderTop: '1px solid #f0f0f0' }}>
+                          View Details <ChevronRight size={14} />
+                        </div>
                       </div>
-
-                      <h3 style={{ fontSize: '15px', fontWeight: '800', color: titleColor, lineHeight: '1.4', margin: 0, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                        {rec.title}
-                      </h3>
-
-                      {rec.university_name && <div style={{ fontSize: '13px', color: '#64748b', fontWeight: '500' }}>{rec.university_name}</div>}
-
-                      <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden', flex: 1 }}>
-                        {rec.seo_description || rec.full_description?.slice(0, 150) || (rec.blog_post ? rec.blog_post.replace(/<[^>]*>/g, '').slice(0, 150) : 'Click to view full scholarship details.')}
-                      </p>
-
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: 'auto' }}>
-                        {rec.country && <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#475569', fontWeight: '500' }}><MapPin size={12} />{rec.country}</div>}
-                        {rec.deadline && rec.deadline !== 'See official website' && <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#dc2626', fontWeight: '600' }}><Clock size={12} />{rec.deadline}</div>}
-                      </div>
-
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '13px', fontWeight: '700', color: '#4f46e5', paddingTop: '12px', borderTop: '1px solid #f0f0f0' }}>
-                        View Details <ChevronRight size={14} />
-                      </div>
-                    </div>
-                  </Link>
+                    </Link>
+                  </div>
                 )
               })}
             </div>
