@@ -10,6 +10,7 @@ export default function ScholarshipPage({ params }) {
   const [loading, setLoading] = useState(true)
   const [resolvedId, setResolvedId] = useState(null)
   const [recommendations, setRecommendations] = useState([])
+  const [relatedScholarships, setRelatedScholarships] = useState({})
   const [hasUserProfile, setHasUserProfile] = useState(false)
 
   useEffect(() => {
@@ -24,6 +25,7 @@ export default function ScholarshipPage({ params }) {
     if (resolvedId) {
       setScholarship(null)
       setRecommendations([])
+      setRelatedScholarships({})
       fetchScholarship()
     }
   }, [resolvedId])
@@ -47,6 +49,24 @@ export default function ScholarshipPage({ params }) {
         if (allScholarships) {
           const recs = getRecommendations(data, allScholarships, 6)
           setRecommendations(recs)
+          
+          // Get related scholarships for inline links
+          const sameCountry = allScholarships.filter(s => 
+            s.id !== data.id && 
+            s.country === data.country
+          )[0]
+          
+          const sameDegree = allScholarships.filter(s => 
+            s.id !== data.id && 
+            s.degree_level?.includes(data.degree_level?.split(',')[0])
+          )[0]
+          
+          const sameFunding = allScholarships.filter(s => 
+            s.id !== data.id && 
+            s.funding_type?.toLowerCase().includes('full')
+          )[0]
+          
+          setRelatedScholarships({ sameCountry, sameDegree, sameFunding })
         }
       }
     } catch (error) {
@@ -62,6 +82,80 @@ export default function ScholarshipPage({ params }) {
     if (funding.includes('full') || title.includes('fully funded')) return '#059669'
     if (funding.includes('partial')) return '#f59e0b'
     return '#4f46e5'
+  }
+
+  function formatBlogContent(html, scholarship, related) {
+    if (!html) return ''
+    
+    // Remove ALL ** asterisks
+    let formatted = html
+      .replace(/\*\*/g, '')
+      
+      // Format headings with beautiful underlines
+      .replace(/##\s*Introduction/gi, '<h2 id="introduction" style="font-size:24px;font-weight:800;color:#0f172a;margin:32px 0 20px;padding-bottom:14px;border-bottom:4px solid #e0e7ff;background:linear-gradient(to right, #f0f4ff, transparent);padding-left:16px;border-radius:8px">Introduction</h2>')
+      .replace(/##\s*Quick Overview/gi, '<h2 style="font-size:24px;font-weight:800;color:#0f172a;margin:32px 0 20px;padding-bottom:14px;border-bottom:4px solid #dbeafe;background:linear-gradient(to right, #dbeafe, transparent);padding-left:16px;border-radius:8px">Quick Overview</h2>')
+      .replace(/##\s*About\s+(.+?)$/gim, '<h2 style="font-size:24px;font-weight:800;color:#0f172a;margin:32px 0 20px;padding-bottom:14px;border-bottom:4px solid #e0e7ff;background:linear-gradient(to right, #f0f4ff, transparent);padding-left:16px;border-radius:8px">About $1</h2>')
+      .replace(/##\s*Eligibility/gi, '<h2 style="font-size:24px;font-weight:800;color:#0f172a;margin:32px 0 20px;padding-bottom:14px;border-bottom:4px solid #d1fae5;background:linear-gradient(to right, #d1fae5, transparent);padding-left:16px;border-radius:8px">Eligibility Criteria</h2>')
+      .replace(/##\s*(What Does This Scholarship Cover\??|Benefits|Scholarship Benefits)/gi, '<h2 id="benefits" style="font-size:24px;font-weight:800;color:#0f172a;margin:32px 0 20px;padding-bottom:14px;border-bottom:4px solid #fef3c7;background:linear-gradient(to right, #fef3c7, transparent);padding-left:16px;border-radius:8px">What Does This Scholarship Cover?</h2>')
+      .replace(/##\s*How to Apply/gi, '<h2 style="font-size:24px;font-weight:800;color:#0f172a;margin:32px 0 20px;padding-bottom:14px;border-bottom:4px solid #dbeafe;background:linear-gradient(to right, #dbeafe, transparent);padding-left:16px;border-radius:8px">How to Apply</h2>')
+      .replace(/##\s*Required Documents/gi, '<h2 id="requirements" style="font-size:24px;font-weight:800;color:#0f172a;margin:32px 0 20px;padding-bottom:14px;border-bottom:4px solid #ede9fe;background:linear-gradient(to right, #ede9fe, transparent);padding-left:16px;border-radius:8px">Required Documents</h2>')
+      .replace(/##\s*(.+?)$/gim, '<h2 style="font-size:24px;font-weight:800;color:#0f172a;margin:32px 0 20px;padding-bottom:14px;border-bottom:4px solid #f0f0f0;background:linear-gradient(to right, #f8fafc, transparent);padding-left:16px;border-radius:8px">$1</h2>')
+      
+      // Highlight deadlines in red box
+      .replace(/deadline[s]?:\s*([0-9-]+)/gi, '<div style="display:inline-block;background:#fee2e2;border-left:4px solid #dc2626;color:#991b1b;padding:8px 16px;border-radius:8px;font-weight:700;margin:8px 0;box-shadow:0 2px 8px rgba(220,38,38,0.15)"><strong style="color:#7f1d1d">Deadline:</strong> $1</div>')
+      .replace(/(\d{4}-\d{2}-\d{2})/g, '<span style="background:#fee2e2;color:#dc2626;padding:4px 12px;border-radius:6px;font-weight:700;border:1px solid #fca5a5">$1</span>')
+      
+      // Highlight funding amounts in green box
+      .replace(/(CHF|USD|EUR|GBP|₹|Rs\.?)\s*\d+[,']?\d*/gi, '<span style="background:#d1fae5;color:#065f46;padding:4px 12px;border-radius:6px;font-weight:700;border:1px solid #6ee7b7;box-shadow:0 2px 6px rgba(16,185,129,0.15)">$&</span>')
+      
+      // Highlight "Fully Funded" in green box
+      .replace(/fully funded/gi, '<span style="background:#d1fae5;color:#065f46;padding:4px 12px;border-radius:6px;font-weight:700;border:1px solid #6ee7b7">Fully Funded</span>')
+      
+      // Highlight countries
+      .replace(/(Pakistan|India|Bangladesh|Africa|Switzerland|Germany|USA|UK|Canada|Australia|New Zealand|Netherlands|Sweden|Norway|Denmark)/gi, '<span style="background:#dbeafe;color:#1e40af;padding:2px 8px;border-radius:4px;font-weight:600">$1</span>')
+      
+      // Format lists with better styling
+      .replace(/<li>/g, '<li style="margin:12px 0;padding-left:12px;color:#475569;line-height:1.9;position:relative;padding-left:24px"><span style="position:absolute;left:0;color:#4f46e5;font-weight:800">•</span>')
+      .replace(/<ul>/g, '<ul style="margin:20px 0;padding-left:8px;background:#f8fafc;padding:20px;border-radius:12px;border-left:4px solid #4f46e5">')
+      
+      // Format paragraphs
+      .replace(/<p>/g, '<p style="font-size:16px;line-height:1.9;color:#475569;margin:18px 0">')
+      
+      // Bold text
+      .replace(/<strong>/g, '<strong style="color:#0f172a;font-weight:800">')
+    
+    // Insert inline scholarship links RIGHT AFTER headings
+    
+    // Link 1: After Introduction heading
+    if (related.sameDegree) {
+      const linkHTML = `<p style="font-size:15px;line-height:1.8;color:#475569;margin:20px 0;background:#f0f4ff;padding:16px 20px;border-radius:10px;border-left:4px solid #4f46e5">💡 <strong style="color:#4f46e5">You may also check:</strong> <a href="/scholarship/${related.sameDegree.id}" target="_blank" rel="noopener noreferrer" style="color:#4f46e5;font-weight:700;text-decoration:none;border-bottom:2px solid #4f46e5;padding-bottom:2px">${related.sameDegree.title.slice(0, 60)}...</a></p>`
+      formatted = formatted.replace(
+        /(<h2[^>]*id="introduction"[^>]*>Introduction<\/h2>)/i,
+        `$1${linkHTML}`
+      )
+    }
+    
+    // Link 2: After "What Does This Scholarship Cover?" heading
+    if (related.sameCountry) {
+      const linkHTML = `<p style="font-size:15px;line-height:1.8;color:#475569;margin:20px 0;background:#ecfdf5;padding:16px 20px;border-radius:10px;border-left:4px solid #10b981">🌍 <strong style="color:#059669">Related opportunity in ${scholarship.country}:</strong> <a href="/scholarship/${related.sameCountry.id}" target="_blank" rel="noopener noreferrer" style="color:#059669;font-weight:700;text-decoration:none;border-bottom:2px solid #10b981;padding-bottom:2px">${related.sameCountry.title.slice(0, 60)}...</a></p>`
+
+      formatted = formatted.replace(
+        /(<h2[^>]*id="benefits"[^>]*>What Does This Scholarship Cover\?<\/h2>)/i,
+        `$1${linkHTML}`
+      )
+    }
+    
+    // Link 3: After Required Documents heading
+    if (related.sameFunding) {
+      const linkHTML = `<p style="font-size:15px;line-height:1.8;color:#475569;margin:20px 0;background:#fef3c7;padding:16px 20px;border-radius:10px;border-left:4px solid #f59e0b">💰 <strong style="color:#d97706">Another fully funded opportunity:</strong> <a href="/scholarship/${related.sameFunding.id}" target="_blank" rel="noopener noreferrer" style="color:#d97706;font-weight:700;text-decoration:none;border-bottom:2px solid #f59e0b;padding-bottom:2px">${related.sameFunding.title.slice(0, 60)}...</a></p>`
+
+      formatted = formatted.replace(
+        /(<h2[^>]*id="requirements"[^>]*>Required Documents<\/h2>)/i,
+        `$1${linkHTML}`
+      )
+    }
+    
+    return formatted
   }
 
   if (loading) {
@@ -91,7 +185,7 @@ export default function ScholarshipPage({ params }) {
   return (
     <div style={{ minHeight: '100vh', background: '#fafafa', fontFamily: "'Inter',-apple-system,sans-serif" }}>
 
-      {/* NAVBAR */}
+      {/* NAVBAR - ONLY APPLY BUTTON */}
       <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(20px)', borderBottom: '1px solid #f0f0f0', height: '60px', display: 'flex', alignItems: 'center' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
@@ -106,84 +200,75 @@ export default function ScholarshipPage({ params }) {
         </div>
       </nav>
 
-      {/* HERO */}
+      {/* COMPACT HERO */}
       <div style={{ paddingTop: '60px', background: 'linear-gradient(135deg,#0f172a,#1e1b4b,#312e81)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 24px 40px' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '24px 24px 28px' }}>
 
-          <button onClick={() => window.history.back()} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'rgba(255,255,255,0.5)', fontSize: '13px', marginBottom: '20px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', padding: '0' }}>
+          <button onClick={() => window.history.back()} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'rgba(255,255,255,0.5)', fontSize: '13px', marginBottom: '16px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', padding: '0' }}>
             <ArrowLeft size={14} /> Back
           </button>
 
-          {/* TWO COLUMN HERO */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '48px', alignItems: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '32px', alignItems: 'start' }}>
 
-            {/* LEFT — Title + badges */}
             <div>
-              <div style={{ display: 'flex', gap: '8px', marginBottom: '14px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', flexWrap: 'wrap' }}>
                 {s.university_name && (
-                  <span style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.8)', padding: '3px 12px', borderRadius: '100px', fontSize: '12px', fontWeight: '600' }}>
+                  <span style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.8)', padding: '4px 12px', borderRadius: '100px', fontSize: '12px', fontWeight: '600' }}>
                     {s.university_name}
                   </span>
                 )}
                 {s.region && (
-                  <span style={{ background: 'rgba(79,70,229,0.3)', border: '1px solid rgba(99,102,241,0.4)', color: '#a5b4fc', padding: '3px 12px', borderRadius: '100px', fontSize: '12px', fontWeight: '600' }}>
+                  <span style={{ background: 'rgba(79,70,229,0.3)', border: '1px solid rgba(99,102,241,0.4)', color: '#a5b4fc', padding: '4px 12px', borderRadius: '100px', fontSize: '12px', fontWeight: '600' }}>
                     {s.region}
                   </span>
                 )}
               </div>
 
-              <h1 style={{ fontSize: '28', fontWeight: '800', color: mainTitleColor, lineHeight: '1.25', marginBottom: '24px', letterSpacing: '-0.5px', textShadow: '0 2px 20px rgba(0,0,0,0.3)' }}>
+              <h1 style={{ fontSize: '36px', fontWeight: '800', color: mainTitleColor, lineHeight: '1.2', marginBottom: '16px', letterSpacing: '-0.5px', textShadow: '0 2px 20px rgba(0,0,0,0.3)' }}>
                 {s.seo_title || s.title}
               </h1>
 
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, auto)', gap: '8px', justifyContent: 'start' }}>
                 {s.country && (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.85)', padding: '6px 14px', borderRadius: '8px', fontSize: '13px', fontWeight: '500' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.85)', padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: '500' }}>
                     <MapPin size={12} />{s.country}
                   </div>
                 )}
                 {s.degree_level && (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.85)', padding: '6px 14px', borderRadius: '8px', fontSize: '13px', fontWeight: '500' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.85)', padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: '500' }}>
                     <GraduationCap size={12} />{s.degree_level}
                   </div>
                 )}
                 {isFullyFunded && (
-                  <div style={{ background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)', color: '#6ee7b7', padding: '6px 14px', borderRadius: '8px', fontSize: '13px', fontWeight: '600' }}>
+                  <div style={{ background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)', color: '#6ee7b7', padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: '600' }}>
                     Fully Funded
                   </div>
                 )}
                 {noIelts && (
-                  <div style={{ background: 'rgba(20,184,166,0.15)', border: '1px solid rgba(20,184,166,0.3)', color: '#5eead4', padding: '6px 14px', borderRadius: '8px', fontSize: '13px', fontWeight: '600' }}>
+                  <div style={{ background: 'rgba(20,184,166,0.15)', border: '1px solid rgba(20,184,166,0.3)', color: '#5eead4', padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: '600' }}>
                     No IELTS
                   </div>
                 )}
               </div>
             </div>
 
-            {/* RIGHT — Clean rows on hero bg */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              <div style={{ fontSize: '11px', fontWeight: '700', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '4px' }}>
-                Scholarship Details
+            <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)', padding: '20px' }}>
+              <div style={{ fontSize: '11px', fontWeight: '700', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '14px' }}>
+                Key Details
               </div>
-              {[
-                { label: 'Deadline', value: s.deadline || 'See website', icon: <Clock size={14} />, color: '#fca5a5' },
-                { label: 'Funding', value: s.funding_type || 'Check website', icon: <DollarSign size={14} />, color: '#6ee7b7' },
-                { label: 'IELTS', value: s.ielts_score || 'Not required', icon: <FileText size={14} />, color: '#fcd34d' },
-                { label: 'Min GPA', value: s.gpa_required || 'Check website', icon: <FileText size={14} />, color: '#a5b4fc' },
-                { label: 'Language', value: s.language_requirement || 'Check website', icon: <Globe size={14} />, color: '#c4b5fd' },
-              ].map(({ label, value, icon, color }) => (
-                <div key={label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '14px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'rgba(255,255,255,0.45)', fontSize: '13px', fontWeight: '500' }}>
-                    {icon}{label}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                {[
+                  { label: 'Deadline', value: s.deadline || 'See website', color: '#fca5a5' },
+                  { label: 'Funding', value: s.funding_type || 'Check website', color: '#6ee7b7' },
+                  { label: 'IELTS', value: s.ielts_score || 'Not required', color: '#fcd34d' },
+                  { label: 'Min GPA', value: s.gpa_required || 'Check website', color: '#a5b4fc' },
+                ].map(({ label, value, color }) => (
+                  <div key={label} style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '10px', padding: '10px' }}>
+                    <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '4px', fontWeight: '600' }}>{label}</div>
+                    <div style={{ fontSize: '13px', fontWeight: '700', color }}>{value}</div>
                   </div>
-                  <div style={{ fontSize: '14px', fontWeight: '700', color }}>
-                    {value}
-                  </div>
-                </div>
-              ))}
-              <a href={s.scholarship_link} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '4px', padding: '13px', background: 'linear-gradient(135deg,#059669,#10b981)', color: 'white', borderRadius: '12px', textDecoration: 'none', fontSize: '14px', fontWeight: '700', boxShadow: '0 6px 20px rgba(16,185,129,0.25)' }}>
-                Apply Now — Official Site <ExternalLink size={14} />
-              </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -193,15 +278,25 @@ export default function ScholarshipPage({ params }) {
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 24px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: '28px' }}>
 
-          {/* LEFT — BLOG */}
+          {/* LEFT - BEAUTIFUL BLOG */}
           <div>
             {s.blog_post ? (
-              <div style={{ background: 'white', borderRadius: '16px', border: '1px solid #f0f0f0', padding: '40px' }}>
-                <div className="blog-content" dangerouslySetInnerHTML={{ __html: s.blog_post }} />
+              <div style={{ background: 'white', borderRadius: '16px', border: '1px solid #f0f0f0', padding: '40px', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
+                <div className="blog-content" dangerouslySetInnerHTML={{ __html: formatBlogContent(s.blog_post, s, relatedScholarships) }} />
+                
+                {/* SIMPLE APPLY SECTION AT END */}
+                <p style={{ fontSize: '16px', lineHeight: '1.9', color: '#0f172a', margin: '32px 0 16px', fontWeight: '700' }}>
+                  Apply now before the deadline closes.
+                </p>
+                <a href={s.scholarship_link} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 20px', background: '#059669', color: 'white', borderRadius: '10px', textDecoration: 'none', fontSize: '14px', fontWeight: '600', transition: 'all 0.2s' }}
+                  onMouseEnter={e => { e.currentTarget.style.background = '#047857' }}
+                  onMouseLeave={e => { e.currentTarget.style.background = '#059669' }}>
+                  Apply Now — Official Website <ExternalLink size={14} />
+                </a>
               </div>
             ) : s.full_description ? (
               <div style={{ background: 'white', borderRadius: '16px', border: '1px solid #f0f0f0', padding: '40px' }}>
-                <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#0f172a', marginBottom: '16px' }}>About This Scholarship</h2>
+                <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a', marginBottom: '16px', paddingBottom: '12px', borderBottom: '3px solid #e0e7ff' }}>About This Scholarship</h2>
                 <p style={{ fontSize: '15px', lineHeight: '1.9', color: '#475569' }}>{s.full_description}</p>
               </div>
             ) : (
@@ -217,12 +312,6 @@ export default function ScholarshipPage({ params }) {
           {/* RIGHT SIDEBAR */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
 
-            {/* APPLY BUTTON */}
-            <a href={s.scholarship_link} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '14px', background: 'linear-gradient(135deg,#059669,#10b981)', color: 'white', borderRadius: '12px', textDecoration: 'none', fontSize: '15px', fontWeight: '700', boxShadow: '0 8px 24px rgba(16,185,129,0.25)' }}>
-              Apply Now <ExternalLink size={15} />
-            </a>
-
-            {/* EXPLORE MORE */}
             <div style={{ background: 'white', borderRadius: '16px', border: '1px solid #f0f0f0', padding: '18px' }}>
               <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#0f172a', marginBottom: '14px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Explore More</h3>
               {s.country && (
@@ -247,7 +336,6 @@ export default function ScholarshipPage({ params }) {
               </Link>
             </div>
 
-            {/* SHARE BOX */}
             <div style={{ background: 'white', borderRadius: '16px', border: '1px solid #f0f0f0', padding: '18px', textAlign: 'center' }}>
               <p style={{ fontSize: '13px', color: '#64748b', fontWeight: '500', marginBottom: '12px' }}>
                 Know someone who needs this?

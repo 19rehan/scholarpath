@@ -88,8 +88,28 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fafafa' }}>
-        <div style={{ color: '#64748b', fontSize: '16px', fontWeight: '600' }}>Loading dashboard...</div>
+      <div style={{ minHeight: '100vh', background: '#fafafa' }}>
+        <div style={{ background: 'white', borderBottom: '1px solid #f0f0f0', padding: '20px 24px' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto', height: '36px', background: 'linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%)', backgroundSize: '200% 100%', animation: 'shimmer 1.5s infinite', borderRadius: '8px', width: '200px' }} />
+        </div>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '48px 24px' }}>
+          <div style={{ height: '48px', background: 'linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%)', backgroundSize: '200% 100%', animation: 'shimmer 1.5s infinite', borderRadius: '8px', width: '300px', marginBottom: '40px' }} />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '24px' }}>
+            {[1,2,3].map(i => (
+              <div key={i} style={{ background: 'white', borderRadius: '20px', border: '1px solid #f0f0f0', padding: '24px' }}>
+                <div style={{ height: '20px', background: 'linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%)', backgroundSize: '200% 100%', animation: 'shimmer 1.5s infinite', borderRadius: '6px', width: '80%', marginBottom: '12px' }} />
+                <div style={{ height: '60px', background: 'linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%)', backgroundSize: '200% 100%', animation: 'shimmer 1.5s infinite', borderRadius: '8px', marginBottom: '16px' }} />
+                <div style={{ height: '20px', background: 'linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%)', backgroundSize: '200% 100%', animation: 'shimmer 1.5s infinite', borderRadius: '6px', width: '60%' }} />
+              </div>
+            ))}
+          </div>
+        </div>
+        <style jsx>{`
+          @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+          }
+        `}</style>
       </div>
     )
   }
