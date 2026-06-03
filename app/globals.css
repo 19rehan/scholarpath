@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* ===================================== */
+/* GLOBAL ZOOM - COMPACT 80% DESIGN     */
+/* ===================================== */
+body {
+  zoom: 0.8;
+  -moz-transform: scale(0.8);
+  -moz-transform-origin: 0 0;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -145,7 +154,7 @@ body {
 }
 
 .blog-content ul li::before {
-  content: '→';
+  content: '✓';
   position: absolute;
   left: 0;
   color: #4f46e5;
