@@ -2,14 +2,12 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { getUser } from '@/lib/supabase-auth'
+import { getUser, getUserProfile, clearCache } from '@/lib/supabase-auth'
 import { supabase } from '@/lib/supabase'
 import { ChevronLeft, Save, GraduationCap } from 'lucide-react'
 
 const countries = ['Pakistan', 'India', 'Bangladesh', 'Nigeria', 'Kenya', 'Ghana', 'Egypt', 'Afghanistan', 'Nepal', 'Sri Lanka', 'Philippines', 'Indonesia', 'Vietnam', 'Turkey', 'Iran', 'Iraq', 'Syria', 'Jordan', 'Morocco', 'Tunisia', 'Algeria', 'South Africa', 'Ethiopia', 'Uganda', 'Tanzania', 'Zimbabwe', 'Other']
-
 const preferredCountries = ['USA', 'UK', 'Canada', 'Australia', 'Germany', 'France', 'Netherlands', 'Sweden', 'Norway', 'Denmark', 'Switzerland', 'Austria', 'Italy', 'Spain', 'Japan', 'South Korea', 'Singapore', 'New Zealand', 'Ireland', 'Belgium', 'Finland', 'China', 'UAE', 'Saudi Arabia', 'Qatar']
-
 const degreeLevels = ['Bachelor', 'Master', 'PhD']
 const fundingTypes = ['Fully Funded', 'Partial Funding', 'Any']
 const fields = ['Computer Science', 'Engineering', 'Business', 'Medicine', 'Law', 'Arts', 'Sciences', 'Social Sciences', 'Mathematics', 'Physics', 'Chemistry', 'Biology', 'Economics', 'Psychology', 'Education', 'Agriculture', 'Architecture', 'Other']
@@ -19,43 +17,24 @@ export default function EditProfilePage() {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
   const [formData, setFormData] = useState({
-    full_name: '',
-    email: '',
-    country: '',
-    nationality: '',
-    degree_level: '',
-    field_of_study: '',
-    gpa: '',
-    ielts_score: '',
-    toefl_score: '',
-    gre_score: '',
-    preferred_countries: [],
-    funding_preference: ''
+    full_name: '', email: '', country: '', nationality: '',
+    degree_level: '', field_of_study: '', gpa: '',
+    ielts_score: '', toefl_score: '', gre_score: '',
+    preferred_countries: [], funding_preference: ''
   })
 
   useEffect(() => {
     async function loadProfile() {
       const currentUser = await getUser()
-      if (!currentUser) {
-        router.push('/login')
-        return
-      }
+      if (!currentUser) { router.push('/login'); return }
       setUser(currentUser)
 
-      // Fetch existing profile
-      const { data: profile, error } = await supabase
-        .from('user_profiles')
-        .select('*')
-        .eq('user_id', currentUser.id)
-        .single()
+      // Uses cache if available - instant on repeat visits
+      const profile = await getUserProfile(currentUser.id)
+      if (!profile) { router.push('/profile/create'); return }
 
-      if (error || !profile) {
-        router.push('/profile/create')
-        return
-      }
-
-      // Pre-fill form
       setFormData({
         full_name: profile.full_name || '',
         email: profile.email || currentUser.email,
@@ -70,7 +49,6 @@ export default function EditProfilePage() {
         preferred_countries: profile.preferred_countries || [],
         funding_preference: profile.funding_preference || ''
       })
-
       setLoading(false)
     }
     loadProfile()
@@ -92,7 +70,6 @@ export default function EditProfilePage() {
   async function handleSubmit(e) {
     e.preventDefault()
     if (!user) return
-
     setSaving(true)
 
     const profileData = {
@@ -117,53 +94,58 @@ export default function EditProfilePage() {
       .eq('user_id', user.id)
 
     if (error) {
-      console.error('Error updating profile:', error)
       alert('Error updating profile. Please try again.')
       setSaving(false)
       return
     }
 
-    alert('Profile updated successfully!')
-    router.push('/')
+    // Clear profile cache so fresh data loads next time
+    clearCache(user.id)
+    setSaving(false)
+    setSaved(true)
+    setTimeout(() => {
+      router.push('/dashboard')
+    }, 1200)
   }
 
   if (loading) {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #0f172a, #1e1b4b)' }}>
-        <div style={{ color: 'white', fontSize: '16px', fontWeight: '600' }}>Loading profile...</div>
+      <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #0f172a, #1e1b4b)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ width: '48px', height: '48px', border: '4px solid rgba(255,255,255,0.2)', borderTopColor: '#6366f1', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 16px' }} />
+          <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '15px', fontWeight: '600' }}>Loading profile...</div>
+        </div>
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
     )
   }
 
   return (
     <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #0f172a, #1e1b4b, #312e81)', padding: '40px 24px', fontFamily: "'Inter', sans-serif" }}>
-      
+
       {/* Top bar */}
       <div style={{ maxWidth: '800px', margin: '0 auto 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <button onClick={() => router.back()} style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: 'white', padding: '10px 20px', borderRadius: '12px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s' }}>
+        <button onClick={() => router.back()} style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: 'white', padding: '10px 20px', borderRadius: '12px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}>
           <ChevronLeft size={18} /> Back
         </button>
-        
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
           <div style={{ width: '36px', height: '36px', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <GraduationCap size={20} color="white" strokeWidth={2.5} />
           </div>
-          <span style={{ fontSize: '18px', fontWeight: '800', color: 'white', letterSpacing: '-0.5px' }}>Admit<span style={{ color: '#a5b4fc' }}>Goal</span></span>
+          <span style={{ fontSize: '18px', fontWeight: '800', color: 'white' }}>Admit<span style={{ color: '#a5b4fc' }}>Goal</span></span>
         </Link>
       </div>
 
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
         <div style={{ background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(20px)', borderRadius: '24px', padding: '48px', border: '1px solid rgba(255,255,255,0.1)' }}>
-          
-          <h1 style={{ fontSize: '32px', fontWeight: '800', color: 'white', marginBottom: '12px', letterSpacing: '-1px' }}>
-            Edit Your Profile
-          </h1>
+
+          <h1 style={{ fontSize: '32px', fontWeight: '800', color: 'white', marginBottom: '12px', letterSpacing: '-1px' }}>Edit Your Profile</h1>
           <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.6)', marginBottom: '40px', fontWeight: '500' }}>
             Update your information to get better scholarship matches
           </p>
 
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-            
+
             {/* Basic Info */}
             <div>
               <h3 style={{ fontSize: '18px', fontWeight: '700', color: 'white', marginBottom: '20px', paddingBottom: '12px', borderBottom: '2px solid rgba(255,255,255,0.1)' }}>Basic Information</h3>
@@ -172,7 +154,6 @@ export default function EditProfilePage() {
                   <label style={{ display: 'block', color: 'rgba(255,255,255,0.7)', fontSize: '13px', fontWeight: '600', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Full Name</label>
                   <input type="text" value={formData.full_name} onChange={e => handleChange('full_name', e.target.value)} required style={{ width: '100%', padding: '14px 18px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '12px', color: 'white', fontSize: '15px', outline: 'none', boxSizing: 'border-box' }} />
                 </div>
-                
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                   <div>
                     <label style={{ display: 'block', color: 'rgba(255,255,255,0.7)', fontSize: '13px', fontWeight: '600', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Country</label>
@@ -206,7 +187,6 @@ export default function EditProfilePage() {
                     ))}
                   </div>
                 </div>
-
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                   <div>
                     <label style={{ display: 'block', color: 'rgba(255,255,255,0.7)', fontSize: '13px', fontWeight: '600', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Field of Study</label>
@@ -227,18 +207,12 @@ export default function EditProfilePage() {
             <div>
               <h3 style={{ fontSize: '18px', fontWeight: '700', color: 'white', marginBottom: '20px', paddingBottom: '12px', borderBottom: '2px solid rgba(255,255,255,0.1)' }}>Test Scores (Optional)</h3>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
-                <div>
-                  <label style={{ display: 'block', color: 'rgba(255,255,255,0.7)', fontSize: '13px', fontWeight: '600', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>IELTS (0-9)</label>
-                  <input type="number" step="0.5" min="0" max="9" value={formData.ielts_score} onChange={e => handleChange('ielts_score', e.target.value)} placeholder="7.5" style={{ width: '100%', padding: '14px 18px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '12px', color: 'white', fontSize: '15px', outline: 'none', boxSizing: 'border-box' }} />
-                </div>
-                <div>
-                  <label style={{ display: 'block', color: 'rgba(255,255,255,0.7)', fontSize: '13px', fontWeight: '600', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>TOEFL (0-120)</label>
-                  <input type="number" min="0" max="120" value={formData.toefl_score} onChange={e => handleChange('toefl_score', e.target.value)} placeholder="100" style={{ width: '100%', padding: '14px 18px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '12px', color: 'white', fontSize: '15px', outline: 'none', boxSizing: 'border-box' }} />
-                </div>
-                <div>
-                  <label style={{ display: 'block', color: 'rgba(255,255,255,0.7)', fontSize: '13px', fontWeight: '600', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>GRE (260-340)</label>
-                  <input type="number" min="260" max="340" value={formData.gre_score} onChange={e => handleChange('gre_score', e.target.value)} placeholder="320" style={{ width: '100%', padding: '14px 18px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '12px', color: 'white', fontSize: '15px', outline: 'none', boxSizing: 'border-box' }} />
-                </div>
+                {[['IELTS (0-9)', 'ielts_score', '0.5', '0', '9', '7.5'], ['TOEFL (0-120)', 'toefl_score', '1', '0', '120', '100'], ['GRE (260-340)', 'gre_score', '1', '260', '340', '320']].map(([label, field, step, min, max, placeholder]) => (
+                  <div key={field}>
+                    <label style={{ display: 'block', color: 'rgba(255,255,255,0.7)', fontSize: '13px', fontWeight: '600', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{label}</label>
+                    <input type="number" step={step} min={min} max={max} value={formData[field]} onChange={e => handleChange(field, e.target.value)} placeholder={placeholder} style={{ width: '100%', padding: '14px 18px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '12px', color: 'white', fontSize: '15px', outline: 'none', boxSizing: 'border-box' }} />
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -256,7 +230,6 @@ export default function EditProfilePage() {
                     ))}
                   </div>
                 </div>
-
                 <div>
                   <label style={{ display: 'block', color: 'rgba(255,255,255,0.7)', fontSize: '13px', fontWeight: '600', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Funding Preference</label>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
@@ -271,12 +244,8 @@ export default function EditProfilePage() {
             </div>
 
             {/* Save button */}
-            <button type="submit" disabled={saving} style={{ padding: '18px', background: saving ? 'rgba(255,255,255,0.1)' : 'linear-gradient(135deg, #10b981, #059669)', border: 'none', borderRadius: '14px', color: 'white', fontSize: '17px', fontWeight: '700', cursor: saving ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '20px', boxShadow: saving ? 'none' : '0 8px 24px rgba(16,185,129,0.4)', transition: 'all 0.2s' }}>
-              {saving ? 'Saving...' : (
-                <>
-                  <Save size={20} /> Save Changes
-                </>
-              )}
+            <button type="submit" disabled={saving || saved} style={{ padding: '18px', background: saved ? 'linear-gradient(135deg, #10b981, #059669)' : saving ? 'rgba(255,255,255,0.1)' : 'linear-gradient(135deg, #10b981, #059669)', border: 'none', borderRadius: '14px', color: 'white', fontSize: '17px', fontWeight: '700', cursor: saving ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '20px', boxShadow: saving ? 'none' : '0 8px 24px rgba(16,185,129,0.4)', transition: 'all 0.3s' }}>
+              {saved ? '✅ Saved! Redirecting...' : saving ? 'Saving...' : <><Save size={20} /> Save Changes</>}
             </button>
           </form>
         </div>
