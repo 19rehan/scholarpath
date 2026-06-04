@@ -1,11 +1,11 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { MapPin, Clock, ChevronRight, Bell, Bookmark } from 'lucide-react'
+import { MapPin, Clock, ChevronRight, Bell, Bookmark, Sparkles } from 'lucide-react'
 import { getUser } from '@/lib/supabase-auth'
 import { supabase } from '@/lib/supabase'
 
-export default function ScholarshipCard({ s }) {
+export default function ScholarshipCard({ s, matchPercentage, matchReasons }) {
   const [user, setUser] = useState(null)
   const [isSaved, setIsSaved] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -14,20 +14,28 @@ export default function ScholarshipCard({ s }) {
   const noIelts = s.ielts_score === 'Not required' || s.ielts_score === 'Not mentioned'
   const isOpeningSoon = s.application_status === 'opening_soon'
 
+  // Match badge color
+  function getMatchStyle(pct) {
+    if (pct >= 80) return { bg: 'linear-gradient(135deg, #059669, #10b981)', label: `${pct}% Match` }
+    if (pct >= 60) return { bg: 'linear-gradient(135deg, #0891b2, #06b6d4)', label: `${pct}% Match` }
+    if (pct >= 40) return { bg: 'linear-gradient(135deg, #f59e0b, #fbbf24)', label: `${pct}% Match` }
+    return { bg: 'linear-gradient(135deg, #6366f1, #8b5cf6)', label: `${pct}% Match` }
+  }
+
+  const showMatch = matchPercentage > 0
+  const matchStyle = showMatch ? getMatchStyle(matchPercentage) : null
+
   useEffect(() => {
     async function checkSaved() {
       const currentUser = await getUser()
       if (currentUser) {
         setUser(currentUser)
-        
-        // Check if already saved
         const { data } = await supabase
           .from('user_saved_scholarships')
           .select('id')
           .eq('user_id', currentUser.id)
           .eq('scholarship_id', s.id)
           .single()
-        
         setIsSaved(!!data)
       }
     }
@@ -37,39 +45,22 @@ export default function ScholarshipCard({ s }) {
   async function handleSave(e) {
     e.preventDefault()
     e.stopPropagation()
-
-    if (!user) {
-      alert('Please login to save scholarships')
-      return
-    }
-
+    if (!user) { alert('Please login to save scholarships'); return }
     setSaving(true)
 
     if (isSaved) {
-      // Unsave
       const { error } = await supabase
         .from('user_saved_scholarships')
         .delete()
         .eq('user_id', user.id)
         .eq('scholarship_id', s.id)
-
-      if (!error) {
-        setIsSaved(false)
-      }
+      if (!error) setIsSaved(false)
     } else {
-      // Save
       const { error } = await supabase
         .from('user_saved_scholarships')
-        .insert([{
-          user_id: user.id,
-          scholarship_id: s.id
-        }])
-
-      if (!error) {
-        setIsSaved(true)
-      }
+        .insert([{ user_id: user.id, scholarship_id: s.id }])
+      if (!error) setIsSaved(true)
     }
-
     setSaving(false)
   }
 
@@ -83,85 +74,107 @@ export default function ScholarshipCard({ s }) {
 
   return (
     <Link href={`/scholarship/${s.id}`} style={{ textDecoration: 'none' }}>
-      <div style={{
-        background: 'white', borderRadius: '20px',
-        border: '1px solid #f0f0f0', padding: '32px',
-        transition: 'all 0.2s', cursor: 'pointer',
-        display: 'flex', flexDirection: 'column', height: '100%',
-        position: 'relative',
-        boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
-      }}
+      <div
+        style={{
+          background: 'white',
+          borderRadius: '20px',
+          border: showMatch && matchPercentage >= 80
+            ? '1.5px solid rgba(5,150,105,0.25)'
+            : '1px solid #f0f0f0',
+          padding: '32px',
+          transition: 'all 0.2s',
+          cursor: 'pointer',
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+          position: 'relative',
+          boxShadow: showMatch && matchPercentage >= 80
+            ? '0 4px 20px rgba(5,150,105,0.08)'
+            : '0 4px 16px rgba(0,0,0,0.04)',
+        }}
         onMouseEnter={e => {
           e.currentTarget.style.borderColor = '#c7d2fe'
           e.currentTarget.style.boxShadow = '0 20px 60px rgba(79,70,229,0.15)'
           e.currentTarget.style.transform = 'translateY(-4px)'
         }}
         onMouseLeave={e => {
-          e.currentTarget.style.borderColor = '#f0f0f0'
-          e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.04)'
+          e.currentTarget.style.borderColor = showMatch && matchPercentage >= 80 ? 'rgba(5,150,105,0.25)' : '#f0f0f0'
+          e.currentTarget.style.boxShadow = showMatch && matchPercentage >= 80 ? '0 4px 20px rgba(5,150,105,0.08)' : '0 4px 16px rgba(0,0,0,0.04)'
           e.currentTarget.style.transform = 'translateY(0)'
-        }}>
+        }}
+      >
 
-        {/* Save button - top right */}
+        {/* TOP RIGHT: Match badge OR Opening Soon */}
+        <div style={{ position: 'absolute', top: '16px', right: '16px', display: 'flex', alignItems: 'center', gap: '8px', zIndex: 10 }}>
+
+          {/* Match % Badge */}
+          {showMatch && (
+            <div style={{
+              background: matchStyle.bg,
+              color: 'white',
+              padding: '5px 12px',
+              borderRadius: '100px',
+              fontSize: '11px',
+              fontWeight: '800',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              letterSpacing: '0.3px',
+            }}>
+              <Sparkles size={10} />
+              {matchStyle.label}
+            </div>
+          )}
+
+          {isOpeningSoon && !showMatch && (
+            <div style={{
+              background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+              color: 'white', padding: '7px 14px', borderRadius: '100px',
+              fontSize: '12px', fontWeight: '700',
+              display: 'flex', alignItems: 'center', gap: '5px',
+              boxShadow: '0 4px 12px rgba(245,158,11,0.3)',
+            }}>
+              <Bell size={12} /> Opening Soon
+            </div>
+          )}
+        </div>
+
+        {/* Save button */}
         {user && (
           <button
             onClick={handleSave}
             disabled={saving}
             style={{
               position: 'absolute',
-              top: '16px',
-              right: isOpeningSoon ? '140px' : '16px',
+              top: showMatch ? '48px' : '16px',
+              right: '16px',
               background: isSaved ? 'linear-gradient(135deg, #6366f1, #8b5cf6)' : 'rgba(255,255,255,0.9)',
               border: isSaved ? 'none' : '1px solid #e2e8f0',
               color: isSaved ? 'white' : '#64748b',
-              padding: '10px',
-              borderRadius: '12px',
+              padding: '8px',
+              borderRadius: '10px',
               cursor: saving ? 'not-allowed' : 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
               transition: 'all 0.2s',
               boxShadow: isSaved ? '0 4px 12px rgba(99,102,241,0.3)' : '0 2px 8px rgba(0,0,0,0.08)',
-              zIndex: 10
+              zIndex: 10,
             }}
-            onMouseEnter={e => {
-              if (!saving) {
-                e.currentTarget.style.transform = 'scale(1.1)'
-              }
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.transform = 'scale(1)'
-            }}
+            onMouseEnter={e => { if (!saving) e.currentTarget.style.transform = 'scale(1.1)' }}
+            onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)' }}
           >
-            <Bookmark size={18} fill={isSaved ? 'white' : 'none'} strokeWidth={2.5} />
+            <Bookmark size={16} fill={isSaved ? 'white' : 'none'} strokeWidth={2.5} />
           </button>
         )}
 
-        {isOpeningSoon && (
-          <div style={{
-            position: 'absolute', top: '16px', right: '16px',
-            background: 'linear-gradient(135deg, #f59e0b, #d97706)',
-            color: 'white', padding: '7px 14px', borderRadius: '100px',
-            fontSize: '12px', fontWeight: '700',
-            display: 'flex', alignItems: 'center', gap: '5px',
-            boxShadow: '0 4px 12px rgba(245,158,11,0.3)',
-          }}>
-            <Bell size={12} />
-            Opening Soon
-          </div>
-        )}
-
-        {/* TOP ROW — Country + Region */}
+        {/* TOP ROW - Country + Region */}
         <div style={{
           display: 'flex', justifyContent: 'space-between',
-          alignItems: 'center', marginBottom: '18px',
+          alignItems: 'center',
+          marginBottom: '18px',
+          marginTop: showMatch ? '28px' : '0',
         }}>
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: '6px',
-            background: '#f0f4ff', color: '#4338ca',
-            padding: '5px 12px', borderRadius: '100px',
-            fontSize: '12px', fontWeight: '600',
-          }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#f0f4ff', color: '#4338ca', padding: '5px 12px', borderRadius: '100px', fontSize: '12px', fontWeight: '600' }}>
             <MapPin size={11} />
             {s.country || 'International'}
           </div>
@@ -182,14 +195,14 @@ export default function ScholarshipCard({ s }) {
           {s.seo_title || s.title}
         </h3>
 
-        {/* UNIVERSITY NAME */}
+        {/* UNIVERSITY */}
         {s.university_name && (
           <div style={{ fontSize: '13px', color: '#64748b', marginBottom: '16px', fontWeight: '500' }}>
             {s.university_name}
           </div>
         )}
 
-        {/* BADGES ROW */}
+        {/* BADGES */}
         <div style={{ display: 'flex', gap: '7px', flexWrap: 'wrap', marginBottom: '18px' }}>
           {isFullyFunded && (
             <span style={{ background: '#d1fae5', color: '#065f46', fontSize: '11px', fontWeight: '700', padding: '5px 12px', borderRadius: '100px' }}>
@@ -207,6 +220,25 @@ export default function ScholarshipCard({ s }) {
             </span>
           )}
         </div>
+
+        {/* MATCH REASONS - only show top 2 */}
+        {showMatch && matchReasons?.length > 0 && (
+          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '14px' }}>
+            {matchReasons.slice(0, 2).map((reason, i) => (
+              <span key={i} style={{
+                background: 'rgba(99,102,241,0.08)',
+                color: '#6366f1',
+                fontSize: '11px',
+                fontWeight: '600',
+                padding: '4px 10px',
+                borderRadius: '100px',
+                border: '1px solid rgba(99,102,241,0.15)',
+              }}>
+                ✓ {reason}
+              </span>
+            ))}
+          </div>
+        )}
 
         {/* DESCRIPTION */}
         <p style={{
@@ -226,11 +258,16 @@ export default function ScholarshipCard({ s }) {
           </div>
         )}
 
-        {/* FOOTER — View Details */}
+        {/* FOOTER */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '18px', borderTop: '1px solid #f8fafc', marginTop: 'auto' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: '700', color: '#4f46e5' }}>
             View Details <ChevronRight size={16} strokeWidth={2.5} />
           </div>
+          {showMatch && matchPercentage >= 80 && (
+            <span style={{ fontSize: '11px', fontWeight: '700', color: '#059669' }}>
+              ⭐ Top Match
+            </span>
+          )}
         </div>
       </div>
     </Link>
